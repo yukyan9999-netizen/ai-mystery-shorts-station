@@ -1,0 +1,3780 @@
+[
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "1번(안티키테라 기계)이 가장 흥미롭습니다 — 고대의 정교한 기계적 천문계라는 사실과 복원 과정에서 드러난 세부 기계 구조(기어, 기어비)가 시청자의 즉각적 호기심과 시각적 상상력을 자극해 짧은 영상에 매우 적합합니다.",
+    "candidates": [
+      {
+        "title": "안티키테라 기계: 기원전 그리스의 '아날로그 컴퓨터'는 누가 왜 만들었나",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "기원전 유물로 남은 정교한 기어계 — 고대인들이 만든 태양·달·행성의 '계산기'의 비밀.",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "1901년 그리스 안티키테라 난파선에서 발견된 기계 장치.",
+          "복원 결과 복잡한 기어와 기어비로 천문 현상(월상, 태양·달 위치, 태양계 주기)을 계산했을 가능성 제시.",
+          "현대 과학자들이 20세기에 걸쳐 X선 단층촬영 등으로 내부 구조를 재구성함."
+        ],
+        "verification_points": [
+          "발견 기록(안티키테라 인양 발굴 보고서) 및 고고학·공학 복원 논문.",
+          "박물관(국립 고고학 박물관, 아테네) 소장품 자료와 전시 카탈로그.",
+          "X선·CT 스캔 연구와 학술지 복원 연구(기계의 치수·기어비 분석)."
+        ],
+        "fact_hypothesis_distinction": "사실: 유물의 존재와 기어 장치. 학설: 정확한 용도(모델의 정확한 천문 계산 범위)와 제작 시기·기술적 전승 경로에 대한 복수의 학설.",
+        "visualization_ideas": [
+          "부분 분해 애니메이션으로 기어 구동을 10초 내 보여주기.",
+          "실제 기어비 수치(예: 223:1 등)를 단순한 그래픽으로 설명.",
+          "난파선에서 인양되는 장면 → 청동 파편에서 기어가 맞물리는 장면의 전환."
+        ],
+        "comment_question": "이 기계를 만든 기술은 과연 어느 문명에서 전승된 것일까요? 가장 설득력 있는 제작 가설은 무엇이라고 생각하나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 34,
+          "source_traceability": 10,
+          "visualization": 24,
+          "sixty_second_fit": 19,
+          "comment_potential": 9
+        },
+        "total_score": 96,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "보이니치 문서: 풀리지 않는 암호인가, 잃어버린 언어의 기록인가",
+        "category": "역사 미스터리",
+        "one_line_hook": "수백 년 동안 누구도 해독하지 못한 그림과 문자 — 진짜 언어인가 아니면 정교한 위작인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "15~16세기 유럽 산지로 추정되는 삽화와 미지의 문자로 가득한 양피지 책.",
+          "보이니치 문서는 이름을 딴 수집가를 거쳐 예일대 도서관에 소장되어 있음.",
+          "다양한 통계적·언어학적 분석과 인공 지능 시도가 있었지만 결정적 해독은 없음."
+        ],
+        "verification_points": [
+          "예일 대학 도서관의 소장 기록과 디지털 스캔 자료.",
+          "문서의 연대측정(잉크·양피지) 연구 및 여러 학술적 분석 자료.",
+          "언어학·암호학 커뮤니티의 공개 해독 시도 기록과 논문."
+        ],
+        "fact_hypothesis_distinction": "사실: 문서의 존재와 물리적 특성(삽화·문자). 가설: 문자 해독 가능성(진짜 언어/암호/의사소통용 조작물), 위작 여부에 관한 여러 학설.",
+        "visualization_ideas": [
+          "특징적 삽화(식물·천문 도표)를 빠르게 보여주고 미스터리를 강조.",
+          "문자 빈도 분포 그래프를 간단 애니메이션으로 표현.",
+          "해독 시도(통계적 패턴 매칭 등)를 3단계로 압축 설명."
+        ],
+        "comment_question": "이 문서는 해독될 수 있다고 보나요 — 진짜 언어일까요, 예술적 장난(위작)일까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 33,
+          "source_traceability": 9,
+          "visualization": 22,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 91,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "‘와우! 신호’의 재검토: 외계 신호였을까, 지구 잡음이었을까",
+        "category": "우주 미스터리",
+        "one_line_hook": "1977년 72초간 전파망원경을 흔든 의문의 신호 — SETI 최고 미스터리 중 하나.",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "1977년 오하이오주 빅이어 전파망원경이 강한 협대역 전파 신호를 기록, 담당자가 'WOW!' 메모를 남김.",
+          "신호는 좁은 주파수 대역에 집중되어 있으며 재검출되지 않음.",
+          "이후 다양한 재분석과 자연·인공 원인(지구 전파간섭 등) 가능성 검토가 이어짐."
+        ],
+        "verification_points": [
+          "오리지널 관측 로그와 해당 관측을 보고한 연구자 기록.",
+          "SETI 및 천문학자들이 발표한 재분석 논문과 관측 기록.",
+          "후속 관측 실패와 지구 기반 잡음 가능성에 대한 기술적 논의."
+        ],
+        "fact_hypothesis_distinction": "사실: 1977년 관측 데이터의 존재와 특성. 가설/주장: 외계 문명 신호 가능성(검증되지 않음)과 지구 잡음·인공 원인 가설들.",
+        "visualization_ideas": [
+          "원래 관측 스펙트럼을 단순화한 그래픽(72초 신호 강도 피크) 표시.",
+          "빅이어 망원경 실루엣과 신호가 기록되는 장면 재현.",
+          "가능 원인(외계·자연·지구 간섭)을 아이콘 3종으로 빠르게 비교."
+        ],
+        "comment_question": "72초의 신호, 당신은 외계 신호 가능성에 몇 퍼센트의 확률을 주겠습니까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 30,
+          "source_traceability": 8,
+          "visualization": 20,
+          "sixty_second_fit": 17,
+          "comment_potential": 8
+        },
+        "total_score": 83,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-085305-992844",
+    "selected_title": "안티키테라 기계: 기원전 그리스의 '아날로그 컴퓨터'는 누가 왜 만들었나",
+    "production_status": "video_failed",
+    "final_package": "outputs\\knowledge\\20260620-085305-992844\\final_knowledge_short.json",
+    "human_approved": true,
+    "selected_candidate_index": 0,
+    "video_error": "[Errno 22] Invalid argument"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "1번(투탕카멘의 ‘저주’ 재검토)이 시청자 후킹과 시각화(유해 샘플, 타임라인, 인물 사진)에서 가장 즉시 효과적입니다. 과학적 설명과 공포적 전승을 동시에 보여줘 댓글 논쟁을 유발하기 좋습니다.",
+    "candidates": [
+      {
+        "title": "투탕카멘의 '저주'—무덤에 들어간 사람들은 왜 죽었나?",
+        "category": "역사 미스터리",
+        "one_line_hook": "20세기 초 발굴 이후 ‘저주’라 불린 연쇄 사망, 과학적 원인(미생물·곰팡이·우연)과 전승은 무엇이었나?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "1922년 하워드 카터가 투탕카멘 무덤을 발굴한 뒤 관련자들 사이에서 조기 사망 사례가 보고됨.",
+          "신문과 대중매체가 ‘파라오의 저주’라는 프레임을 확산시킴.",
+          "근래 연구는 무덤 내 곰팡이·포자·청동·방사성 물질 노출 가능성 등을 제기함."
+        ],
+        "verification_points": [
+          "발굴·사망 관련 일시·인물 기록(예: 하워드 카터, 로버트 오언 등) 확인.",
+          "당시와 후대 신문 보도·사설에서 ‘저주’ 프레임 나타남.",
+          "현대 미생물·환경검사 연구(무덤 내부 표본 분석, 토양·곰팡이 연구) 자료 존재 여부."
+        ],
+        "fact_hypothesis_distinction": "사실: 발굴과 몇몇 관련자의 조기 사망 기록. 학설/가설: 곰팡이(무아르병원균류), 독성 가스, 방사성 물질, 통계적 우연. 전승/대중화: 신문과 대중문화가 만든 ‘저주’ 서사.",
+        "visualization_ideas": [
+          "발굴 타임라인 카드(연도·인물 사진·사망 사건 플래그)",
+          "무덤 단면도에 가능한 노출원(곰팡이 군집, 보존 처치제) 애니메이션",
+          "당시 신문 헤드라인과 과학 가설을 좌우 비교 그래픽"
+        ],
+        "comment_question": "‘저주’로 보기엔 사건 수가 충분했을까, 아니면 미디어가 과장했을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 33,
+          "source_traceability": 9,
+          "visualization": 20,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 89,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "나스카 선(線)의 비밀—천문 관측 장치일까, 의례 회랑일까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "거대한 선과 그림(지오글리프)은 별자리·천문 현상과 맞닿아 있을까, 아니면 전혀 다른 의례적 경로였나?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "페루 남부 나스카 사막에는 길이 수십~수백 미터의 선과 동물 형상 지오글리프가 분포.",
+          "20세기 중반 항공 사진으로 대중에 알려짐.",
+          "학자들 사이에 목적(천문 정렬 vs. 의례·수로·표식 등) 논쟁 존재."
+        ],
+        "verification_points": [
+          "항공·위성 사진 자료와 현지 고고학 발굴 보고서.",
+          "천문 정렬 가설을 제시한 초기 연구(예: 마리아 라이히 등)와 반박 연구 비교.",
+          "지오글리프 보존 상태·제작 기법에 대한 물리적 증거(토양 교란·제작 흔적)."
+        ],
+        "fact_hypothesis_distinction": "사실: 나스카 지형과 지오글리프의 존재 및 항공관측 기록. 가설: 천문 관측·의례 통로·수로 표시·사회적 표지 등 여러 해석으로 분기됨. 목격 주장: 근대 항공 관찰·사진 기록.",
+        "visualization_ideas": [
+          "위성/항공 이미지에서 특정 선과 별자리(재구성) 오버레이",
+          "선의 제작 방법(표면 제거 과정) 애니메이션",
+          "의례 경로 가설: 인물 움직임 시뮬레이션(공중 시점)"
+        ],
+        "comment_question": "당신은 나스카 선을 하늘과 연결된 지도라고 보나요, 아니면 땅 위의 의례 흔적이라고 보나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 30,
+          "source_traceability": 8,
+          "visualization": 22,
+          "sixty_second_fit": 17,
+          "comment_potential": 8
+        },
+        "total_score": 85,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "피리레이스 지도(Piri Reis map): 고대에 남극이 보였나?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "1513년 제작 해도에 남극의 해안선처럼 보이는 부분이 있다—정말 고대 지도 제작자가 남극을 그린 걸까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "피리레이스 지도는 1513년 오스만 제국 함장 피리 레이스가 만든 것으로 알려진 부분적 세계지도.",
+          "일부 해석자는 지도에 남극의 해안선(빙하 노출 전 모습)이 표현되었다고 주장함.",
+          "학계는 이 주장을 비판하며, 지도는 여러 고전·항해 자료의 집성으로 설명함."
+        ],
+        "verification_points": [
+          "오리지널 지도(터키 톱카프 궁전 소장) 이미지와 텍스트 주석 검토.",
+          "남극선 묘사 주장 제기자와 이를 반박하는 고고학·기후학 분석 비교.",
+          "지도 제작에 사용된 당시 항해 자료의 출처 추적 가능성."
+        ],
+        "fact_hypothesis_distinction": "사실: 1513년 지도 실물과 주석은 존재함. 주장: 지도에 남극 해안이 정확히 묘사되었다는 해석은 가설·추정. 기록: 지도 제작자가 인용한 고대 자료의 존재(일부는 확인 가능).",
+        "visualization_ideas": [
+          "지도 원본과 현대 지도를 겹쳐 비교(회전·스케일 보정)",
+          "당시 항해 자료 출처(그리스·중세 항해도)와의 매칭 애니메이션",
+          "‘확인 주장의 흐름’—누가 언제 어떤 근거로 남극설을 제시했는지 타임라인"
+        ],
+        "comment_question": "1513년 지도가 실수로 남극을 닮았을까, 아니면 고대 자료의 잔재를 담았을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 28,
+          "source_traceability": 7,
+          "visualization": 18,
+          "sixty_second_fit": 16,
+          "comment_potential": 7
+        },
+        "total_score": 76,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-092640-246251",
+    "selected_title": "투탕카멘의 '저주'—무덤에 들어간 사람들은 왜 죽었나?",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "",
+    "discovery_mode": "automatic_schedule",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 6
+    },
+    "selected_at": "2026-06-20T09:27:40",
+    "final_package": "outputs\\knowledge\\20260620-092640-246251\\final_knowledge_short.json",
+    "final_video": "outputs\\knowledge\\20260620-092640-246251\\final_short.mp4",
+    "actual_real_media_percent": 11,
+    "style_rebuild_requested_at": "2026-06-20T09:59:54"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "1번(첨성대 돌 수·구조 미스터리)이 가장 흥미롭습니다 — 시각적 요소(석축·구멍·일출선 등)와 간단한 검증 포인트로 60초 구성에 딱 맞고 댓글 토론(의도·기능)이 활발히 일어납니다.",
+    "candidates": [
+      {
+        "title": "경주 첨성대의 돌 365개 설 — 고대 한국인의 '년력 장치'였을까?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "돌의 개수와 구조에 숨겨진 천문·달력 장치의 흔적은 있을까 — 단순 기념비인가, 정교한 관측 도구인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "경주 첨성대는 7세기(신라)로 추정되는 동아시아에서 현존하는 가장 오래된 천문대 유적 중 하나다.",
+          "원통형 돌탑 구조이며 내부에 구멍과 층이 있는 것으로 관측된다.",
+          "일부 연구자와 대중 사이에서 '365개의 돌' 등 돌 개수와 계절·태양 주기 연결 주장이 제기되어 왔다."
+        ],
+        "verification_points": [
+          "고고학 조사 보고서(발굴 연도, 층서) 확인.",
+          "첨성대 구조(돌 수·층 구성)를 측정한 학술 논문 또는 국립문화재 자료.",
+          "천문 고고학 관점에서의 일출·일몰·지점 합치성 실측(위치·각도)."
+        ],
+        "fact_hypothesis_distinction": "사실: 첨성대의 존재·시기·구조. 학설/기록: 돌 개수와 천문·달력 연계는 학자 간 해석 차이가 있는 가설(학설).",
+        "visualization_ideas": [
+          "탑 단면 애니메이션(돌 개수·층수 강조)으로 내부 구조 분해도.",
+          "년중 주요 날짜의 일출 방향과 첨성대 축선을 겹쳐 보여주는 지도·애니메이션.",
+          "현대 촬영(드론)과 고증 삽화(신라 관측 장면)를 빠르게 교차 편집."
+        ],
+        "comment_question": "첨성대는 단순 기념비일까, 고대의 실제 관측 도구였을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 32,
+          "source_traceability": 9,
+          "visualization": 24,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 93,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "마야의 금성표: 드레스덴 코덱스의 584일 주기 — 의도된 천문 예측인가 운명의 숫자였나?",
+        "category": "우주 미스터리",
+        "one_line_hook": "마야 문명은 왜 금성의 584일 주기를 기록했나 — 관측 실험의 산물인가, 종교·전쟁 달력의 핵심이었나?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "마야 문헌(드레스덴 코덱스 등)에 금성 주기(약 584일)를 기록한 표가 존재한다.",
+          "마야 문명은 천문 관측과 역법에서 높은 정밀도를 보였다는 학계 평가가 있다.",
+          "금성 날짜 표는 전쟁·의례 시기 결정과 연결되었다는 해석이 있다."
+        ],
+        "verification_points": [
+          "드레스덴 코덱스 해당 페이지와 번역본(학술 번역) 확인.",
+          "마야 역법 및 금성 관측 관련 인류학·천문학 논문.",
+          "고고학적·기록학적 자료에서 금성표와 의례·전쟁 기록의 동기화 사례 검증."
+        ],
+        "fact_hypothesis_distinction": "사실: 코덱스에 금성주기 표가 존재. 학설: 금성표의 주된 목적(천문학적 예측 vs 의례·정치적 용도)은 해석의 영역이다.",
+        "visualization_ideas": [
+          "드레스덴 코덱스 원문 이미지→현대 캘린더 변환 애니메이션.",
+          "금성의 하늘 궤적(마야 관측자 시점)과 584일 표의 매칭을 시계 애니메이션으로 표현.",
+          "의례·전쟁일로 추정되는 사례를 지도에 표시한 타임라인."
+        ],
+        "comment_question": "마야의 금성표는 천문 실용서였을까, 사회적·종교적 권력의 도구였을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 29,
+          "source_traceability": 10,
+          "visualization": 22,
+          "sixty_second_fit": 16,
+          "comment_potential": 8
+        },
+        "total_score": 85,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "기록을 재구성한 가상 시나리오: '고대 기술자' — 기원전 문헌 속 ‘하늘의 방문자’를 과학적으로 재현하면?",
+        "category": "가상 시나리오",
+        "one_line_hook": "고대 문헌의 '하늘에서 온 존재' 묘사를 과학적 기준으로 재구성하면 어떤 기술 또는 자연 현상으로 설명될까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "전 세계 고대 문헌과 신화에는 하늘·별·빛으로 묘사되는 사건들이 다수 기록되어 있다.",
+          "기록들에는 공통 패턴(빛, 소리, 착륙·비행 묘사, 기술·도구 언급)이 존재하기도 한다.",
+          "직접 증거는 부족하지만 '가상 재구성'은 학제적 상상 실험으로 활용된다."
+        ],
+        "verification_points": [
+          "원전(번역)에서의 묘사 문구 집성(유사 묘사 비교).",
+          "천문·기상·광학 현상(볼로이드, 유성, 대기광학) 재현 사례와 비교 연구.",
+          "고대 기술(금속·기계) 수준과 기록 묘사의 정합성 검토."
+        ],
+        "fact_hypothesis_distinction": "기록: 고대 묘사(기본 사실). 가설/가상: 묘사를 특정 기술이나 자연현상으로 재구성하는 것은 명확한 증거 없이 추정·가상 시나리오에 해당.",
+        "visualization_ideas": [
+          "한 줄 묘사(원문) → 세 가지 가설(자연현상·인간 기술·비정상 현상)로 분기되는 짧은 모션그래픽.",
+          "각 가설에 대한 현대 과학적 재현(시뮬레이션·실사 합성) 비교 컷.",
+          "시청자 투표(댓글)로 가장 그럴듯한 가설 선택 유도."
+        ],
+        "comment_question": "당신이 고대 기록을 현대 시선으로 재현한다면, 어떤 자연현상 또는 장치가 가장 설득력 있을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 25,
+          "source_traceability": 8,
+          "visualization": 20,
+          "sixty_second_fit": 16,
+          "comment_potential": 6
+        },
+        "total_score": 75,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-095613-237459",
+    "selected_title": "경주 첨성대의 돌 365개 설 — 고대 한국인의 '년력 장치'였을까?",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "우주 미스테리",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 9
+    },
+    "selected_at": "2026-06-20T09:57:15",
+    "final_package": "outputs\\knowledge\\20260620-095613-237459\\final_knowledge_short.json",
+    "final_video": "outputs\\knowledge\\20260620-095613-237459\\final_short.mp4",
+    "actual_real_media_percent": 0
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보 중 '가상 시나리오로 고대 관측을 현대 우주과학으로 재해석'한 안(3번)이 쇼츠로 가장 적합 — 시청자 호기심을 즉각 자극하고 시각화·논쟁 유도가 쉽다.",
+    "candidates": [
+      {
+        "title": "중세 연대기의 '하늘의 불' — 고대 유성 기록이 말하는 소행성 기원",
+        "category": "역사 미스터리",
+        "one_line_hook": "중세 사료 속 '하늘을 가로지른 불'들은 단순한 광경 묘사일까 — 오늘의 소행성 기원 단서를 품고 있을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "서유럽·중동·동아시아 중세 연대기들에 남은 유성·불구름 묘사가 다수 존재한다.",
+          "현대 천문학은 화구(불덩어리) 기록을 과거 대기권 진입과 연계해 소행성·유성체의 역사 추적에 활용한다.",
+          "고대 기록은 관측 환경(날씨, 채널, 시간)과 필자의 비유적 표현 때문에 해석이 다양하다."
+        ],
+        "verification_points": [
+          "대표 연대기 원문(라틴어·한문·아랍어)에서 유성·화구 관련 문장 발췌 가능 여부",
+          "동시대 여러 지역 기록의 시간·날씨 일치성 검토",
+          "현대 소행성 잔해·크레이터 데이터와의 연대·지역 연관성 분석"
+        ],
+        "fact_hypothesis_distinction": "사실: 중세 연대기에 유성·이상광 묘사가 존재함. 학설/가설: 일부 묘사는 지구로 진입한 소행성·대기 폭발을 기록했을 수 있음. 기록·목격 주장: 관측자 묘사(불구름, 폭발음 등).",
+        "visualization_ideas": [
+          "중세 삽화·필사본의 관련 문구와 현대 애니메이션으로 표현한 대기 진입 장면 교차 편집",
+          "지도에 연대기별 목격 지점 표시 후 가상의 진입 궤적 선으로 연결",
+          "현대 소행성 대기폭발(예: 체리카예프스크) 영상 짧게 비교 삽입"
+        ],
+        "comment_question": "당신은 '중세의 하늘 불' 중 어떤 기록이 실제 공중 폭발을 묘사한다고 보나요? 이유는?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 30,
+          "source_traceability": 8,
+          "visualization": 20,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 85,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "고대 왕조의 '하늘에서 떨어진 금속' — 운석인가, 천체와의 접촉기술 증거인가?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "왕실 제사용·무기에 쓰인 '특이한 금속' 기록 — 단순 운석 재료였을까, 고대인의 금속별 가공 지식인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "여러 고대 문명(이집트·메소포타미아·인도·중국)에서 하늘에서 온 금속(운석) 사용 언급이 발견된다.",
+          "운석철(메테오라이트 철)은 제련 전 별도 처리 없이 단단한 금속 재료로 사용되곤 했다.",
+          "고고학적 유물에서 외행성 기원 흔적(니켈·아이언 비율 등)을 분석해 운석 출처를 판별한다."
+        ],
+        "verification_points": [
+          "해당 유물(또는 기록) 표본의 금속 조성 분석 논문 또는 보고서 유무",
+          "고대 문헌에 적힌 제조법·출처 설명과 고고학적 증거 일치 여부",
+          "운석철로 확인된 유물의 연대 측정 결과"
+        ],
+        "fact_hypothesis_distinction": "사실: 고대 문헌과 유물에서 '하늘에서 온 금속' 언급 및 운석철 사용 사례가 존재함. 학설: 일부 특수 유물은 운석 재료로 제작되어 종교적·상징적 의미를 가졌다는 주장. 가설: 고대인들이 이를 통해 금속 가공 기술적 우위를 얻었을 가능성.",
+        "visualization_ideas": [
+          "고대 무기·장신구 사진과 운석철의 미시구조(현미경 이미지) 비교",
+          "간단한 연대·조성 그래픽: 지구철 vs 운석철의 니켈 함량 차이 표시",
+          "제작 과정(채집→제작)을 애니메이션으로 압축 재현"
+        ],
+        "comment_question": "만약 왕실의 검이 진짜 운석으로 만들어졌다면, 그게 전쟁·권력의 상징에 어떤 영향을 주었을까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 28,
+          "source_traceability": 9,
+          "visualization": 22,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 85,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "가상 시나리오: 고대 관찰자를 위한 '초근접 소행성 통과'—하늘 기록을 과학으로 재연해보면?",
+        "category": "가상 시나리오",
+        "one_line_hook": "만약 고대 도시 상공을 소행성이 초근접 통과했다면? 당시 관찰 기록을 현대 물리로 재구성하면 어떤 장면이 나올까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "고대 관찰 기록(빛, 소리, 충격 등)을 현대 대기역학·광학 모델로 일부 재현할 수 있다.",
+          "초근접(상공 통과) 소행성의 빛·열·공기충격 파장은 도시·사회 반응을 유발할 수 있다.",
+          "가상 시나리오는 기록 해석의 불확실성을 드러내고 시청자 상상력을 자극한다."
+        ],
+        "verification_points": [
+          "재연에 사용될 고대 기록(문구) 출처 명시 가능성",
+          "현대 물리 모델(대기 진입 시뮬레이션)에서 사용 가능한 매개변수 제시",
+          "결과(빛의 밝기, 소리 도달 거리 등)를 현대 사건(예: 2013 체리야빈스크 사건)과 비교"
+        ],
+        "fact_hypothesis_distinction": "가상 시나리오: 실제로 일어난 사건이 아님. 바탕이 되는 요소들은 기록(목격 주장)·물리 모델·현대 사례의 조합으로 구성된 상상적 재현임.",
+        "visualization_ideas": [
+          "애니메이션으로 고대 도시 상공을 통과하는 소행성의 광·음·충격을 단계별로 보여주기",
+          "화면 분할: 왼쪽에 고대 필기(원문·번역), 오른쪽에 시뮬레이션 결과 수치 및 애니메이션",
+          "체리야빈스크 영상·그래픽을 짧게 삽입해 현실 근거 제시"
+        ],
+        "comment_question": "당신이 목격자라면 어떤 기록(빛·소리·냄새·감정)을 남길 것 같나요? 한 문장으로 적어보세요.",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 34,
+          "source_traceability": 7,
+          "visualization": 23,
+          "sixty_second_fit": 19,
+          "comment_potential": 9
+        },
+        "total_score": 92,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-095914-817377",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "우주 과학 지식 쇼츠",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 12
+    }
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "가장 영상에 적합한 후보는 '사막의 우주의 눈'—운석과 의식 연결 주제. 시각적 요소(운석 충돌, 고대 의식 장면, 현장 재현)가 강하고 코스믹호러 톤을 살리기 쉽습니다.",
+    "candidates": [
+      {
+        "title": "사막의 '우주의 눈'—운석을 신성시한 고대 의식과 남겨진 기괴한 표식",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "어떤 고대 공동체는 하늘에서 떨어진 검은 돌을 신으로 모셨다—그 돌들이 남긴 이상한 표식과 의식은 왜 코스믹호러처럼 보일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "전 세계 고대 문명(메소아메리카, 중국, 중동 등)에 운석 관련 유물과 의식 기록이 존재한다.",
+          "운석(특히 철질 운석)은 금속 제공원으로, 종교적·상징적 가치가 부여되곤 했다.",
+          "일부 묘지·사원 유적에서 운석 조각을 둘러싼 특이한 배치나 표식이 보고되어 왔다."
+        ],
+        "verification_points": [
+          "고고학 보고서에서 운석·운석 조각이 발굴된 유적을 확인.",
+          "민속·연대기 기록에서 운석 관련 의례·설화 검색.",
+          "현대 운석학( meteoritics ) 문헌에서 특정 운석 샘플의 분류와 출처 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 고대 문명에서 운석을 의례적으로 사용한 기록과 유물 존재. 가설/해석: 운석 관련 표식과 배치는 단순한 광물 이용을 넘어 '코스믹 존재' 숭배 또는 공포-의례의 표현일 수 있음.",
+        "visualization_ideas": [
+          "사막·사원 발굴 현장 재구성(운석 파편 배치 클로즈업)",
+          "운석 대기 진입과 충돌 장면 CG(불빛, 소리, 그림자 강조)",
+          "고대 의식 장면의 모노크롬 실루엣+주술적 소리 효과로 코스믹호러 분위기"
+        ],
+        "comment_question": "만약 그 돌들이 단순한 금속이 아니라 ‘무언가’를 불러왔다면—당신은 어떻게 생각하나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 33,
+          "source_traceability": 9,
+          "visualization": 24,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 93,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "밤하늘의 '검은 바다'—중세 연대기에 남은 설명불가의 어둠과 집단 공포",
+        "category": "역사 미스터리",
+        "one_line_hook": "중세 연대기 곳곳에 등장하는 ‘하늘의 어둠’ 기록—별이 사라지고 사람들은 집단적으로 미친 듯 행동했다는 묘사는 자연현상일까, 집단 환각인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "중세·근대 초 연대기에는 갑작스러운 ‘하늘의 어둠’, 이상한 빛, 별의 소멸을 묘사한 기록이 다수 존재한다.",
+          "동시대 기록은 종종 기근·전염병·전쟁 같은 스트레스 상황과 함께 이러한 관찰을 연결한다.",
+          "현대의 자연현상(화산재, 황사, 대규모 산불 연무, 소행성 통과 등)이 유사한 광학·심리적 효과를 일으킬 수 있음."
+        ],
+        "verification_points": [
+          "특정 연대기의 원문(또는 신뢰받는 번역) 인용으로 사건 날짜·기록자 확인.",
+          "지질학·기후 기록에서 동시기 화산분출·대기이상 여부 확인.",
+          "역사학적 연구에서 집단심리·사회적 스트레스가 기록 해석에 미치는 영향 검토."
+        ],
+        "fact_hypothesis_distinction": "사실: 연대기에 ‘하늘의 어둠’과 그에 따른 사회 반응이 기록되어 있음. 학설/해석: 일부는 대기·천문학적 원인(화산재, 혜성, 소행성)으로 설명되며, 다른 관점은 집단환각·상징적 서술로 본다.",
+        "visualization_ideas": [
+          "중세 연대기 원문 구절을 고딕 활자와 함께 자막 처리",
+          "하늘이 어두워지는 재현 CG(집단의 공포·촛불 흔들림 등)로 감정적 임팩트 강화",
+          "동시기 기후·화산 지도 오버레이로 자연원인 비교"
+        ],
+        "comment_question": "이 기록이 자연현상이라면—무엇이었을까요? 아니면 집단이 만들어낸 공포였을까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 29,
+          "source_traceability": 8,
+          "visualization": 21,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 84,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "가상 시나리오: 만약 '별의 기억'이 인간의 꿈을 조정한다면 — 고대 기록 재해석 실험",
+        "category": "가상 시나리오",
+        "one_line_hook": "고대인들이 꿈에서 받은 ‘하늘의 메시지’가 실제로 천체와 연결되어 있었다면? 짧은 재현 실험으로 역사 기록을 다시 읽는다.",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "다양한 고대 문헌에 꿈·전언·별과의 접촉을 통한 예언 묘사가 존재한다.",
+          "현대 신경과학은 외부 자극(빛, 전자기 변화 등)이 수면과 꿈 내용에 영향을 줄 수 있음을 보여준다.",
+          "우주 환경(예: 소행성 접근, 이온층 변화 등)이 지구 대기·자기장에 미세한 변화를 일으킬 수 있다."
+        ],
+        "verification_points": [
+          "고대 문헌(신화·연대기)에서 꿈 관련 구절 수집과 원문 출처 제시.",
+          "수면·신경과학 연구에서 외적 자극이 꿈에 미치는 영향 논문 확인.",
+          "지구-우주 상호작용(태양풍, 자기폭풍 등)과 지상 전기장 변화 연구 검토."
+        ],
+        "fact_hypothesis_distinction": "사실: 고대 문헌의 꿈·천문 관련 묘사와 현대 과학의 꿈 유도 실험 연구는 존재함. 가상 시나리오: 이를 결합해 '천체가 꿈을 조정했다'라고 제시하는 것은 실험적 가설·상상에 해당.",
+        "visualization_ideas": [
+          "고대 텍스트 구절 → 과학 실험 장면(피험자, 장비)로 빠르게 전환",
+          "꿈 속 환상과 우주 장면을 중첩한 초현실적 비주얼",
+          "간단한 ‘미니 실험’(빛·소리 자극) 재현으로 관찰 포인트 제시"
+        ],
+        "comment_question": "당신이 한 밤에 받은 기이한 꿈—그게 하늘에서 온 신호일지도 모른다고 생각하나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 27,
+          "source_traceability": 7,
+          "visualization": 20,
+          "sixty_second_fit": 17,
+          "comment_potential": 9
+        },
+        "total_score": 80,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-101545-361537",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "코스믹호러",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 15
+    }
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보 중 가장 영상에 적합한 것은 '납 중독 가설'입니다. 짧은 실험 재현(수도관·그릇)과 엘리트 삶의 변화(잔치·와인) 시각화로 60초 내 충격적 반전과 댓글 토론을 유도하기 쉽습니다.",
+    "candidates": [
+      {
+        "title": "로마 멸망의 은밀한 가해자? — 납(鉛) 중독 가설",
+        "category": "역사 미스터리",
+        "one_line_hook": "수도관·와인·조리도구의 납이 로마 엘리트를 서서히 '멍들게' 했을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "로마는 납(lead) 관과 납 도료, 납을 사용한 와인 조제(당밀 증류 등)를 광범위하게 사용했다.",
+          "몇몇 학자는 로마 엘리트의 인지·생식 기능 저하를 납 중독과 연결해 사회·정치적 쇠퇴의 한 원인으로 제시했다.",
+          "납의 축적 효과는 세대에 걸쳐 점진적이며, 직접적·즉시적 멸망 원인으로 보기 어렵다는 반박도 존재한다."
+        ],
+        "verification_points": [
+          "고고학적 인골·치아에서 확인되는 납 농도 분석 결과(지역·시기 비교).",
+          "로마 관·그릇·와인 제조 관련 고문헌과 발굴품의 납 사용 증거.",
+          "동시기 다른 문명(납 사용량 대비 사회변동)과의 비교 연구."
+        ],
+        "fact_hypothesis_distinction": "가설 — 역사적 기록과 물리적 증거(관·그릇 등)는 존재하나, 납이 로마 멸망의 주원인이라는 주장은 학계에서 논쟁적이다.",
+        "visualization_ideas": [
+          "로마 수도관과 가정용품의 3D 단면·납 축적 애니메이션.",
+          "치아 단층 이미지와 금속 농도 게이지(전후 비교).",
+          "엘리트 연회 장면 → 뇌 영향(인지 저하)으로 이어지는 연속 컷."
+        ],
+        "comment_question": "납 사용을 줄였더라면 로마의 정치적 붕괴는 늦춰졌을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 33,
+          "source_traceability": 9,
+          "visualization": 24,
+          "sixty_second_fit": 19,
+          "comment_potential": 9
+        },
+        "total_score": 94,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "전염병이 먼저였나, 무너진 행정이 먼저였나 — 3세기 위기의 '시프리안 역병' 재평가",
+        "category": "역사 미스터리",
+        "one_line_hook": "치명적 역병이 로마 군·농업·세금 시스템을 흔들어 제국 붕괴의 도미노를 촉발했을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "3세기(약 250년대)의 '시프리안 역병'과 이후의 대규모 인구 감소 기록이 남아 있다.",
+          "인구·군사력 감소는 제국의 방어 능력과 세수 기반을 약화시켰다.",
+          "역병의 정확한 병원체와 치명률, 장기적 사회경제 영향은 아직 논쟁 중이다."
+        ],
+        "verification_points": [
+          "동시대 연대기(교부·평민 기록)와 묘지·DNA 증거로 역병 규모 추정.",
+          "농업 생산량·세수 기록의 변동(문서·발굴 자료)과 역병 시기 비교.",
+          "역병이 발생한 지역과 이후의 '수도 이전·병력 재배치' 정책 사이의 인과성 연구."
+        ],
+        "fact_hypothesis_distinction": "기록+학설 — 역병 기록과 인구감소는 사실이지만, '멸망의 핵심 촉발자'라는 해석은 학자들 사이에 다양한 견해가 있다.",
+        "visualization_ideas": [
+          "연도별 인구/군사력 지도 애니메이션(병행해서 축소되는 마을과 빈 묘지).",
+          "현대 병리학자가 고대 뼈·DNA를 들여다보는 재현 장면.",
+          "세금징수 사무소(문서 더미)에서 빈 약탈 현장으로 전환."
+        ],
+        "comment_question": "당시 역병이 지금의 팬데믹과 비교될 수 있을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 28,
+          "source_traceability": 9,
+          "visualization": 22,
+          "sixty_second_fit": 20,
+          "comment_potential": 8
+        },
+        "total_score": 87,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "'용병의 반전'인가, 합의된 전환인가 — 오도아케르(476년)의 정권 교체 미스터리",
+        "category": "역사 미스터리",
+        "one_line_hook": "서로마가 피 흘려 무너진 게 아니라, 엘리트·군대·주인(foederati)이 만든 '비폭력 전환'이었을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "서로마 마지막 황제 로물루스 아우구스툴루스는 476년 오도아케르에 의해 폐위되었다.",
+          "당시 기록들은 대규모 전투보다 정치적 협상·합병·봉급(foederati) 문제가 주된 원인임을 시사한다.",
+          "'멸망'의 이미지와 달리 일부 행정·제도는 여전히 남아 후대에 흡수됐다."
+        ],
+        "verification_points": [
+          "동시대 사료(예: 프라스키아누스·프로코피우스 등)에서의 사건 묘사 차이 비교.",
+          "foederati(용병/동맹민)와 로마 귀족 사이의 계약·봉급 관련 문서·법령 잔존 여부.",
+          "도시 기능(조세·법원·치안)의 즉시 붕괴 여부를 보여주는 발굴 증거."
+        ],
+        "fact_hypothesis_distinction": "기록+해석 — 사건 자체(폐위)는 사실, '평화적 전환'이냐 '폭력적 붕괴'냐는 역사해석의 차이로 미스터리로 남음.",
+        "visualization_ideas": [
+          "476년 하루의 타임라인 재구성(궁정 내부 대화·병참 대조·병력 배치).",
+          "서류(명령서·봉급) 애니메이션으로 '합의' 가능성 시각화.",
+          "두 시나리오(전투 vs 합의)를 교차 편집하여 판단 유도."
+        ],
+        "comment_question": "우리가 '멸망'이라고 부르는 순간은 실제로는 정치적 합의였을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 27,
+          "source_traceability": 8,
+          "visualization": 20,
+          "sixty_second_fit": 18,
+          "comment_potential": 7
+        },
+        "total_score": 80,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-101654-745749",
+    "selected_title": "로마 멸망의 은밀한 가해자? — 납(鉛) 중독 가설",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "로마 제국 멸망 미스테리",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 18
+    },
+    "selected_at": "2026-06-20T10:17:46",
+    "final_package": "outputs\\knowledge\\20260620-101654-745749\\final_knowledge_short.json",
+    "final_video": "outputs\\knowledge\\20260620-101654-745749\\final_short.mp4",
+    "actual_real_media_percent": 0
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보는 모두 '검증 가능한 현실 한 조각'에서 출발해 그 사실이 참일 때 문명·정체성·정책에 어떤 충격이 오는지 바로 묻습니다. 각 후보는 시청각 중심의 강한 중심 이미지(문서·기계·공식 영상)를 제공해 쇼츠 스타일 후킹에 매우 적합합니다.",
+    "candidates": [
+      {
+        "title": "보이니치 문서가 '진짜 암호'라면 — 누가 왜 15세기 지식체계를 숨겼을까?",
+        "category": "역사 미스터리",
+        "one_line_hook": "수백 년 해독 실패, 새 통계·암호학 연구가 '의도적 암호' 가능성을 끌어올렸다면 그 목적은 무엇일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "보이니치 문서는 방사성탄소연대 측정으로 대략 15세기 초 필사로 확인되었다.",
+          "문서의 문자·단어 분포는 자연언어와 다른 통계적 패턴을 보인다(최근 연구 보고서들).",
+          "여러 최신 사전출판물과 암호학자들이 '의미 있는 복호 가능성'을 주장하며 논쟁이 재점화되었다."
+        ],
+        "verification_points": [
+          "필사용지와 잉크의 방사성탄소·성분 분석(이미 공개된 연구 자료).",
+          "문자 빈도·쌍분포에 관한 통계 분석(학술·사전출판 리포트).",
+          "과거 암호·서지 기록과의 비교(15세기 암호 실무 기록, 도서관 목록)."
+        ],
+        "fact_hypothesis_distinction": "사실: 문서의 연대와 미해독 상태, 통계적 비정상성은 검증된 관찰. 가설: 문서가 '의도적 암호'이며 특정 집단의 은밀한 메시지라는 해석은 아직 재현 가능한 복호 결과가 필요함.",
+        "visualization_ideas": [
+          "문서 원본 클로즈업(페이지·문자 확대)로 즉시 후킹",
+          "통계 그래프(단어 길이·빈도)를 간단한 애니메이션으로 비교",
+          "15세기 필사실 장면 AI 재구성(짧은 컷)",
+          "가능한 해독 시도(문장 재배열) 전·후 비교 화면"
+        ],
+        "comment_question": "만약 완전한 복호가 가능하다면—그 메시지는 당대 권력·종교·과학 중 누구에게 불리할까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "안티키테라 기기가 항해·기후도구였다면 — 고대 기술 연대로 인류 서사를 바꿀 수 있나?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "CT·수치모델로 재구성된 기기, 만약 단순 천문계가 아니라 항해·해상 예측장치라면?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "안티키테라 기기는 고대 그리스 지역에서 출수한 기계 유물로 정교한 기어 시스템을 포함한다.",
+          "최근 CT 스캔과 수치 재구성 논문들이 기기 기능에 관한 새로운 가설(달력·천문 이외의 용도)을 제시했다.",
+          "원래 발견 문맥(난파선, 배에서 회수된 부속품)은 해상 관련 사용 가능성을 암시한다."
+        ],
+        "verification_points": [
+          "기계 내부 기어와 마모 패턴의 CT·금속학 분석 결과.",
+          "원본 발굴 기록(난파선 위치·연관 유물)과 고대 항해 문헌 비교.",
+          "수치모델 재구성 논문에서 제시한 기능 검증 시뮬레이션."
+        ],
+        "fact_hypothesis_distinction": "사실: 기계의 실제 존재와 정교한 기어는 확실. 가설: 항해·기후 예측용으로 설계되었다는 해석은 재구성 모델과 문헌 증거로 보강되어야 한다.",
+        "visualization_ideas": [
+          "원유물 사진→CT 스캔 단층화면→디지털 재구성 애니메이션(기어 동작)",
+          "고대 배 모형과 기기 결합 영상(짧은 AI 재구성 컷)",
+          "기능 가설별로 색을 달리한 '가능 사용 시나리오' 패널"
+        ],
+        "comment_question": "만약 고대인들이 항해·기후 예측 장치를 보유했다면—해양 교역과 문명 확산의 타임라인은 어떻게 바뀌는가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 16,
+          "source_traceability": 9,
+          "visualization": 17,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 70,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "미국 정부가 공개한 UAP 파일 속 '미해결 영상' — 단순 센서오류일까 새로운 물리일까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "최근 기밀 해제로 공개된 관측 영상·보고서들, 해결 불능 사례들은 무엇을 남기는가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2025–2026년에 걸쳐 미국 정부·군 관련 기관이 일부 UAP 문서와 영상을 추가 공개했다.",
+          "공개 문서에는 '원인 불명'으로 기록된 사례들이 포함되어 있으며 센서·목격자 진술·레이더 데이터가 병기된 경우가 있다.",
+          "일부 영상은 물리적으로 비정상적 움직임을 보이지만 해석은 논쟁적이다."
+        ],
+        "verification_points": [
+          "정부가 공개한 문서·보고서 원문(해군·국방부 보고서, 공개 파일).",
+          "해당 영상의 메타데이터·센서 로그(가능한 경우)와 전문가 분석 비교.",
+          "동일 유형 사례에 대한 독립적인 과학·기술 분석(물리·항공·센서 전문가)."
+        ],
+        "fact_hypothesis_distinction": "사실: 정부 공개 문서와 영상의 존재, 일부 사례의 '미해결' 표기는 확인됨. 가설: 영상이 새로운 물리현상 또는 외계 기원이라는 주장은 현재 증거로는 결정 불가하며 추가 센서·재현 실험이 필요함.",
+        "visualization_ideas": [
+          "공개 원문 문서·영상 클립을 쇼츠 초반에 배치(강한 증거 우선 후킹)",
+          "영상을 간단한 프레임별 분석(속도·경로·레이더 불일치) 자막 오버레이",
+          "가능한 설명(센서오류·자연현상·신기술)별로 짧은 재현 애니메이션 교차"
+        ],
+        "comment_question": "공개된 '해결불가' 사례가 과학적 재조사를 촉발한다면—국가 안보·연구 우선순위는 어떻게 바뀔까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 75,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-134628-637068",
+    "selected_title": "미국 정부가 공개한 UAP 파일 속 '미해결 영상' — 단순 센서오류일까 새로운 물리일까?",
+    "selected_candidate_index": 2,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "",
+    "discovery_mode": "automatic_schedule",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 21
+    },
+    "trend_report": "outputs\\knowledge\\20260620-134628-637068\\01_trend_report.json",
+    "selected_at": "2026-06-20T13:50:16",
+    "final_package": "outputs\\knowledge\\20260620-134628-637068\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 55,
+    "final_video": "outputs\\knowledge\\20260620-134628-637068\\final_short.mp4",
+    "actual_real_media_percent": 0
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보는 모두 '검증 가능한 현실 단서'에서 출발해 한 문장으로 문명·사회·해석의 대전환을 묻습니다. 하나는 최신 이론(트래버서블 웜홀 모델)의 사회적 파급을, 하나는 실험실 양자재현의 '현실성 착시'를, 하나는 역사 관측·기록의 재해석(우연한 '웜홀 흔적' 가설)을 다룹니다. 서로 겹치지 않는 시각과 강한 화면 가능성을 의도적으로 배치했습니다.",
+    "candidates": [
+      {
+        "title": "논문 한 줄: '에너지 조건 없이 통과 가능한 웜홀이 이론적으로 열렸다' — 인류는 처음 무엇을 잃고 무엇을 얻나?",
+        "category": "우주 미스터리",
+        "one_line_hook": "최근 공개된 동료심사 논문이 '에너지 이상 요구를 약화한' 트래버서블 웜홀 모델을 제안했다 — 만약 이게 맞다면 국경과 시간은 어떻게 바뀌는가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "일반상대성이론에서 웜홀 해는 수십 년간 이론적으로 제기되어 왔다.",
+          "2024–2026년에 걸쳐 일부 연구가 '특수 장' 또는 수정중력으로 안정화 가능한 모델을 제안했다(학술·arXiv 보고서 존재).",
+          "현재까지 관측적 검증은 없다 — 논문은 수학적·수치적 모델링 결과에 근거한다."
+        ],
+        "verification_points": [
+          "해당 논문 및 저자·저널(또는 arXiv 사본) 확인 — 모델의 가정과 경계조건 검토",
+          "동료심사 반응(추천·비판) 검색 — 물리학 커뮤니티의 수용도 확인",
+          "모델이 제시하는 '관측 가능한 신호'(중력파·광학적 서명) 명시 여부 확인"
+        ],
+        "fact_hypothesis_distinction": "사실: 최근 논문들이 수학적 모델을 제시했다. 가설: 이 모델들이 자연계에 실현되어 인간이 통과 가능한 웜홀이 존재한다면 사회·정치적·경제적 파급 효과가 발생할 것이다.",
+        "visualization_ideas": [
+          "논문 제목·수식 화면 서두 노출(원문 캡처 흐릿 처리) → 간단 애니로 '공간 연결' 도식화",
+          "지도 위 국경이 사라지는 빠른 시퀀스(물류·여권 아이콘) → 주가·환율 그래프 붕괴 이미지",
+          "작은 자막: '가정이 맞다면'·왼쪽 하단 진위 배지"
+        ],
+        "comment_question": "만약 통과 가능한 웜홀이 실현 가능하다면, 어떤 제도(국경·통화·전쟁 억제 장치)가 가장 먼저 무너질까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 5
+        },
+        "total_score": 68,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "실험실에서 만든 '웜홀 유사' 신호 — 양자회로가 우주를 흉내내면 우리가 착각하는 것은 무엇인가?",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "최신 양자정보 실험들이 '웜홀처럼 보이는' 정보 흐름을 재현했다 — 이 실험이 진짜 우주 웜홀을 의미할까, 아니면 단순한 동형(analog)일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2024–2025년 양자회로·시뮬레이션 논문들이 '웜홀 역학 유사'를 구현했다고 보고함(Nature 등 보도 존재).",
+          "실험은 정보 흐름·엔탱글먼트 특성의 수치적 재현으로, 실제 시공간을 건너뛰는 행위를 의미하지 않는다.",
+          "대중 매체는 '웜홀 재현'이라는 문구를 자주 사용해 오해를 낳음."
+        ],
+        "verification_points": [
+          "해당 실험의 원문(논문·보도자료)에서 '웜홀' 표현의 맥락 확인",
+          "실험에서 측정한 데이터(회로도·시그널 그래프) 확보 가능성",
+          "저자 인터뷰·과학 해설자의 경고문 확인"
+        ],
+        "fact_hypothesis_distinction": "사실: 양자시스템에서 '웜홀 유사' 역학이 재현되었다는 보고가 존재한다. 가설: 이 실험 결과를 실제 우주 웜홀의 증거로 확장하면 오해·정책적 잘못된 투자로 이어질 수 있다.",
+        "visualization_ideas": [
+          "양자회로 사진·회로도 클로즈업(원본 65%) → 측정 그래프 빠른 플래시",
+          "화면 절반에 '실험실 장면', 절반에 '우주 웜홀 상상도'를 대조 배치",
+          "마지막 장면에 '실제 vs 유사' 진위 배지와 질문 자막"
+        ],
+        "comment_question": "이 실험을 '우주 웜홀의 전조'로 해석하면 어떤 잘못된 정책·투자가 촉발될까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 17,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 17,
+          "comment_potential": 5
+        },
+        "total_score": 66,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "고대 관측기록 속 '순간의 소멸' 사건들 — 과거 기록이 남긴 웜홀의 흔적일까?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "중세·고대 연대기 몇 건은 '사람·동물이 순간 사라졌다'고 적었다 — 만약 일부가 공간의 짧은 연결(웜홀 흔적)이라면 역사를 어떻게 다시 써야 할까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "여러 연대기와 항해일지에 '사라짐'·'짧은 시간 이동' 묘사가 산발적으로 존재한다(문헌 기록 확인 가능).",
+          "대부분은 전승·종교적 수사로 해석되어 왔다.",
+          "현대 천문·물리학은 특정 천체현상이나 광학적 환영으로 설명 가능한 사례도 제시한다."
+        ],
+        "verification_points": [
+          "원문·신뢰 가능한 번역본 확보 — 사건의 시간·위치·동시 목격자 수 확인",
+          "동시대 다른 기록과의 교차검증(기후·지진 기록 등)",
+          "현장 지질·지형 조건의 재검토로 자연현상 가능성 평가"
+        ],
+        "fact_hypothesis_distinction": "사실: 기록은 존재하고 번역·해석이 가능하다. 가설: 일부 기록이 물리적 웜홀 사건의 목격일 가능성은 낮지만, 만약 사실이라면 역사적 이동·전염·문화 교류의 설명을 바꿀 수 있다.",
+        "visualization_ideas": [
+          "원문 필사본(확대) → 핵심 문장 빨간 강조(자막)로 후킹",
+          "지도에 사건 지점 표시 → '가능성 시나리오' 애니(사람이 한 지점에서 사라져 다른 지점에 출현)",
+          "왼쪽 하단 진위 배지: '후대 전승 / 진위 불명'"
+        ],
+        "comment_question": "이 기록들 중 단 하나라도 물리적 공간 연결의 증거라면—그 사건이 이후 역사에 남긴 가장 큰 변화는 무엇일까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 15,
+          "source_traceability": 8,
+          "visualization": 17,
+          "sixty_second_fit": 17,
+          "comment_potential": 5
+        },
+        "total_score": 62,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-140343-533301",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "웜홀 미스터리",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 24
+    },
+    "trend_report": "outputs\\knowledge\\20260620-140343-533301\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보는 모두 '검증 가능한 단서(논문·관측·기록)'에서 출발해 바로 다음에 벌어질 문명적·개인적 충격을 묻습니다. 관측(중력파), 기록(항해·연대기), 사회시나리오(경제·안보)라는 서로 다른 레이어로 웜홀 주제를 분산시켜 한 주제에 대한 반복을 피했고, 쇼츠 스타일의 강한 시각적 후킹과 즉각적 논쟁 지점을 제공합니다.",
+    "candidates": [
+      {
+        "title": "중력파 속에 남긴 '에코' — 이미 우리 우주에 열린 작은 문이 숨어있나?",
+        "category": "우주 미스터리",
+        "one_line_hook": "LIGO가 잡은 이상한 '링다운 에코'가 웜홀의 첫 단서일 수 있다면, 우리는 우주에 열린 문을 이미 들여다보고 있는 걸까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "중력파 관측에서 병합 후의 '에코'나 비정상적 링다운이 보고·모델링된 논문들이 존재한다.",
+          "일부 이론연구는 특정 파형이 웜홀이나 비표준 중력체의 신호와 닮았다고 제안한다.",
+          "LIGO/Virgo-KAGRA의 데이터는 재분석으로 작은 잔향(signal residual)을 찾아낼 가능성이 있다."
+        ],
+        "verification_points": [
+          "원문 논문·사전 인쇄(arXiv)에서 보고된 에코형 후보 목록 확인",
+          "LIGO/Virgo-KAGRA 공인 데이터 재분석(공개 데이터셋)으로 동일 파형 재현 시도",
+          "대체 원인(계측 노이즈, 모델 부족, 환경적 간섭) 배제 실험"
+        ],
+        "fact_hypothesis_distinction": "사실: 관측된 이상 신호(잔향·비정상 링다운)와 그 존재를 보고한 논문들. 가설: 해당 신호가 웜홀의 직접적 증거라는 주장 — 검증하려면 재분석·독립 검증과 모델 대비가 필요하다.",
+        "visualization_ideas": [
+          "실제 LIGO 관측 스펙트럼(공개 데이터) 위에 ‘정상 예측’과 ‘에코 잔향’ 오버레이",
+          "병합 시뮬레이션 영상(블랙홀 vs 웜홀 가상의 비교) 간단 애니메이션",
+          "짧은 텍스트 배지: '확인된 기록' / '가설' 병렬 표시"
+        ],
+        "comment_question": "만약 이 신호가 웜홀이라면, 우리는 우주로부터 어떤 '문'을 실제로 열어본 것일까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 5
+        },
+        "total_score": 68,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "고대 항해 일지의 '순간 소멸'들 — 과거에 열렸던 임시 문이 남긴 흔적일까?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "중세·고대 항해자들이 남긴 '배가 갑자기 사라졌다'는 기록은 우연인가, 순간적 공간 전단(웜홀)의 역사적 흔적일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "여러 해양 연대기와 항해 보고서에 '선박의 돌연 소실' 또는 '안개 속에 사라짐' 등 미해명 기록이 존재한다.",
+          "역사학적 기록은 기상·해적·항로 오류로 설명되지 않는 사례들을 포함한다.",
+          "현대 과학자들은 이와 같은 역사 기록을 물리적·환경적 이상 현상 연구의 단서로 삼아왔다."
+        ],
+        "verification_points": [
+          "구체적 사건 사례(연도·항로·기록자) 선별 및 원문 대조",
+          "동시대 기상·해류·해도(지도) 자료와의 교차검증",
+          "해저 잔해·고고학적 증거(잔존 선박·화물) 탐사 가능성 평가"
+        ],
+        "fact_hypothesis_distinction": "사실: 역사적 기록(일지·연대기)에 '돌연 소실' 묘사가 존재. 가설: 그 묘사들이 웜홀·단기 공간왜곡의 결과라는 주장 — 이는 매우 논쟁적이며 물리적 증거가 필요하다.",
+        "visualization_ideas": [
+          "원문 일지 문장 확대와 지도상 항로 애니메이션(사라지는 지점 강조)",
+          "동시대 지도·배 그림을 배경으로 짧은 재연 장면(흑백·느린 페이드)",
+          "좌측 하단 진위 라벨: '후대 전승' 또는 '진위 불명'"
+        ],
+        "comment_question": "만약 이런 사건들이 물리적 '임시 문'의 흔적이라면, 고대인들은 무엇을 잃었고 무엇을 증언했을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 16,
+          "source_traceability": 8,
+          "visualization": 16,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 66,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "웜홀이 현실화되면 가장 먼저 무너지는 것은 무엇인가 — 국경, 금융, 아니면 '역사'인가?",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "통행 가능한 웜홀이 기술적 현실이 된다면, 첫 72시간 안에 어떤 제도와 가치가 붕괴하거나 재구성될까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "이론물리학에서 '통행 가능한(walk-through) 웜홀'을 다루는 모델들이 최근 수년간 발표됐다.",
+          "국제 안보·경제 문헌은 새로운 초국경 이동 기술이 물류·금융·정보 흐름에 미치는 충격을 시나리오로 분석해 왔다.",
+          "테크노시그니처·기술확산 연구는 새로운 이동수단이 사회적 불안과 규범 파괴를 빠르게 촉발할 수 있음을 보인다."
+        ],
+        "verification_points": [
+          "최근 발표된 '통행 가능한 웜홀' 관련 이론 논문·리뷰 목록 확인",
+          "경제·안보 분야의 기술충격 시나리오 연구(보고서) 조사",
+          "현대 물류·금융 시스템의 의존성 분석(단일 실패점 파악)"
+        ],
+        "fact_hypothesis_distinction": "사실: 이론적 모델과 시나리오 연구가 존재한다. 가설: 웜홀 기술의 현실화가 정확히 어떤 방식으로 사회를 붕괴시킬지는 시나리오·정책 변수에 따라 달라지며 예측은 가변적이다.",
+        "visualization_ideas": [
+          "타임라인 그래픽: '발견 후 0–72시간'에 벌어질 예상 사건(항만 폐쇄, 시장 폭락, 군사 봉쇄 등)",
+          "지도 위의 화살표로 즉시 연결되는 도시·물류 허브를 강조한 애니메이션",
+          "짧은 인터뷰 형태(전문가 문구 인용 자막)와 좌측 하단 '현재 학설' 배지"
+        ],
+        "comment_question": "당신이 가장 먼저 잃을 것 같은 건 무엇인가 — 여권, 계좌, 아니면 '사건의 기록'인가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 9,
+          "visualization": 19,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 73,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-140531-899313",
+    "selected_title": "중력파 속에 남긴 '에코' — 이미 우리 우주에 열린 작은 문이 숨어있나?",
+    "selected_candidate_index": 0,
+    "production_status": "selection_interrupted",
+    "human_approved": false,
+    "requested_direction": "웜홀 우주여행",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 27
+    },
+    "trend_report": "outputs\\knowledge\\20260620-140531-899313\\01_trend_report.json",
+    "selected_at": "2026-06-20T14:06:59"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "학계의 중력파·웜홀 이론 진전, SNS 시간여행 서사 재확산, 그리고 고대 기록의 모호한 '순간 소멸' 서술이 맞물려 있다. 세 후보는 각각 관측(중력파), 현대 디지털 증거(틱톡·영상 메타데이터), 역사문서(항해일지·신문)을 출발점으로 삼아 ‘이게 사실이라면 사회·역사·정체성에 무슨 일이 생기나?’를 곧장 묻는다. 쇼츠 후킹·시각화 가능성도 높다 — 하나는 과학적 파형 비교, 하나는 메타데이터 분해, 하나는 문서 클로즈업으로 화면을 채운다.",
+    "candidates": [
+      {
+        "title": "중력파의 '에코'는 작은 웜홀의 발자국일까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "LIGO/Virgo에서 나온 비정상적 링다운·에코 신호 — 이게 작은 웜홀이 우리 우주를 '툭' 건드린 증거일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "LIGO/Virgo/KAGRA 관측 카탈로그에는 표준 블랙홀 병합과는 다른 비정형 후반파(이상 링다운, 에코 후보)가 보고된 바 있다.",
+          "최근 몇 년간 일부 이론물리학자가 특정 파형이 웜홀 통과나 경계 반사에 의해 생성될 수 있다고 모델링했다.",
+          "중력파 데이터는 원본 스트레인 시계열과 스펙트럼을 화면에 직접 보여줄 수 있다(시각적 증거 가능)."
+        ],
+        "verification_points": [
+          "해당 신호의 관측 레퍼런스(관측 날짜·이벤트 ID) 확보 및 LIGO/Virgo 공개 데이터 접근으로 파형 재생성.",
+          "원본 연구(에코/비정상 링다운을 웜홀 신호로 해석한 논문)와 비판적 리뷰 확인.",
+          "대체 설명(잡음·기기효과·블랙홀의 비표준 물리)과 비교 분석."
+        ],
+        "fact_hypothesis_distinction": "사실: 중력파 카탈로그에 비정형 신호가 존재함. 가설: 그 신호가 '웜홀 통과'의 직접적 흔적이라는 주장(이론모델 기반) — 현재로선 가설이며 추가 데이터·모델 검증 필요.",
+        "visualization_ideas": [
+          "관측 파형(원본 스트레인)과 이론적 웜홀 시뮬레이션 파형을 화면을 분할해 겹쳐 비교",
+          "관측 맵·검출기 위치와 신호 도착 시간차로 '어디서 왔나'를 지도형으로 표시",
+          "작은 패널로 '대체 설명' (노이즈·계측오류) 파형과의 차이만 하이라이트"
+        ],
+        "comment_question": "이 신호가 웜홀이라면 우리는 이미 '작은 문'을 관측한 것인가 — 그렇다면 다음 관측은 무엇을 찾아야 할까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "틱톡 '시간여행자' 영상의 메타데이터가 말하는 진실",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "한 편의 짧은 영상에 찍힌 날짜·파일헤더·IP痕跡 — 이건 단순 연출인가, 실제 '미래'를 기록한 증거인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "틱톡·유튜브 숏츠 등 플랫폼의 영상엔 업로드·생성 메타데이터(타임스탬프, 코덱, 파일크기, 소스 디바이스 정보 등)가 남는다.",
+          "과거에도 몇 차례 '미래를 맞춘' 주장 영상이 메타데이터 오류·편집 타임라인 조작으로 밝혀진 사례가 존재한다.",
+          "현대 포렌식 툴로 영상의 시간·원본·합성 흔적을 비교·분석할 수 있다."
+        ],
+        "verification_points": [
+          "원본 영상 파일 또는 가능한 최고해상도 소스 확보(앱 업로드본보다 원본이 중요).",
+          "메타데이터(Exif/타임코드), 업로드 로그, 계정 활동(과거·예측 게시물 시간선) 검토.",
+          "화면 내부의 물리적 단서(날짜가 쓰인 신문, 이동중인 차량 번호판, 모바일 OS 버전 등)와 메타데이터 대조."
+        ],
+        "fact_hypothesis_distinction": "사실: 영상과 메타데이터는 분석 가능한 물적 증거를 남긴다. 가설: 영상 속 내용이 '미래에서 온 정보'라는 해석은 추가적인 검증 없이 받아들일 수 없다 — 대안적 설명(편집·사전녹화·위조)이 더 가능성이 높음.",
+        "visualization_ideas": [
+          "원본·업로드본의 타임스탬프 비교를 타임라인 애니메이션으로 보여주기",
+          "메타데이터 덤프(중요 항목만) 클로즈업→포렌식 지표(복제 흔적, 인코딩 패턴) 하이라이트",
+          "화면 속 물리 단서(신문·캘린더·기기 모델)의 확대와 검증 체크리스트 병치"
+        ],
+        "comment_question": "이 영상이 '미래 증거'라면 어떤 검증 한 조각만으로도 그것을 입증할 수 있을까? 없다면 가장 설득력 있는 대체 설명은?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 17,
+          "source_traceability": 9,
+          "visualization": 17,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 71,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "1902년 항해일지의 '순간 소실'—임시 문이 열렸다면 누구의 역사가 바뀌나?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "선장의 단 한 줄: '갑자기 바다가 사라졌다' — 자연현상인가, 짧은 시공간 비틀림(웜홀 유사현상)의 목격인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "19~20세기 항해일지·신문·항해 보고서에는 단문으로 설명된 '이상 현상' 기록이 다수 존재한다(예: 순간적 실루엣 소멸, 방향 감각 상실 등).",
+          "문서 원본(필사본·현지 신문 스캔)이 보존된 경우가 있어 화면 상의 문장 클로즈업이 가능하다.",
+          "학제간 연구(역사·기상학·물리학)는 이러한 기술서술을 자연현상, 집단환각, 또는 미지의 물리현상으로 분류해 재해석해 왔다."
+        ],
+        "verification_points": [
+          "문서 원본의 정확한 출처·연대 확인(도서관 소장·아카이브 참조).",
+          "동시기 다른 기록(다른 선박·해안 마을 일지)의 교차검증.",
+          "현대 물리모델(짧은 시공간 왜곡·굴절 현상)과 기상학적 설명 비교."
+        ],
+        "fact_hypothesis_distinction": "사실: 문서에 '순간 소실' 같은 서술이 존재함. 가설: 해당 서술이 '임시 웜홀' 또는 시공간 왜곡을 기술한 것이라는 해석은 흥미롭지만 학술적 증거가 부족하므로 가설로 분류해야 함.",
+        "visualization_ideas": [
+          "원문 종이·잉크 질감 클로즈업을 화면 중심에 배치하고 문제 문장을 빨간색으로 강조",
+          "당시 항로 지도와 함께 '문서가 기록된 위치'를 지도로 표시",
+          "두 가지 시나리오(기상학적 vs. 물리학적) 일러스트를 빠르게 교차 제시"
+        ],
+        "comment_question": "만약 120년 전의 그 문장이 '짧은 문'의 목격이라면—우리는 어떤 역사적 사건을 다시 써야 하는가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-141649-737039",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "웜홀 시간여행 미스터리",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 30
+    },
+    "trend_report": "outputs\\knowledge\\20260620-141649-737039\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "공룡멸종은 '무엇이 일어났나'를 넘어 '그 결과가 인류가 상상하는 것과 어떻게 달랐나'를 묻는 순간 강해집니다. 세 후보는 모두 실제 지질·시뮬레이션·드릴링·크레이터 조사라는 추적 가능한 출발점을 가지고, '설명이 사실이면 다음에 무슨 일이 벌어지는가'라는 문장형 질문으로 확장했습니다. 시청자의 즉각적 호기심(강한 시각 증거 가능성), 토론 유발(학설 대립), 영상화 용이성(단일 이미지·지도·단층도 활용)을 모두 고려해 선별했습니다. 나는 이 세 가지 중 하나가 쇼츠에서 즉시 바이럴하고 긴 댓글 토론을 불러일으킬 것이라고 확신합니다.",
+    "candidates": [
+      {
+        "title": "치크술럽 충돌이 방아쇠였나, 이미 깎여가던 지구였나? — 충돌·데칸 트랩의 시퀀스 전쟁",
+        "category": "역사 미스터리",
+        "one_line_hook": "충돌 직전, 인도는 이미 '죽어가고' 있었다 — 그렇다면 충돌은 종의 종말을 '완성'했을 뿐일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "멕시코 만의 치크술럽(Chicxulub) 충돌은 백악기-팔레오세 경계(약 66Ma)와 거의 동시다.",
+          "인도 데칸 트랩(Deccan Traps)은 대규모 용암분출로, 멸종 전후로 수십만~수백만년에 걸친 분출이 있었다는 증거가 있다.",
+          "최근 드릴링·동위원소 연대측정은 화산 분출의 세기와 시기, 충돌과의 상대적 타이밍을 재논의하게 했다."
+        ],
+        "verification_points": [
+          "치크술럽 충돌의 정확한 연대(백만년 단위가 아닌 수만년 단위로 좁혀진 근거)",
+          "데칸 트랩 분출의 주요 피크(시리즈들)와 그 연대(충돌 전·후 어느 시점인지)",
+          "지구 화학·동위원소(예: 이리듐·납성분)의 시층 분포와 기후 모델링 결과"
+        ],
+        "fact_hypothesis_distinction": "사실: 치크술럽 충돌과 데칸 트랩 분출은 동시대에 일어났다. 가설: 데칸이 이미 생태계를 크게 약화시켜 충돌이 '결정타'가 되었다(또는 반대로 충돌이 화산 분출을 촉발·증폭시켰다). 이 영상은 둘의 상호작용(시퀀스)을 탐구한다 — 단독 원인 주장은 배제하지 않지만 확정하기엔 자료가 분화되어 있다.",
+        "visualization_ideas": [
+          "세계지도 위에 치크술럽 충돌지점과 데칸 분출 지역을 나란히 표시한 타임라인 줌인",
+          "지층 단면(충돌층·용암층)과 연대 레이어를 빠르게 겹쳐 보여주는 애니메이션",
+          "드릴 코어 사진·현미경 이미지(유리질·잔해) 클로즈업을 화면 중심에 배치",
+          "두 시나리오(충돌 단독 vs 화산 약화+충돌 결정타)를 두 개의 짧은 시퀀스로 대비"
+        ],
+        "comment_question": "당신은 어떤 시퀀스가 더 설득력 있나 — 충돌이 먼저였나, 데칸이 이미 생태계를 망가뜨린 뒤였나?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 72,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "충돌이 만든 '숨은 생태계' — 멸종 후 지하·열수 피난처가 생명을 지켰나?",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "표층은 사라졌지만, 충돌이 만든 지하의 '끓는 은신처'가 수백만년간 생명을 품었다?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "대형충돌은 거대한 열과 압력으로 열수 계( hydrothermal systems )를 생성할 수 있다.",
+          "현장·시뮬레이션 연구는 일부 열수계가 수십만~수백만년 지속될 수 있음을 제시한다.",
+          "몇몇 미화석·화학 신호는 멸종 직후에도 특정 미생물·무척추동물이 생존했을 가능성을 시사한다."
+        ],
+        "verification_points": [
+          "치크술럽 충돌 관련 암석의 열수 흔적(광물 변질·동위원소 신호) 관측",
+          "지하·열수 생태계가 멸종 이후 복구에 기여했음을 입증하는 생물학적·지화학적 증거",
+          "시뮬레이션·모델에서 제시된 열수계 수명(연대)과 실제 코어 데이터의 일치성"
+        ],
+        "fact_hypothesis_distinction": "사실: 충돌은 열수계를 만들 수 있고, 일부 열수계는 오래 지속될 수 있다. 가설: 치크술럽이 만든 열수계가 멸종 직후 표층 생물의 대부분을 대체·보호하며 회복의 씨앗 역할을 했다. (이 주장은 증거가 증가하는 중이지만 아직 완전 확정은 아니다.)",
+        "visualization_ideas": [
+          "충돌 직후의 단면도(표층 파괴 → 지하 열수대 형성)를 실사 암석질감과 함께 천천히 확대한 화면",
+          "드릴 코어 사진과 열수광물(예: 석영·황화물)의 클로즈업 교차",
+          "열수 생태계에서 살았을 법한 현대 비유(깊은 해저 열수구 생태계)의 영상 짧은 컷을 대조",
+          "끝에 '가능한 생물 리스트'를 빨간색 한 문장으로 강조"
+        ],
+        "comment_question": "멸종은 '완전 소멸'이 아니었다 — 당신이 생각하는 멸종 후의 '은신처'는 어디였나?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 20,
+          "source_traceability": 10,
+          "visualization": 20,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 78,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "치크술럽 단발설을 흔드는 또 다른 충돌들 — 다중 충돌 연쇄가 전 지구적 위기를 만들었나?",
+        "category": "우주 미스터리",
+        "one_line_hook": "하나의 커다란 구멍만 보였을 뿐 — 하지만 피해는 여러 개의 돌풍에서 왔을 수 있다.",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "지구 곳곳에서 백악기 말과 근접한 시기로 보고된 충돌구조(예: Popigai 등)가 존재한다.",
+          "분열된 소행성이 연쇄 충돌을 일으킬 가능성은 동적모델과 천체 궤도 연구로 이론화되어 있다.",
+          "일부 연구는 다중 충돌이 기후·생태계 충격을 증폭할 수 있다고 제안한다."
+        ],
+        "verification_points": [
+          "다른 주요 충돌구조들의 정확한 연대(치크술럽과 동시성 여부)",
+          "충돌들의 크기·분포가 전 지구적 기후돌연변화와 합쳐질 수 있는지에 대한 모델",
+          "지층·충격물질(예: 이리듐, 미소충돌 퇴적물)의 전세계적 분포 패턴"
+        ],
+        "fact_hypothesis_distinction": "사실: 여러 충돌구조가 존재하고 일부는 비슷한 연대를 가진다. 가설: 치크술럽이 단독 폭탄이 아니라, 동시기 또는 근접한 다중 충돌이 결합해 전지구적 위기를 만들었다. 이는 증거가 늘고 있지만 아직 학계 합의는 아니다.",
+        "visualization_ideas": [
+          "지구 전지도 위에 백악기 말로 추정되는 충돌구 목록을 핀으로 표시하고 시간대별로 점등",
+          "소행성 분열→연쇄 충돌 시뮬레이션(궤적선) 짧은 애니메이션",
+          "각 충돌구의 크기 비교(원 크기로 임팩트 에너지 시각화)",
+          "질문 자막: '하나였을까? 여러 개였을까?'를 빨간색으로 하단 강조"
+        ],
+        "comment_question": "치크술럽이 '우주의 단발 폭격'일까, 아니면 여러 발의 총성이 겹친 참사였을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 74,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-141814-427747",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "공룡멸종 미스터리",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 33
+    },
+    "trend_report": "outputs\\knowledge\\20260620-141814-427747\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보 모두 '검증 가능한 현실 한 조각'에서 출발해 즉각적인 반전·사회적 파급으로 확장할 수 있는 질문들입니다. 첫 번째는 최근 AI·통계 연구로 재점화된 보이니치 문서를 통해 ‘해독된다면 무엇이 드러나나’를 묻고, 두 번째는 최신 남극 지형·심층 코어 발견을 기초로 ’빙하 아래에 인류 흔적이 있을까‘를 과학적으로 가르는 드라마를 만들며, 세 번째는 안티키테라의 재구성 논쟁을 이용해 ‘이 기계가 실무 장비였나 의례용 프로토타입이었나’라는 문명사적 반전을 제안합니다. 서로 다른 비주얼·증거(문서·위성지도·기어 CT)를 중심으로 쇼츠 훅을 설계하기 좋고, 어느 하나도 단순 요약이 아닌 ‘이게 사실이면 우리에게 무슨 일이 일어나는가?’를 관객에게 남깁니다.",
+    "candidates": [
+      {
+        "title": "보이니치 문서가 '의도된 암호'라면—해독이 드러낼 수 있는 한 문장과 그 파장",
+        "category": "역사 미스터리",
+        "one_line_hook": "AI 통계 모델이 문서 내부의 '문자 규칙'을 잡아냈다 — 만약 이 규칙이 맞다면 문서는 경고·의례·기술 설명 중 무엇일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "보이니치 문서는 15세기 전후로 추정되는 미해독 필사본으로, 알 수 없는 문자와 식물·천문 삽화가 섞여 있다.",
+          "최근(2024~2026) 통계·암호학·AI 기반 예비 연구들이 '일부 규칙성(글자 배열, 방향·위치 제약)'을 보고했다.",
+          "문서의 물리학적·화학적 연대측정은 중세 유럽 시기 재료와 일치한다(잉크·양피 분석)."
+        ],
+        "verification_points": [
+          "새로운 통계모델이 반복적으로 동일한 '단어 경계'와 '문맥적 토큰'을 재현하는가(다수 독립팀 재분석).",
+          "문서의 삽화와 해독 가설(예: 약초·의례·천문)이 문화·시대적 자료와 교차검증되는가.",
+          "원문에서 특정 단어 하나(예: '경고', '의례', '약')의 후보 해독이 텍스트 전체 패턴을 설명하는가."
+        ],
+        "fact_hypothesis_distinction": "사실: 문서의 물리적 연대와 내부 통계적 규칙성 보고는 존재함. 가설: 규칙성이 곧 '의미 있는 암호'이며 특정 내용(경고·기술·의례)을 담았다는 주장은 아직 검증 단계임 — 영상에서는 이 구분을 명확히 표기한다.",
+        "visualization_ideas": [
+          "문서의 원본 확대(페이지 전체 → 특정 '단어' 반복 클로즈업)로 훅 시작.",
+          "AI가 찾아낸 규칙(토큰·자주출현 패턴)을 간단한 애니메이션으로 시각화.",
+          "세 가지 가능성(경고/의례/기술)을 각기 상징 이미지(불타는 들판/의식 도구/작동 다이어그램)로 짧게 비교.",
+          "사실성 배지(좌하단)로 '확인된 기록' vs '가설' 구분 표시."
+        ],
+        "comment_question": "만약 보이니치 문서가 실제로 '경고' 메시지라면 — 누가 누구에게 무엇을 경고하려 했을까요? 댓글로 가장 그럴듯한 수신자를 적어보세요.",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 20,
+          "comment_potential": 9
+        },
+        "total_score": 74,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "남극 빙하 아래 '거대한 지형'이 드러났다 — 빙하가 가린 '인류 흔적'은 가능한가?",
+        "category": "역사 미스터리",
+        "one_line_hook": "동(東)남극의 새로운 지형·심부 코어 데이터가 공개됐다 — 만약 빙하 밑에 인공 흔적이 있다면 어떤 흔적이 남아 있을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2024~2026년 사이 위성·레이더·심층 코어·지진 관측을 통해 동남극의 새로운 대형 지형과 심층 구조가 보고되었다.",
+          "빙하 이동과 퇴적 과정은 표면 아래 물체를 수만 년 동안 가리고 변형시킬 수 있다.",
+          "극지 연구는 엄격한 국제 규제·접근 제한으로 쉽게 현장 확인이 어려움."
+        ],
+        "verification_points": [
+          "레이더·위성 데이터에서 '명확한 인공선(직각·대칭 등)' 신호가 반복적으로 검출되는가.",
+          "빙하퇴적·지질학적 모델로 해당 구조가 자연 형성으로 설명 가능한지(시뮬레이션·동료 검증).",
+          "심층 코어·시료 채취가 이루어졌을 때(혹은 이루어질 경우) 탄소·미세구조·금속성분에서 인위적 흔적이 확인되는가."
+        ],
+        "fact_hypothesis_distinction": "사실: 새로운 지형·지진·코어 데이터는 발표된 바 있음. 가설: 그 지형이 '인공 구조물'을 의미한다는 해석은 현재로선 증거 부족 — 영상은 과학적 가능성/불가능성을 단계별로 분해해 제시한다.",
+        "visualization_ideas": [
+          "위성 레이더 지도를 흐릿한 배경으로 깔고 문제의 '거대한 팬·구조'를 붉은 테두리로 강조.",
+          "빙하 아래 단면 애니메이션(빙상 → 암석층 → 가상의 인공 구조)으로 가능한 시나리오 나열.",
+          "현장 접근의 어려움(극한 환경 사진, 장비)를 보여주며 '확인까지 필요한 절차'를 짧게 설명.",
+          "마지막 장면에서 '가능성 등급' 배지(과학적·가능·불가능)를 표시."
+        ],
+        "comment_question": "당신이 과학자로서 채굴 허가를 받을 수 있다면, 빙하 아래 무엇을 먼저 찾고 싶나요? (유물/탄소연대/금속 잔해 등)",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 17,
+          "source_traceability": 9,
+          "visualization": 17,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 70,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "안티키테라의 '작동 불안정'은 설계 결함인가 실험용 프로토타입인가?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "최신 CT 재구성과 시뮬레이션이 '기어 간섭으로 주기 유지 불가'를 제시한다 — 이 기계는 항해용이라기보다 실험적 상징물일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "안티키테라 기계는 고대 그리스 유적으로 발견된 복잡한 기어 장치로, 태양·달·행성의 주기 표시에 사용됐다고 해석된다.",
+          "최근(2024~2026) 고해상도 CT 스캔과 수치 시뮬레이션에서 일부 재구성 모델이 지속적 주기 유지에 문제가 있음을 보고했다.",
+          "기계의 소수 부품은 손상·분실 상태여서 완전 재현에는 불확실성이 남아 있다."
+        ],
+        "verification_points": [
+          "다양한 재구성 모델이 동일한 결함(기어 간섭·마찰·토크 불충분)을 독립적으로 재현하는가.",
+          "실제 복원 샘플(복제품) 실험에서 동일한 동작 실패가 재현되는가.",
+          "대체 해석(종교·의례적 장치, 시제품·교육용 모형 등)이 고고학적 맥락(발견 장소·부속품)과 잘 맞아떨어지는가."
+        ],
+        "fact_hypothesis_distinction": "사실: CT·시뮬레이션 결과와 고고학적 발견은 존재함. 가설: 작동 불안정이 곧 '프로토타입' 또는 '비실용적 장치'라는 해석은 여러 해석 중 하나이며 더 많은 실험 증거가 필요하다.",
+        "visualization_ideas": [
+          "기계의 CT 스캔 컷을 화면 중심에 배치하고, 문제로 지목된 기어 부위를 강조(애니메이션 화살표).",
+          "두 재구성 모델(정상 작동 가정 vs 결함 가정)을 나란히 보여주는 10초 시뮬레이션 비교.",
+          "발견 당시의 사진·유물 배치를 삽입해 '의례적 맥락' 가능성을 시사.",
+          "끝부분에 '만약 프로토타입이면 고대 기술사의 무슨 창(發展) 이야기를 다시 써야 하나?'라는 질문으로 마무리."
+        ],
+        "comment_question": "안티키테라가 '작동 불안정'이었다면—당신은 이것을 실패한 기술의 증거로 볼까요, 아니면 의도된 상징물로 볼까요? 이유를 적어주세요.",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 16,
+          "source_traceability": 8,
+          "visualization": 16,
+          "sixty_second_fit": 17,
+          "comment_potential": 7
+        },
+        "total_score": 64,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-142011-415757",
+    "selected_title": "보이니치 문서가 '의도된 암호'라면—해독이 드러낼 수 있는 한 문장과 그 파장",
+    "selected_candidate_index": 0,
+    "production_status": "video_failed",
+    "human_approved": true,
+    "requested_direction": "",
+    "discovery_mode": "automatic_schedule",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 36
+    },
+    "trend_report": "outputs\\knowledge\\20260620-142011-415757\\01_trend_report.json",
+    "selected_at": "2026-06-20T14:21:39",
+    "final_package": "outputs\\knowledge\\20260620-142011-415757\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 60,
+    "latest_script_feedback": "보이니치 문서(Voynich Manuscript)는\n\n세계에서 가장 유명한 미해독 문서 중 하나야.\n\n![Image](https://images.openai.com/static-rsc-4/CBmnG7sUb99zF_l1Glj0ByOX0kHMajzUYnD3oE2Xh0ICcX7YvROiDWLzuQcT2y7_NRcBxl6ivy14Ngjxo86s2t-TZ93fBWysUKmTsGzg1zb7BWfFo6R8y7a4SpQI60jqH_M-3JHNjWBY3pAP7ePtWGKjvHW0CZhup8OkYWcxogjaWmXQIJd1opRwIMKkIgVi?purpose=fullsize)\n\n![Image](https://images.openai.com/static-rsc-4/Suup14JKc6U05RIzjNGRZFwuJ1B5Gpd0FZPqEtRVuyx4Izct_A-ZB23-1onO1zmI9UleuCMspEYE4UyILVQHwbywGqC5M9N_r5MPYvXkJDba4gPt_0Mr1AuySgwNVIK58ZDsQPfsGsJIYadGSmRKx_t88to5u8xR-D01QoYD_nkThEUv8TSxwqt0Ng-j_yNm?purpose=fullsize)\n\n![Image](https://images.openai.com/static-rsc-4/wPTFmosRZo8AGZvCXvgn_yioogUw-4bWu7ywR3xd2kTyfu8pFAMheUHwkJHLKmHv8nvq7WrpfZBDz2xGbFSgeId2tbmipojwzQQKyaVhHkDy_40MOzWtU4Tp3_wdDj2kr2Wbar5dvvnEoVucpL5L25NNSRu8SSX69r8n7aAs5AEhOKuMQcMDHnUFdhKnHDbX?purpose=fullsize)\n\n![Image](https://images.openai.com/static-rsc-4/_FeGfk-Sul5VHe7FoyrCyd1Sco4w3TNV-FH0ww83ph676MKxBTkrZtmwTsFmiG5eiXXUvUKiogsp-8VLYE4FWx4zVCoSTI1FHCfGtGU3CvzInG8A_IgXdduhKZk2mufIPJ2idlbQsMZLvyemdn-ZKEv_A4UMijZRtiZfvZZKyGP8Pr2Pdb1HJQ_IC1Ud7nzT?purpose=fullsize)\n\n![Image](https://images.openai.com/static-rsc-4/n2bnPmyNDwd80GdU8tbOcLz-VnFKA2RynztzMJByWsHiTrXyU3TrLm_w1qhpM4F7nryXxSl_AMdvfQ1pny5OwFn0GPIQhm9ly75ZLSycc_qwE3km_sJIrQ7YuHUO0whJfFdsoZvW-rkT-cZ_sOOYx3RSA3vllZ8NO8_E7GgDKlUjbLLqygqvdPmbA86fNdg0?purpose=fullsize)\n\n![Image](https://images.openai.com/static-rsc-4/77jIgVI9G0jhG9kK-uXvL60u43_jqP1XViKIC2d-mvNh4iDWU4YbM4uXkJgUds3ktROo2zJayGj_5YVTCus4NHl1eDiKPwUuAhRpDLyU1WuwY0ozVBDv6DsFfsRLbXNQQk83gKVdaH_SNute55tW64zqLmGBsbxDwVrRbx-cxlDTV3bn_YATsOWWydoShcWb?purpose=fullsize)\n\n정식 명칭은 Voynich Manuscript.\n\n---\n\n### 왜 유명할까?\n\n책 안에 글이 가득 적혀 있는데\n\n**아무도 읽지 못한다.**\n\n---\n\n문제는 단순한 암호문도 아니라는 점이야.\n\n* 단어가 반복됨\n* 문장 구조가 있음\n* 문법처럼 보이는 패턴 존재\n* 페이지마다 주제가 다른 것처럼 보임\n\n그런데도\n\n어떤 언어인지 모름.\n\n---\n\n### 얼마나 오래된 책인가?\n\n방사성탄소 연대측정 결과\n\n양피지는 대략\n\n**1404~1438년경** 제작된 것으로 분석됐어.\n\n즉 약 600년 전 책.\n\n---\n\n### 책 안에는 뭐가 있나?\n\n#### 1. 이상한 식물\n\n실존 식물과 비슷하지만\n\n정확히 일치하는 식물이 거의 없음.\n\n---\n\n#### 2. 천문도\n\n별자리처럼 보이는 그림\n\n원형 도표\n\n우주 지도 같은 그림\n\n---\n\n#### 3. 목욕하는 여성들\n\n이상한 관 속에서\n\n여성들이 목욕하는 듯한 그림\n\n---\n\n#### 4. 약초와 조제법\n\n중세 의학서 같은 페이지들\n\n---\n\n### 지금까지 나온 대표 가설\n\n#### 가설 1\n\n실제 언어\n\n아직 발견되지 않은 언어일 수 있다.\n\n---\n\n#### 가설 2\n\n암호문\n\n누군가 비밀 지식을 숨기기 위해 암호화했다.\n\n---\n\n#### 가설 3\n\n연금술 매뉴얼\n\n중세 연금술사의 비밀 노트.\n\n---\n\n#### 가설 4\n\n의학서\n\n약초학과 치료법 기록.\n\n---\n\n#### 가설 5\n\n정교한 사기\n\n애초에 의미 없는 글자를 만들어\n\n부자를 속였다는 주장.\n\n---\n\n### 왜 아직도 못 읽을까?\n\n재미있는 점은\n\n컴퓨터도 실패했고\n\n언어학자도 실패했고\n\n암호학자도 실패했다는 거야.\n\n---\n\n심지어 제2차 세계대전 당시 암호를 해독했던 전문가들도 도전했지만\n\n성공하지 못했어.\n\n---\n\n### 네 채널 스타일로 보면\n\n보이니치 문서의 진짜 미스터리는\n\n> \"무슨 내용일까?\"\n\n가 아니야.\n\n오히려\n\n> **\"왜 누군가는 600년 전 이런 책을 만들었을까?\"**\n\n에 가까워.\n\n왜냐하면 만약 단순 장난이었다면\n\n수백 페이지를 채울 이유가 없거든.\n\n---\n\n그리고 여기서 가장 흥미로운 질문이 나와.\n\n만약 AI가 내일 보이니치 문서를 해독한다면,\n\n사람들은 외계인이나 예언을 기대할 거야.\n\n그런데 실제로는\n\n> \"이 약초를 끓여 마셔라\"\n\n같은 평범한 문장일 수도 있어.\n\n반대로\n\n> \"그 병은 물을 통해 전파된다\"\n\n같은 당시에는 알 수 없던 지식이 나온다면?\n\n그 순간 보이니치 문서는\n\n미스터리 책이 아니라\n\n**잃어버린 지식의 증거**가 될 수도 있지.\n\n그래서 이 소재가 네 채널 스타일에 잘 맞는 거야.\n\n\"해독 여부\"보다\n\n**\"해독되면 우리의 역사관이 바뀔 수 있는가?\"**\n\n라는 질문으로 확장할 수 있으니까.",
+    "production_error": "Invalid JSON when parsing {\n  \"character_comment\": \"강한 물리 증거(양피 연대·멀티스펙트럴·원본 이미지) 비중을 높이고, AI 재구성은 장면7처럼 원본 스캔 위의 '단어 후보 오버레이' 등 보완적 역할로만 사용. 계획 비율: 실제 자료 67% / AI·모션그래픽 33%.\",\n  \"target_real_media_percent\": 65,\n  \"planned_real_media_percent\": 67,\n  \"scene_assets\": [\n    {\n      \"scene_number\": 1,\n      \"asset_mode\": \"official_media\",\n      \"source_page_url\": \"https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript\",\n      \"license_status\": \"official_reuse_allowed\",\n      \"usage_instruction\": \"Beinecke 고해상도 전개 이미지 중앙 크롭(9:16). 어두운 다큐톤, 천천히 1.5–3s 정지. 좌하단 진위 라벨 '확인된 기록' 표시. 출처 상세 URL은 설명란에.\",\n      \"crop_and_motion\": \"세로 원본 중앙 배치, 가벼운 단방향 패닝 금지(정지 우선). 짧은 크롭·클로즈업으로 2–3초 컷 유지.\",\n      \"on_screen_source_label\": \"기록에 남은 이야기\",\n      \"fallback_ai_prompt\": \"High-contrast vertical documentary still of an aged vellum folio with visible lines and marginalia, cinematic dark background, realistic parchment texture, no invented text.\"\n    },\n    {\n      \"scene_number\": 2,\n      \"asset_mode\": \"official_media\",\n      \"source_page_url\": \"https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript\",\n      \"license_status\": \"official_reuse_allowed\",\n      \"usage_instruction\": \"Beinecke 식물 삽화 folio 클로즈업(9:16). 잉크·안료 결 강조, 좌하단 배지 '확인된 기록'. 2–3s 유지.\",\n      \"crop_and_motion\": \"단일 식물 일러스트 센터 크롭, 아주 느린(0.5px/s) 한방향 이동만 허용.\",\n      \"on_screen_source_label\": \"기록에 남은 이야기\",\n      \"fallback_ai_prompt\": \"Detailed vertical crop of a medieval herbal illustration on vellum showing plant forms and ink strokes, photorealistic parchment texture, cinematic low-key lighting.\"\n    },\n    {\n      \"scene_number\": 3,\n      \"asset_mode\": \"licensed_real_media\",\n      \"source_page_url\": \"https://www.eurekalert.org/news-releases/624074\",\n      \"license_status\": \"unknown\",\n      \"usage_instruction\": \"연대측정 그래픽 클로즈업(숫자 '1404–1438' 강조). 좌하단 배지 '확인된 기록'. 원출처 표기(짧게).\",\n      \"crop_and_motion\": \"리포트 페이지 중앙 정렬, 숫자 강조용 줌 인(0.5s) 후 정지.\",\n      \"on_screen_source_label\": \"확인된 기록\",\n      \"fallback_ai_prompt\": \"Document-style vertical graphic showing a clear bold date range '1404–1438' on aged paper background, dark documentary tone, legible numerals.\"\n    },\n    {\n      \"scene_number\": 4,\n      \"asset_mode\": \"licensed_real_media\",\n      \"source_page_url\": \"https://arstechnica.com/science/2024/09/new-multispectral-analysis-of-voynich-manuscript-reveals-hidden-details/\",\n      \"license_status\": \"unknown\",\n      \"usage_instruction\": \"멀티스펙트럴 스캔 복합 이미지 사용(잉크 분포·덧쓰기 강조). 좌하단 배지 '확인된 기록'. 기술적 캡션 병기.\",\n      \"crop_and_motion\": \"고대비 스캔 중앙 배치, 부분 강조를 위한 짧은 디졸브(0.2s) 허용.\",\n      \"on_screen_source_label\": \"확인된 기록\",\n      \"fallback_ai_prompt\": \"High-contrast multispectral composite revealing ink distribution and faint undertext on vellum, cinematic documentary color grading.\"\n    },\n    {\n      \"scene_number\": 5,\n      \"asset_mode\": \"official_media\",\n      \"source_page_url\": \"https://arxiv.org/abs/2604.19762\",\n      \"license_status\": \"unknown\",\n      \"usage_instruction\": \"arXiv 예비논문 스타일 도표의 핵심 지점(토큰 경계 시각화) 단일 컷 사용. 좌하단 배지 '현재 가설'. 출처 짧게 표기.\",\n      \"crop_and_motion\": \"9:16 도표 중앙 크롭, 정지(약 3s), 필요시 도형 강조용 하이라이트 애니메이션(0.3s)만 허용.\",\n      \"on_screen_source_label\": \"현재 가설\",\n      \"fallback_ai_prompt\": \"Clean infographic-style vertical chart showing token position constraints and directional patterns, minimalistic dark documentary style.\"\n    },\n    {\n      \"scene_number\": 6,\n      \"asset_mode\": \"official_media\",\n      \"source_page_url\": \"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0260948\",\n      \"license_status\": \"cc_by\",\n      \"usage_instruction\": \"PLOS ONE 기반 토픽-삽화 매칭 인포그래픽 사용. 좌하단 배지 '현재 가설'. CC BY 표기(설명란에 상세 URL).\",\n      \"crop_and_motion\": \"단순화된 매칭 그래픽 중앙 배치, 정지(약 3s). 색 대비로 약초·천문 구역 구분.\",\n      \"on_screen_source_label\": \"현재 가설\",\n      \"fallback_ai_prompt\": \"Simplified vertical infographic linking text blocks to illustration themes (herbal vs astronomical), clear labels, dark documentary tone.\"\n    },\n    {\n      \"scene_number\": 7,\n      \"asset_mode\": \"ai_reconstruction\",\n      \"source_page_url\": \"\",\n      \"license_status\": \"ai_reconstruction\",\n      \"usage_instruction\": \"원본 스캔 이미지를 배경으로 AI가 제시한 단어 후보를 반투명 오버레이로 표시. 좌하단 배지 반드시 'AI 재구성' 및 '현재 가설' 병기(정확한 두 배지 중 'AI 재구성' 우선). 출처 라벨로 원본 스캔 출처 표기.\",\n      \"crop_and_motion\": \"원본 스캔을 어둡게 처리한 배경 위에 반투명 토큰 오버레이(정확한 라인 위치에 매칭), 짧은 페이드(0.2–0.5s) 및 2–3s 정지. 화면에 'AI 재구성' 명확 표시 필수.\",\n      \"on_screen_source_label\": \"AI 재구성\",\n      \"fallback_ai_prompt\": \"Overlay a translucent highlighted token at a specific line on a darkened Voynich folio background, label the overlay in Korean as a hypothesized word candidate, photorealistic blend, include small badge text 'AI 재구성' and '현재 가설' at lower-left.\"\n    },\n    {\n      \"scene_number\": 8,\n      \"asset_mode\": \"motion_graphics\",\n      \"source_page_url\": \"\",\n      \"license_status\": \"motion_graphics\",\n      \"usage_instruction\": \"검정 배경에 굵은 흰 글씨 질문형 텍스트(한 줄). 좌하단 작은 배지 '진위 불명' 또는 '현재 가설' 대신 본안에 '진위 불명' 표기(설정과 일치).\",\n      \"crop_and_motion\": \"완전 정지 검정 배경, 텍스트 페이드 인(0.2s), 정지 3–6s. 핵심 단어 하나만 빨간색 강조.\",\n      \"on_screen_source_label\": \"진위 미확인\",\n      \"fallback_ai_prompt\": \"Dark cinematic vertical frame with bold white Korean question text centered, one highlighted red word, minimalistic style.\"\n    },\n    {\n      \"scene_number\": 9,\n      \"asset_mode\": \"motion_graphics\",\n      \"source_page_url\": \"\",\n      \"license_status\": \"motion_graphics\",\n      \"usage_instruction\": \"엔드카드: 마지막 질문 텍스트와 댓글 유도. 좌하단 배지 '재현성 필요'는 허용된 짧은 라벨 대신 '진위 미확인' 사용(스튜디오 규칙과 일치). 출처 줄임표로 Beinecke 등 표기(작은 글씨).\",\n      \"crop_and_motion\": \" for TypeAdapter(MixedMediaPlan); 1 validation error for MixedMediaPlan\n  Invalid JSON: EOF while parsing a string at line 92 column 26 [type=json_invalid, input_value='{\\n  \"character_comment\"...   \"crop_and_motion\": \"', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid",
+    "video_error": "Error code: 400 - {'error': {'message': 'Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID req_ecd204b5c0104e6f989ce1b7fb68c34e. safety_violations=[sexual].', 'type': 'image_generation_user_error', 'param': None, 'code': 'moderation_blocked', 'moderation_details': {'moderation_stage': 'output', 'categories': ['sexual']}}}"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "오늘 흐름은 '오래된 미스터리 + 최신 기술'이다. 세 후보는 모두 실제 기록·지형·유물이라는 검증 가능한 출발점이 있으며, 각 경우에서 '만약 새 해석이 맞다면 문명·지식·권력에 어떤 파장이 생기는가?'를 중심으로 확장한다. 시각적 증거(문서 확대·위성 이미지·기어 클로즈업)를 중심에 두어 쇼츠에 바로 사용할 수 있고, 검증 절차와 반론을 함께 제시해 신뢰도를 유지했다.",
+    "candidates": [
+      {
+        "title": "보이니치 문서: '암호'가 아니라 특정 지역의 생태·약초교본이라면 유럽 지식사의 무엇이 뒤집히나?",
+        "category": "역사 미스터리",
+        "one_line_hook": "600년 된 미지의 책—해독이 아니라 '정체 식물 실체'가 드러나면 누구의 지식이 숨겨지는가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "보이니치 문서(15~16세기 추정)는 알려진 문자로 해독되지 않는 필사본이다.",
+          "문서에는 식물 그림·천문도·조리법 비슷한 단락들이 포함되어 있다.",
+          "2024~2026년 AI·통계·언어학 재분석이 잇따라 발표되며 논쟁이 재점화됐다."
+        ],
+        "verification_points": [
+          "AI·통계 모델이 특정 현대·고전 언어(또는 방언)와의 빈도·연결 패턴 일치를 얼마나 재현하는가?",
+          "문서 속 식물 그림의 세부(잎·꽃·열매)가 특정 지중해·아시아·중미 식물과 일치하는가? (식물학적 분류·DNA 잔존물 분석 가능성)",
+          "잉크·종이·펜질의 물질분석(방사성 탄소·미세 유기성분) 연대·기원 매칭 결과",
+          "문서 필체와 유사한 다른 필사본 또는 도서관 기록의 존재 여부"
+        ],
+        "fact_hypothesis_distinction": "사실: 문서는 존재하고 그림·문자가 실재한다. 가설: 문자가 '암호'인지, 잃어버린 언어인지, 또는 속임수(의도적 무의미)인지. 이 후보는 '문서의 식물 도판들이 특정 실제 식물의 변종/조합을 정확히 가리킨다'는 가설을 출발점으로 삼아—그 가설이 맞다면 누가 어떤 목적(지식 독점·치료 비법 은닉·종교적 암시)을 위해 만들었는지를 묻는다.",
+        "visualization_ideas": [
+          "문서 한 페이지 전체 → 식물 클로즈업(잎·열매) · 오른쪽에 동일 각도 사진으로 복원 가능성 비교",
+          "AI 패턴매칭 화면: 문자의 반복 패턴과 후보 언어의 유사도 그래프(간단한 바 그래프)",
+          "방사성탄소·잉크 분석 실험 결과 요약(작은 라벨: 연대범위)",
+          "가능한 시나리오 3종(암호, 지역 교본, 정교한 위조)을 아이콘과 한 문장으로 빠르게 나열"
+        ],
+        "comment_question": "이 식물들이 실제로 특정 섬·무역항의 약초라면—누가 그 지식을 '숨겼는가'?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 10,
+          "visualization": 19,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 75,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "나스카의 숨은 도형: 위성·AI가 찾아낸 '밤하늘 상응 도형'이 맞다면 종교·항법 해석은 어떻게 재작성되어야 하나?",
+        "category": "역사 미스터리",
+        "one_line_hook": "위성 해상도로 새로 드러난 선 하나—밤하늘 별자리와 정렬된다면 나스카는 '지도'였을까 '의례'였을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "페루 나스카 평원에는 대형 지상화(선·도형)가 존재한다(기원전후 수세기 경 추정).",
+          "최근 AI 기반 위성 이미지 분석으로 기존보다 더 많은 선·도형이 보고되고 있다.",
+          "도형의 목적(천문 정렬·의례·경계 표지 등)에 대한 기존 학설이 다양하게 공존한다."
+        ],
+        "verification_points": [
+          "발견된 도형의 좌표·방향이 특정 천체(여름·겨울 별자리·은하대)와 통계적으로 유의미하게 정렬되는가?",
+          "지형의 연대(층서학·광물학적 표지)와 인간 활동 시기(탄소연대) 일치 여부",
+          "현지 전승·고고학적 맥락(무덤·경작지·유물)과의 연결 고리 존재 여부",
+          "AI 탐지의 오류 가능성(자연적 균열·농업 흔적 오탐) 검증"
+        ],
+        "fact_hypothesis_distinction": "사실: 위성·항공 자료는 존재하고 새 선들이 보고되었다는 주장도 실재한다. 가설: 새로 발견된 도형들이 의도적으로 천문(밤하늘)과 정렬되어 제작되었다는 가설을 중심으로—만약 이것이 사실이라면 나스카 문화의 목적·지식 체계(천문 관측·의례적 시간표)가 훨씬 조직적이었다는 결론으로 이어진다.",
+        "visualization_ideas": [
+          "원본 위성 이미지(블러된 배경) 위에 선명한 새 도형 중앙 배치",
+          "도형과 동시간대(가령 기원전 시대)의 밤하늘 시뮬레이션을 반투명 중첩으로 보여줌",
+          "AI 탐지 전후 비교: 원본·검출 마스크(초록)·오차 영역(빨강)",
+          "짧은 결론 패널: '의례용' vs '지도용' 가능성 간단 체크리스트"
+        ],
+        "comment_question": "이 도형들이 실제로 별자리와 정렬된다면—나스카 사람들의 '우주 인식'은 얼마나 조직적이었을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 16,
+          "comment_potential": 7
+        },
+        "total_score": 68,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "안티키테라 기계: '한두 명의 천재'가 아니라 대규모 제작·유통망의 산물이라면 고대 기술 전파 경로는 어떻게 바뀌나?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "고대의 기계—만약 여러 공방이 같은 설계를 찍어냈다면 문명 간 기술 공유의 지도가 바뀐다.",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "안티키테라 기계는 고대 그리스 시기(기원전 2세기경 추정)의 복잡한 기어장치로, 천문 계산에 쓰였을 가능성이 제기된다.",
+          "고해상도 CT와 3D 재구성으로 기어 배치·표기들이 점점 더 상세히 복원되고 있다.",
+          "기존 논의는 주로 '한 번의 발명' 또는 '특정 제작자' 가설에 집중돼 왔다."
+        ],
+        "verification_points": [
+          "기계 내부 부품(기어 이빨·합금 조성)의 제조 공정 흔적이 한 장소의 고유 공예법과 일치하는가?",
+          "동일 계열의 기계 잔존물 또는 유사 기어가 지중해 연안 다른 유적에서 발견되는가?",
+          "금속 합금·열처리 방식 비교로 제작지·기술전파 방향 추정 가능성",
+          "당시의 해상무역·공예 네트워크 문헌·도자기·화물 목록과의 연계성"
+        ],
+        "fact_hypothesis_distinction": "사실: 기계는 존재하고 복잡한 기어구조가 확인되었다. 가설: 이것이 단일 천재의 프로토타입인지, 아니면 여러 공방에서 생산된 '상업적·교육적' 산물인지를 구분한다. 본 후보는 '여러 제작자·유통망' 가설을 검증 출발점으로 삼아—사실이라면 고대 기술 보급·산업 분업·지식전수가 현대사관보다 훨씬 촘촘했음을 제기한다.",
+        "visualization_ideas": [
+          "기계 내부 기어 클로즈업(회전 모션 재구성) → 동일 기어 패턴을 가진 가설적 다른 유물의 실루엣 나열",
+          "CT 스캔 컷어웨이 애니메이션(5~7초)으로 작동 원리 간단 표시",
+          "제작 시나리오 2개(천재 발명 vs 워크숍 생산) 비교 아이콘과 짧은 근거 문구",
+          "검증 포인트 체크리스트(합금 분석·분포·문헌 증거)와 남은 미해결 항목"
+        ],
+        "comment_question": "이 기계가 '대량 생산'의 흔적을 보인다면—고대 지중해의 기술적 격차를 우리는 어떻게 다시 그려야 할까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 10,
+          "visualization": 19,
+          "sixty_second_fit": 19,
+          "comment_potential": 10
+        },
+        "total_score": 77,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-143241-347269",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "",
+    "discovery_mode": "automatic_schedule",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 39
+    },
+    "trend_report": "outputs\\knowledge\\20260620-143241-347269\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "오늘 흐름에 맞춰 ‘구체적 물증(문서·지형·유물) + 최신 기술(AI·동위원소·드론)’ 조합으로 호기심을 즉시 유발하는 세 후보를 골랐습니다. 각 후보는 출발점이 명확하고(검증 가능한 기록·연구), 한 문장이 사실이라면 문명·지식 전파·해석 방법에 실질적 파장을 남길 수 있도록 질문을 설계했습니다. 시청자가 바로 ‘그 다음’으로 상상하게 만들기 쉬운 주제들입니다.",
+    "candidates": [
+      {
+        "title": "보이니치 문서와 'AI 유사문서' 실험 — 기계가 만들어낸 가짜가 원본 해독을 왜곡한다면?",
+        "category": "우주 미스터리",
+        "one_line_hook": "최신 AI가 보이니치와 닮은 '가짜 장문'을 대량 생산해 실제 통계·해독 연구에 섞였다면, 우리가 내린 모든 해석은 얼마나 신뢰할 수 있나?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "보이니치 문서는 15세기 경 제작된 것으로 추정되며 지금까지 언어·암호 여부가 논쟁 중이다.",
+          "2024–2026년 사이 통계·머신러닝을 이용한 새로운 분석들이 다수 발표되어 '자연언어 vs 인공문자' 논쟁을 재점화했다.",
+          "최근 연구와 실험에서 대형 언어모델(LLM)이 특정 패턴을 모방해 '유사 암호문'을 만들어 연구 데이터와 혼동될 가능성이 제기되고 있다."
+        ],
+        "verification_points": [
+          "보이니치 문서의 물리적 연대측정(잉크·양피 연대)는 무엇을 말하는가? — 기존 탄소연대 측정 결과 확인 필요.",
+          "2024–2026년 발표된 AI 기반 유사문서 생성 실험(논문·프리프린트) 목록과 원자료 파일 확보.",
+          "문자 빈도·공백·문맥 패턴을 이용한 재현성 있는 통계 분석으로 원본과 AI산물을 구분할 수 있는가?",
+          "보이니치 관련 주요 데이터셋(이미지·전사본)이 공개된 경로와 그 이후의 변조 가능성(버전 이력) 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 보이니치 문서는 실존하는 미해독 문서이며 AI·통계 연구가 최근 활발히 이루어졌다는 점. 가설: AI가 만들어낸 유사문서가 실제 해독·통계 연구에 '혼입'되어 해석을 오도하고 있다는 주장(검증 필요).",
+        "visualization_ideas": [
+          "문서 원본 확대(페이지 전경) → AI가 생성한 유사행 예시(같은 글자 패턴을 인위적으로 재현한 텍스트 이미지) 병렬 비교",
+          "문자 빈도 히트맵 애니메이션(원본 vs AI 산출물) — 차이점 강조",
+          "데이터 계보도: 원본 이미지 → 공개 전사본 → 연구 데이터셋 → AI 학습 데이터로 사용되는 경로를 흐름도로 표시"
+        ],
+        "comment_question": "만약 지금까지의 통계·해독 결과 일부가 'AI 생성 유사문서' 때문이라면, 먼저 무엇을 다시 측정해야 할까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 20,
+          "comment_potential": 9
+        },
+        "total_score": 76,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "나스카의 '작은 표지들' — 드론+AI가 읽어낸 수백 기호가 고대 항로·자원 지도를 바꾼다면?",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "위성·드론 AI가 사막에서 300여 개의 이전 미발견 지형을 찾아냈다고 할 때, 그 패턴이 '의례'가 아니라 고대 교통·자원 표지라면 우리의 해석은 어떻게 달라지나?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2024–2025년에 드론·위성 이미지 분석과 AI를 결합해 나스카 주변에서 다수의 새로운 지형(geoglyphs) 가능성을 보고한 연구 및 보도가 있었다.",
+          "고대 지형은 종종 한 지역의 종교·사회·경제 활동과 연관되어 해석된다.",
+          "지상지형 패턴은 규모·방향·군집성을 통해 의례·항로·지리 표지 등 여러 기능을 제시할 수 있다."
+        ],
+        "verification_points": [
+          "새로 보고된 지형들의 정확한 좌표·원시 이미지와 발견 방법(드론, 위성, AI 알고리즘)을 확보.",
+          "현장 조사나 지층 분석 없이 단지 이미지 기반 판정만으로 '미발견'을 확정할 수 있는가(오탐지율 분석).",
+          "발견된 기호들이 지역의 수원·광물·고대 길과 통계적으로 유의한 상관관계를 보이는지 검증.",
+          "지역 원주민 전승·고고학적 발굴(도자기·경로 유물) 자료와의 연계 가능성 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 드론·위성+AI 기법으로 나스카 주변에서 새 지형 후보가 다수 보고되었다는 점. 가설: 이 지형들이 '종교적 미학'이 아니라 고대의 항로·자원 표지라는 해석(현장검증 필요).",
+        "visualization_ideas": [
+          "위성 사진 위에 새로 식별된 도형들을 빨간 테두리로 표시한 빠른 플라이오버(줌아웃→줌인)",
+          "지도 위에 도형과 고대 길·수원 위치를 겹쳐 보여주는 레이어 비교",
+          "현장 드론 영상 짧은 컷과 AI 탐지 히트맵, 마지막에 '가능한 해석 3가지' 자막"
+        ],
+        "comment_question": "이 도형들이 단순 의례물이 아니라 항로·자원 표지라면, 누가 그 정보를 만들고 누가 이용했을까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 19,
+          "sixty_second_fit": 20,
+          "comment_potential": 9
+        },
+        "total_score": 75,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "안티키테라 기계의 부품 출처를 추적하자 — 동위원소·미세가공 흔적이 '외부 조립망'을 가리킨다면?",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "만약 안티키테라 기계의 톱니·합금·표식에서 '제작지가 혼재'된 물리 증거가 나온다면, 고대 기술은 '한 지역의 천재' 산물이 아닌 광범위한 생산·유통망의 결과일 수 있다.",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "안티키테라 기계는 기원전(혹은 고대) 복잡 기계장치로 해석되는 금속 유물이다.",
+          "최근(2024–2026) 여러 연구들이 미세해석·CT 스캔·동위원소 분석으로 부품의 제작·수리 흔적을 재조명했다.",
+          "금속 합금 구성·가공 흔적·나사·톱니 설계의 미세 차이는 서로 다른 제조 관행·지역을 시사할 수 있다."
+        ],
+        "verification_points": [
+          "안티키테라 기계에서 분리된 부품별 합금 성분·납·동위원소(납성분 포함) 데이터 확보 여부 확인.",
+          "CT 스캔·미세가공(도금·연마) 패턴 비교로 동일 작업장이 만들었는지 증거 수립 가능성.",
+          "동시대 다른 금속 유물(지중에서 나오거나 전시된)과의 재료·제작법 비교로 지역 연계성 확인.",
+          "유통·수리의 가능성을 입증할 고고학적·문헌적 기록(항로·공방 교역 문서) 탐색."
+        ],
+        "fact_hypothesis_distinction": "사실: 안티키테라 기계는 고대의 복잡 금속장치이며, 최근의 물리·재료 분석이 일부 업데이트를 가져왔다. 가설: 부품 별로 제작기법·재료가 혼재되어 '광역 제작·유통망'을 가리킨다는 해석(추가 데이터로 검증해야 함).",
+        "visualization_ideas": [
+          "기계 단면 CT 스캔 영상 → 각 부품에 색을 입혀 서로 다른 합금·흔적을 표시",
+          "유럽·지중해 고대 지도 위에 잠재적 제작지 후보(항구·공방)를 점으로 표시한 애니메이션",
+          "현대의 조립 라인 사진(참조)과 고대 부품 사진을 빠르게 교차해 '분업' 개념을 시각화"
+        ],
+        "comment_question": "안티키테라가 단일 천재의 창작물이 아니라 네트워크 생산물이라면, 고대 기술 전파와 경제는 어떻게 달라집니까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 10,
+          "visualization": 17,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 72,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-143424-861230",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "",
+    "discovery_mode": "automatic_schedule",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 42
+    },
+    "trend_report": "outputs\\knowledge\\20260620-143424-861230\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "역사 미스터리",
+    "character_comment": "세 후보는 모두 ‘검증 가능한 현실 한 점’에서 출발해, 그 사실이 진실일 때 문명·정체성·역사 인과관계에 어떤 파급을 만드는지를 즉시 묻습니다. 첫 후보는 실제 망원경·중력렌즈 데이터(학술·관측 기록)를 기반으로 ‘작은 웜홀’ 서명을 추적하는 과학적 미스터리로 확장합니다. 둘째는 대중목격(소셜 영상·CCTV)로 시작해 관측·메타데이터 분석을 통해 ‘현대의 전승·기록’으로 남을 가능성을 탐색합니다. 셋째는 ER=EPR·양자웜홀 이론이라는 실제 연구 흐름에서 출발해, 만약 작동한다면 역사(과거 정보 유입)의 의미를 재정의할 수 있다는 드라마틱한 가상 시나리오를 제시합니다. 세 후보 모두 한국 시청자가 이해하기 쉬운 시각자료(망원경 사진, CCTV 캡처, 문서 타임라인)를 중심으로 즉시 화면 후킹이 가능하도록 설계했습니다.",
+    "candidates": [
+      {
+        "title": "망원경이 남긴 '이상 렌즈'—작은 웜홀의 중력렌즈 신호가 관측되었다면?",
+        "category": "우주 미스터리",
+        "one_line_hook": "관측팀은 별빛이 왜곡된 '작은 렌즈 패턴'을 발견했다—이것이 블랙홀이 아니라 웜홀의 흔적이라면 인류는 무엇을 잃고 무엇을 얻는가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "최근(2024~2026) 학계에 통과형/부분적 웜홀 모델과 그 관측 시그니처를 제안한 논문들이 다수 제출되었다.",
+          "광학·적외선 망원경 관측에서 비정상적 렌징 패턴(비대칭·에코·비표준 포인트소스 확장)이 보고된 사례가 과거에도 존재한다.",
+          "대형 서베이(예: Pan-STARRS, HSC, ZTF, LSST계열 자료)는 희미한 이상 신호를 잡을 가능성이 높다."
+        ],
+        "verification_points": [
+          "원본 관측 데이터(이미지, 스펙트럼, 관측 메타데이터) 확인 — 관측 시간, 망원경, 필터, 노출 정보.",
+          "빛 곡선(light curve)·스펙트럼에서 시간 지연(에코) 또는 비표준 색편이 존재하는지 검증.",
+          "다중 파장(라디오, X선 등) 교차검증 — 블랙홀·성단 렌즈 모델과의 적합도 비교.",
+          "연구자·관측팀의 사전 제출·리뷰(프리프린트·저널)와 독립 팀의 재검증 시도."
+        ],
+        "fact_hypothesis_distinction": "사실: 망원경이 비정상적인 렌징 패턴을 관측했다(이미지·메타데이터 존재). 가설: 그 패턴이 전통적 블랙홀·은하렌즈로 설명되지 않고, 웜홀(통과형 중력구조)의 서명일 가능성이 있다. 현재는 관측 기록(사실)이 있고, 그 해석(웜홀 여부)은 가설 단계임.",
+        "visualization_ideas": [
+          "원본 망원경 사진(어두운 배경에 중심 렌즈 현상 확대) → 같은 사진에 블랙홀 모델 시뮬레이션 오버레이 → 웜홀 시뮬레이션 오버레이로 빠르게 교차 비교.",
+          "빛 곡선 그래프와 시간지연(에코) 부분을 빨간색으로 강조한 애니메이션.",
+          "관측 메타데이터(관측 날짜·망원경·노출)와 저널·arXiv 논문 제목을 화면 좌하 라벨로 표시.",
+          "단일 프레임에서 '가능한 설명들'을 목록으로 띄우고 각 항목에 간단 등급(확인된 설명/현재 학설/진위 불명)을 부착."
+        ],
+        "comment_question": "만약 이 신호가 진짜 웜홀이라면, 가장 먼저 통제가 필요할 영역은 '과학적 검증'일까, 아니면 '국가·군사적 통제'일까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "도시 CCTV와 틱톡의 '빛의 구멍'—현대의 포탈 목격담은 무엇으로 설명되는가?",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "수많은 짧은 영상이 동일한 '원형·구멍 같은 빛'을 보여준다—대기·광학·센서오류로 완전히 설명될까, 아니면 일부는 아직 풀이되지 않는 현상일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2024~2026년 동안 TikTok·Instagram 등에서 밤하늘·도시영상에 찍힌 '포탈'형 영상들이 반복적으로 확산되었다.",
+          "많은 영상은 제작·편집물로 판명되었지만, 원본 메타데이터·CCTV 원본이 공개된 사례는 여전히 존재한다.",
+          "광학·대기물리학(빛의 산란, 렌즈 고스트), 센서·압축아티팩트는 짧은 영상에서 '구멍'처럼 보이는 현상을 만들 수 있다."
+        ],
+        "verification_points": [
+          "원본 영상(원본 해상도) 확보 — 편집 유무, 프레임 원본, 카메라 모델, 코덱·압축정보 확인.",
+          "메타데이터(EXIF, 타임스탬프, 위치) 검증과 CCTV 관리 시스템 로그 확인.",
+          "동일 시각 다른 카메라(주변 CCTV·보안카메라·천문 관측)의 교차 비교.",
+          "대기·광학 전문가의 실험 재현(인공 광원·유리·창문 반사, 센서 압축 테스트)."
+        ],
+        "fact_hypothesis_distinction": "사실: 짧은 영상들이 존재하고, 일부는 원본 메타데이터가 공개되어 있다. 가설: 영상 속 장면이 자연·광학·센서 현상으로 모두 설명될 수 있는가, 아니면 일부 사례가 현재 물리학으로도 설명되지 않는가. 현재 다수 사례는 설명 가능하지만 '완전한 설명'이 남아있을 여지도 있다.",
+        "visualization_ideas": [
+          "원본 CCTV·틱톡 프레임을 화면 중앙에 크게 배치하고, 옆에 동일 프레임의 분석(히트맵, 엣지 검출) 레이어를 빠르게 전환.",
+          "메타데이터(촬영장비·시간) 오버레이와 함께 동일 시간대 다른 카메라 비교 화면을 분할로 표시.",
+          "실험 재현 장면(유리반사·렌즈 고스트를 재현하는 간단 실험)과 원본을 빠르게 컷 편집으로 비교.",
+          "진위 라벨(목격자 주장/원본 공개/편집 확인)을 좌하 작은 반투명 배지로 항상 표시."
+        ],
+        "comment_question": "원본 CCTV가 공개되어도 '해석'이 남는다면, 우리는 누구의 해석(전문가·목격자·대중)을 더 신뢰해야 할까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 17,
+          "source_traceability": 10,
+          "visualization": 17,
+          "sixty_second_fit": 17,
+          "comment_potential": 9
+        },
+        "total_score": 70,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "과거에서 온 메시지? — ER=EPR·양자웜홀이 '과거 정보'를 흘린다면 역사 기록은 어떻게 변하나",
+        "category": "가상 시나리오",
+        "one_line_hook": "최신 이론이 가리키는 작은 양자웜홀이 과거의 기록 일부에 '정보 에코'를 남겼다면, 우리의 역사 서사는 어떻게 달라질까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "ER=EPR 등 양자중력·정보 이론을 연결하는 연구는 2010년대 이후 활발해졌고, 2020년대에도 관련 프리프린트·모델들이 지속 발표되었다.",
+          "일부 이론 모형에서는 웜홀과 얽힘(엔탱글먼트)을 정보 전달 관점에서 수학적으로 연결한다.",
+          "현재까지 실험적으로 확인된 사례는 없으나, 이론적 논의와 작은 모델(양자회로·시뮬레이션)이 실험적 접근 가능성을 제시한다."
+        ],
+        "verification_points": [
+          "주요 이론 논문·프리프린트(arXiv, PRL, JHEP 등)에서 제안된 '정보 전이' 메커니즘 검토.",
+          "양자시뮬레이터·양자회로 실험(연구실 레벨)에서 관찰 가능한 '웜홀 유사' 신호 재현 여부 확인.",
+          "역사 기록 혹은 고대 문서에서 '설명 불가한 외부 정보' 사례를 엄격한 출처비평으로 재검토 — (증거: 타임스탬프·동떨어진 지식의 동일시 등).",
+          "전문가(이론물리학자·역사학자) 교차검증을 통한 '가능성의 경계' 설정."
+        ],
+        "fact_hypothesis_distinction": "사실: ER=EPR 등 이론적 프레임과 양자웜홀 관련 논문들이 존재한다(이론적 연구). 가설: 이 메커니즘이 역사적 문서·기록에 '과거 정보 유입' 형태로 실재했을 가능성은 현재 가설적·가상적 주장이다. 따라서 이 후보는 학술 사실을 출발점으로 한 가상 시나리오 작업임을 명확히 한다.",
+        "visualization_ideas": [
+          "양자얽힘-웜홀 개념을 단순 애니메이션(두 점이 얽힘 → 휘어진 공간에 연결선으로 표시)으로 설명 후, '만약' 단계에서 고대 문서 타임라인과 겹쳐 보여주기.",
+          "양자회로 실험 스케치(간단한 블록 다이어그램)와 '가상 관측' 시퀀스를 병치하여 과학적 근거와 상상의 경계 표시.",
+          "시나리오 별(가장 가능성 높은/가능성 낮은) 역사적 파급을 인포그래픽으로 정리(정치·종교·기술 영향)."
+        ],
+        "comment_question": "만약 미래 이론이 과거 기록 일부를 설명할 수 있다면, 우리는 '역사'와 '물리학' 중 어느 쪽을 먼저 재해석해야 할까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 19,
+          "comment_potential": 10
+        },
+        "total_score": 75,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-143618-452052",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "한국사람들이 그래도 이해하기쉬운 우주 웜홀과관련된 미스테리한 현상",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 45
+    },
+    "trend_report": "outputs\\knowledge\\20260620-143618-452052\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리",
+    "category": "우주 미스터리",
+    "character_comment": "인공 동면은 '가능성'에서 '결과'로 질문을 확장해야 강하다. 세 후보는 각각 과학적 실험(뇌·생리), 임무·물리(방사선·자원), 그리고 사회·법적 파급(정체성·권리)이라는 서로 다른 축을 취해 한 장면(실험 사진·임무 설계도·공문서)으로 즉시 훅을 걸 수 있게 설계했다. 모두 검증 가능한 연구나 정책 논의에서 출발하며, ‘이게 사실이라면 우리에게 무슨 일이 벌어지나?’라는 문명적 상상이 가능한 주제만 골랐다.",
+    "candidates": [
+      {
+        "title": "우주선 동면에서 깨어난 사람이 '같은 사람'일까? — 기억·정체성 손상 가능성",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "동면에서 깨어난 사람의 기억이 변한다면, 우리는 그를 같은 인간으로 볼 수 있을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "NASA·유럽우주국 등은 동면(torpor/hibernation)·저대사 연구를 장거리 우주비행 대비 기술로 검토하고 있다.",
+          "동물 실험에서 저대사 상태는 신경세포의 대사율과 시냅스 가소성에 영향을 미친다는 데이터가 보고되었다.",
+          "인간 대상 완전 동면은 아직 임상 수준으로 확립되지 않았다 — 그러나 약물·저온·신경조절 조합이 후보로 연구 중이다."
+        ],
+        "verification_points": [
+          "동물(설치류·박쥐·곰 등)에서 관찰된 토퍼/동면 생리·뇌파 변화 논문 확인.",
+          "인간 저체온/저대사(의학적 유도 저체온술) 관련 임상 데이터와 신경인지 후유증 보고서 확인.",
+          "동면 유도 약물·자극(예: 특정 GABA계 약물, 신경전달물질 조절) 임상전(Preclinical) 연구 목록 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 동물에서 토퍼/동면이 관찰되고 우주기관이 관심을 표명한 점. 가설: 인간이 장기간 '인공 동면' 상태에서 깨어났을 때 기억·성격·일관된 정체성(continuous personal identity)이 변할 수 있다는 주장 — 아직 직접 인간 데이터를 통한 검증은 부족하다.",
+        "visualization_ideas": [
+          "실험실에서 토퍼에 들어가는 설치류의 뇌파(EEG) 이미지 → 깨어난 뒤 행동 변화 클립",
+          "인공 동면 유도 장치(캡슐형 우주 수면 포드) 콘셉트 아트 위에 '정체성 테스트' 설문지 스냅샷",
+          "타임라인 자막: '동물 데이터 → 인간 저체온 수술 데이터 → 가설적 시나리오'"
+        ],
+        "comment_question": "깨어난 그/그녀는 '원래 그 사람'이라고 불릴 수 있을까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "동면은 방사선 적응책이 될까? — '잠자는 우주인'이 임무 설계를 어떻게 바꿀까",
+        "category": "우주 미스터리",
+        "one_line_hook": "우주인을 잠들게 하면 방사선과 자원 문제가 해결될까 — 아니면 새로운 재난을 만든다?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "장기 우주임무 설계에서 생명유지비용(공기·물·식량)과 우주방사선이 핵심 제약 요인으로 지목된다.",
+          "모델링 연구는 저대사 상태가 대사율 감소로 소비품 소모를 줄일 가능성을 제시한다.",
+          "동면 상태가 방사선 영향(예: DNA 손상 누적)을 어떻게 바꾸는지는 아직 불확실하다 — 일부 가설은 세포 대사율 저하로 손상 축적이 줄어들 수 있다고 본다."
+        ],
+        "verification_points": [
+          "우주선 내 방사선량 모델링과 동면 상태에서의 세포 손상 가설 비교 논문 확인.",
+          "임무 설계 문서(예: NASA 임무 컨셉)에서 동면을 전제로 한 질량·전력 산정 시뮬레이션 존재 여부 확인.",
+          "동물 실험에서 방사선 + 토퍼 조합 실험 데이터 유무 검토."
+        ],
+        "fact_hypothesis_distinction": "사실: 동면이 에너지·대사 소비를 낮춘다는 근거(동물 데이터)와 우주기관의 관심. 가설: 동면이 우주방사선 피해를 실질적으로 줄여 화성 등 장기 임무의 핵심 제약을 완화할 수 있다는 주장 — 직접적인 실험적 증거는 제한적이다.",
+        "visualization_ideas": [
+          "우주선 단면도 위에 '활동 중'과 '동면 중'의 자원 소모 그래프를 겹쳐 비교.",
+          "우주방사선 트랙(시뮬레이션) 이미지와 세포 수준의 방사선 손상 애니메이션(간단 재구성).",
+          "미래 화성 임무 콘셉트 아트에 동면 포드가 배열된 모습과 '절감 예산' 짧은 자막"
+        ],
+        "comment_question": "동면으로 방사선·비용 문제가 풀리면, 누가 우주여행을 설계하고 누가 책임질까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 17,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 72,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "법정의 공백: '동면 시민'의 권리와 책임 — 50년 잠든 사람의 법적 지위는?",
+        "category": "가상 시나리오",
+        "one_line_hook": "50년 동안 동면에 들어간 시민의 재산·혼인·국적은 누가 결정하나?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "현행법 체계는 장기 부재(실종·사망 선고) 규정을 통해 장기 부재자의 재산·법적 지위를 처리한다.",
+          "인공 동면이 현실화되면 '의식 있는 장기 중단'과 기존의 실종·사망 개념이 충돌할 가능성이 있다.",
+          "이미 의학적 유휴 상태(식물인간 등)를 둘러싼 법적·윤리적 판례가 존재하며, 동면은 이들과 유사하지만 다른 쟁점을 만든다."
+        ],
+        "verification_points": [
+          "국가별(예: 미국·EU) 실종·사망 선고 관련 법규와 판례 검토.",
+          "의료중단·대리의사결정 관련 법(예: 생명윤리법, 의료수탁자 제도)과의 충돌 가능성 분석.",
+          "우주임무 계약서·보험사의 장기 불참 규정 샘플 검토(민간 우주여행 대비)."
+        ],
+        "fact_hypothesis_distinction": "사실: 법적으로 장기 부재·사망 선고 규정이 존재하고 의료적 유휴 상태와 관련된 판례가 있음. 가설: '동면 상태'가 일반적인 부재 규정과 맞물려 새로운 법적 공백(예: 혼인·상속·국적 문제)을 만들 수 있다는 주장 — 각국 법제와 판례에 따라 해석이 달라질 수 있다.",
+        "visualization_ideas": [
+          "공문서(혼인·등기·여권) 스캔 화면 위에 '동면' 스탬프를 겹쳐 보여주기.",
+          "법정 장면 재구성: 검사가 묻는다 '깨어난 이의 권리는 누가 주장하나?' 라는 자막으로 끝맺음.",
+          "타임라인: '동면 전 계약 → 30년간 부재 → 50년 뒤 깨어남' 시나리오 카드"
+        ],
+        "comment_question": "만약 당신의 배우자가 동면에서 깨어나지 않는다면, 그와의 법적 관계는 누가 결정해야 할까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 20,
+          "source_traceability": 10,
+          "visualization": 19,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 76,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-144314-775732",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "동면 우주여행",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 48
+    },
+    "trend_report": "outputs\\knowledge\\20260620-144314-775732\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리 · '기록의 재발견' 흐름에 맞춰 공개 문서·새 자료 중심으로 선정",
+    "category": "역사 미스터리",
+    "character_comment": "오늘 흐름은 ‘공개된 기록이나 새로 나온 시료가 기존 미스터리를 재조명할 때’ 반응이 좋습니다. 실제 영상·문서·시료 한 장면을 중심으로 시청자가 자기 자신을 그 장면에 넣어 상상하도록 구성하세요.",
+    "candidates": [
+      {
+        "title": "미 정부가 공개한 UAP 영상 하나 — 레이더·목격보고와 프레임이 어긋난 그 순간",
+        "category": "역사 미스터리",
+        "one_line_hook": "미 정부 파일에 남은 한 프레임은 레이더·목격 기록과 완벽히 맞지 않는다 — 그 차이가 남긴 질문은 무엇인가?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2026년 5~6월 미국 행정부(국방·정보기관)에서 대량의 UAP(구 UFO) 문서·영상을 공개했다.",
+          "공개 자료에는 고화질 촬영본, 레이더 로그, 현장 목격자 보고서, 분석 메모가 함께 포함된 사건들이 있다.",
+          "한 건의 공개 영상에서 카메라에 찍힌 물체의 위치·속도 계산이 레이더 데이터와 일치하지 않는 구간이 존재한다."
+        ],
+        "verification_points": [
+          "공개된 원본 영상(프레임)과 동일 사건의 레이더 로그 원본 파일 비교.",
+          "목격자 진술 원문(시간표시 포함)과 영상·레이더 타임스탬프 대조.",
+          "해당 사건을 다룬 정부의 분석 메모(분석자, 날짜, 사용한 알고리즘·필터) 확보."
+        ],
+        "fact_hypothesis_distinction": "사실: 정부가 문서·영상을 공개했고, 영상·레이더 간 불일치 구간이 존재한다. 가설: 불일치가 센서 오류·편집·외계 기기·기상 현상 중 어느 것인지 — 현재 자료만으론 결론 불가.",
+        "visualization_ideas": [
+          "문제의 프레임을 크게 중앙 배치하고, 오른쪽에 레이더 궤적(단순 선 그래프) 오버레이로 불일치 강조.",
+          "타임스탬프가 겹치는 두 화면(영상 vs 레이더 로그)을 빠르게 교차 편집하여 시청자에게 ‘같은 시간인데 왜 다르지?’ 질문 유도.",
+          "목격자 리포트의 핵심 문장(예: '상공 20도에서 멈춰있었다')을 화면 아래 자막으로 띄워 사실감 부여."
+        ],
+        "comment_question": "이 프레임의 불일치, 당신은 센서오류일 가능성과 미확인 기술일 가능성 중 어느 쪽이 더 설득력 있다고 보나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 9,
+          "source_traceability": 9,
+          "visualization": 8,
+          "sixty_second_fit": 9,
+          "comment_potential": 9
+        },
+        "total_score": 44,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "보이니치 문서의 한 페이지 — '의미 없음'을 가리키는 패턴 하나",
+        "category": "역사 미스터리",
+        "one_line_hook": "최신 기계학습 연구는 이 문서 일부 패턴이 ‘의미를 가지지 않는 생성’과 닮았다고 말한다 — 그 페이지가 진짜 열쇠일까, 함정일까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "보이니치 문서는 15세기 전후에 작성된 것으로 추정되는 미해독 문서다.",
+          "2025~2026년에 걸쳐 여러 팀이 기계학습 기반의 구조 분석·생성모델 실험을 발표해 '문서가 실제 언어인지, 규칙적이지만 의미 없는 생성물인지' 논쟁이 재점화됐다.",
+          "특정 페이지(식물 도형·일정한 반복 패턴 포함)의 통계적 특징이 자연 언어와 생성모델 출력의 중간에 위치한다는 분석 결과가 보고되었다."
+        ],
+        "verification_points": [
+          "최신 arXiv·논문(2025~2026)에서 해당 분석을 수행한 모델·데이터셋의 재현 여부 확인.",
+          "고해상도 스캔(원본 페이지)의 문자 유닛(토큰) 분할과 통계치 직접 비교.",
+          "역사·필적 전문가의 잉크·종이·필기법 분석 리포트 검토."
+        ],
+        "fact_hypothesis_distinction": "사실: 통계적·기계학습 분석이 발표되어 논쟁을 촉발했다. 가설: 특정 패턴이 '의도적 암호'인지 '무의미 생성'인지 — 이는 추가 물리적(종이·잉크) 증거와 다른 계산모델로 검증해야 함.",
+        "visualization_ideas": [
+          "문서 페이지를 클로즈업으로 보여주고, 같은 화면 위에 통계 그래프(토큰 반복도) 반투명 오버레이.",
+          "오른쪽 상단에 '생성모델 출력'의 유사 페이지를 배치해 비교하는 사이드바 구성.",
+          "핵심 단어 대신 패턴(동일한 기호 반복)을 빨간색으로 강조해 시청자가 ‘보이는 차이’ 곧바로 체감."
+        ],
+        "comment_question": "이 문서가 고의적 암호라면 누가, 왜 의미 없는 패턴을 섞었을까요 — 안전장치일까, 기만일까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 8,
+          "source_traceability": 8,
+          "visualization": 8,
+          "sixty_second_fit": 8,
+          "comment_potential": 9
+        },
+        "total_score": 41,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "빙하 밑에서 드러난 '비정상적 지형' 하나 — 과거 풍경이 남긴 질문",
+        "category": "역사 미스터리",
+        "one_line_hook": "남극 빙하 아래 새로 밝혀진 갑작스런 평탄·테라스 구조는 과거 해수면·기후 기록을 뒤흔들 수 있다 — 그 풍경은 누가 보았을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "2026년 봄~초여름 연구팀이 남극 일부 지역의 빙하 아래 대규모 지형(팬형·테라스 등)과 심층 코어 시료를 발표했다.",
+          "심층 코어에서 발견된 퇴적물층은 기존 이해보다 다른 시기(연대 보정 필요)에 형성되었을 가능성을 시사한다.",
+          "빙하 아래 특정 평탄 지형은 해수면·빙하 후퇴 시점을 재해석할 단서를 제공할 수 있다."
+        ],
+        "verification_points": [
+          "연구팀이 공개한 지구물리학 지도(레이더 프로파일)와 코어 샘플 데이터(동위원소 연대측정) 확인.",
+          "동일 지역의 이전 연구 자료와의 연대·퇴적 비율 비교.",
+          "해당 지형이 인간 활동의 흔적(매우 낮은 가능성)인지 자연적 퇴적·침식인지 구분하는 지질학자·고고학자 의견 수집."
+        ],
+        "fact_hypothesis_distinction": "사실: 새로운 레이더·코어 데이터가 발표되었고 '비정상적 지형'이 보고되었다. 가설: 그 지형이 과거 해안선·사람 활동과 연관되는지 여부 — 현 단계에선 자연 지형·기후 과정으로 설명 가능하지만 일부 퇴적 특성은 추가 해석을 허용한다.",
+        "visualization_ideas": [
+          "레이더 단면(단순화된 그래픽)을 세로로 보여주고, 실제 위성 사진을 배경으로 지형 위치 표시.",
+          "코어 샘플의 색·층 정보를 확대해 흙·모래·유기물 층을 빠르게 스크롤로 보여주는 애니메이션.",
+          "‘빙하 아래 열린 풍경’ 상상 재구성을 짧게 삽입해 시청자가 그 장소에 서 있는 장면을 체험하게 함."
+        ],
+        "comment_question": "이 평탄 지형이 오래전 해안선의 흔적이라면, 그 시기에 남극 주변은 지금과 어떻게 달랐을까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 8,
+          "source_traceability": 8,
+          "visualization": 9,
+          "sixty_second_fit": 8,
+          "comment_potential": 7
+        },
+        "total_score": 40,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-185449-163970",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "",
+    "discovery_mode": "automatic_schedule",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 51
+    },
+    "trend_report": "outputs\\knowledge\\20260620-185449-163970\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리 — '동면 우주여행 가능성'은 과학적 근거(동물·오가노이드 실험)와 윤리·기술적 논쟁을 동시에 자극하므로 쇼츠 조회에 적합함.",
+    "category": "역사 미스터리",
+    "character_comment": "우주 동면(인위적 토퍼)은 실험실·동물 수준에서 가시적 성과가 쌓이고 있어 '사람이 우주에서 잠들면 무슨 일이 벌어질까?'라는 장면형 질문으로 즉시 변환 가능하다. 지금은 ‘가능성’과 ‘현실화 장애물’을 함께 보여줄 때 가장 강력하다.",
+    "candidates": [
+      {
+        "title": "시험관에서 깨어난 50년 후의 당신 — '실험실 동면 신호'가 인간에게 켜진다면",
+        "category": "과학·자연 미스터리",
+        "one_line_hook": "실험실에서 토퍼를 켠 생쥐들은 체온과 신경 패턴이 바뀌었다 — 만약 같은 회로를 인간에게 켠다면 당신은 50년 뒤 깨어날 수 있을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "마우스에서 특정 신경회로·약물로 저대사(토퍼) 유도가 보고되었다 (2024–2026년 연구·리뷰 사례 존재).",
+          "인간 오가노이드와 일부 신경회로 보전성 연구는 '유사 메커니즘' 가능성을 제시한다.",
+          "NASA·ESA는 장거리 임무의 대안으로 동면·저대사 연구를 기술 로드맵에 포함시키고 있다."
+        ],
+        "verification_points": [
+          "원논문·리뷰(마우스 토퍼 유도 결과)와 기관 보고서(NASA/ESA 기술 검토) 확인.",
+          "인간 적용을 주장하는 기사·프로포절과 실제 임상시험 데이터(현재 없음)를 구분.",
+          "동물 결과의 종간 전이성(translatability)에 관한 리뷰 근거 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 마우스·오가노이드 수준에서 '저대사/토퍼 유도' 실험이 있음. 가설(시청자 질문): 이 메커니즘을 안전하게 인간에게 적용하면 장거리 우주여행에서 동면이 가능하다 — 아직 인간 적용은 검증되지 않았다.",
+        "visualization_ideas": [
+          "실험실 시간축: 마우스 체온 그래프가 내려가는 애니메이션 → '사람에게 켜지면?' 자막",
+          "시험관(오가노이드) 확대 샷 → '미세회로가 잠을 부른다' 라벨",
+          "우주선 단면(동면 모듈) 실사 콘셉트 이미지로 전환"
+        ],
+        "comment_question": "만약 당신이 50년 동안 동면했다 깨어난다면, 가장 먼저 무엇을 묻겠습니까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 9,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 62,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "우주선 안의 미스터리 로그 — '임무 중 동면 환자' 기록에서 달라진 생체 신호",
+        "category": "우주 미스터리",
+        "one_line_hook": "우주 임무 로그에 남겨진 '이상한 심박-체온 패턴' — 실험적 동면 모듈에서 무슨 일이 벌어졌을까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "NASA의 기술보고서·제안서에는 동면 유도 환경 설계(저체온·대사감소 환경)가 검토되어 있다.",
+          "지상 실험과 동물 임무 모형에서 생체계측(심박·체온·대사)이 핵심 안전지표로 활용된다.",
+          "임무 중 발생 가능한 장기 문제(근골격 약화, 방사선 영향, 감염 위험)는 문서화된 우려사항이다."
+        ],
+        "verification_points": [
+          "기관 보고서(공공 기술 문서)에서 동면 모듈 설계 근거 확인.",
+          "동물 우주실험(예: 마우스 장기 비행 실험) 데이터 대조.",
+          "실제 '임무 로그' 사례는 아직 공개된 인간 동면 임무가 없어 가상 시뮬레이션 중심임을 명확히 표기."
+        ],
+        "fact_hypothesis_distinction": "사실: 기관들이 동면 개념(설계·지표·리스크)을 검토하고 있음. 가설/시나리오: 우주선 내부 기록에 남겨진 '이상 신호'는 장비 오작동인지 생체문제인지 둘 다 가능 — 결정적 증거는 없다.",
+        "visualization_ideas": [
+          "어두운 우주선 내부 정지화면 + 빨간 경고등이 깜빡이는 계기판(심박/체온 그래프 오버레이)",
+          "로그 파일 확대(타임스탬프 포함) → '설명 불가' 자막",
+          "의료진이 캡슐을 열고 보는 재구성(블러 처리된 얼굴 없이 손과 장비만)"
+        ],
+        "comment_question": "우주에서 잠든 당신을 깨울 권한은 누구에게 있어야 할까요 — 선장, 의사, 아니면 자동 알고리즘?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 16,
+          "source_traceability": 8,
+          "visualization": 8,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 58,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      },
+      {
+        "title": "고대 전승 속의 '천년 잠' — 기록을 과학으로 재해석하면 동면 기술의 윤리적 그림자가 보인다",
+        "category": "고대문명과 놀라운 기술",
+        "one_line_hook": "고대 문헌과 전설 속 '장기 수면' 이야기를 현대 토퍼 연구로 재해석하면 어떤 불편한 질문이 떠오를까?",
+        "plain_language_summary": "",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [],
+        "self_insert_question": "",
+        "core_facts": [
+          "여러 문화권의 전승(예: 장기 동면·깊은 수면 전승)이 역사 기록으로 존재한다 — 이는 문화·의료·종교적 해석 대상이었다.",
+          "현대 과학은 '장기 저대사' 상태를 기술적으로 재현하려는 시도를 하고 있으며, 문화적 기록은 윤리적·정체성 질문으로 연결된다.",
+          "정책·법적 문서에서 장기간 의식불명·사망 판단 기준은 다양한 해석을 낳는다."
+        ],
+        "verification_points": [
+          "역사적 전승(문헌 인용)과 현대 과학 리뷰(토퍼·저대사 연구)를 병렬 검토하여 출처 명시.",
+          "전승은 사실 증거가 아닌 문화 기록임을 분명히 하고, 과학적 연결은 '가능성 가정'임을 표기.",
+          "법적·윤리적 논의(의료법·사망 판단 기준) 문서 인용으로 논점 보강."
+        ],
+        "fact_hypothesis_distinction": "사실: 전승과 과학 연구는 각각 존재한다. 가설: '고대 기록이 실제 장기 저대사 사건의 후손일 수 있다' — 이는 흥미롭지만 입증 불가한 연결이며, 주된 목적은 시청자 상상 촉발이다.",
+        "visualization_ideas": [
+          "고대 그림(잠자는 사람) 흑백 이미지에서 빠르게 현대 실험실의 저온 캡슐로 전환",
+          "왼쪽엔 고문서 확대, 오른쪽엔 심전도·체온 그래프 비교 화면",
+          "마지막에는 '법의 빈칸' 텍스트와 질문 자막"
+        ],
+        "comment_question": "만약 조상이 남긴 '천년의 잠' 이야기가 과학적 토퍼의 은유라면, 당신은 동의하겠습니까 — 과거의 기록을 과학으로 다시 읽어볼까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 15,
+          "source_traceability": 7,
+          "visualization": 9,
+          "sixty_second_fit": 16,
+          "comment_potential": 8
+        },
+        "total_score": 55,
+        "selection_status": "rejected",
+        "rejection_reason": "쉬운 한 줄 설명이 없음",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-185628-079585",
+    "selected_title": null,
+    "selected_candidate_index": null,
+    "production_status": "awaiting_topic_selection",
+    "human_approved": false,
+    "requested_direction": "동면 우주여행 가능성",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 54
+    },
+    "trend_report": "outputs\\knowledge\\20260620-185628-079585\\01_trend_report.json"
+  },
+  {
+    "production_date": "2026-06-20",
+    "schedule_reason": "토요일 · 역사/우주 최근 고득점 카테고리, 시각적 즉시 후킹 가능한 우주현상 3선",
+    "category": "역사 미스터리",
+    "character_comment": "최근 관측·임무 보고로 확인되는 '순간적 섬광·전파 폭발·태양 폭발' 같은 짧고 강한 장면을 바로 보여주면 초등 고학년도 즉시 이해하고 댓글로 추측을 달게 됩니다.",
+    "candidates": [
+      {
+        "title": "순식간에 울리는 우주의 라디오, 이건 어디서 올까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "수초 만에 사라지는 전파 신호가 계속 같은 지점에서 반복된다면 정체는?",
+        "plain_language_summary": "짧은 전파 폭발(FRB)이 같은 장소에서 계속 발견된 실제 관측을 출발점으로, 어디서 어떻게 만들어질지 상상하게 합니다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "FRB(빠른 전파 폭발) — 수초 이하 길이의 강한 전파 섬광",
+          "리피터(repeater) — 같은 위치에서 재발하는 FRB"
+        ],
+        "self_insert_question": "만약 당신이 한밤중에 같은 집에서 계속 들리는 신호를 추적하는 연구자라면 어떻게 할까?",
+        "core_facts": [
+          "관측팀들이 반복 FRB의 정밀 위치를 한 천체(은하 내부 혹은 성단)로 좁혔다는 보고가 최근 이어졌다.",
+          "FRB는 수밀리초~수초 길이의 강한 전파 섬광으로, 일부는 반복해서 관측된다.",
+          "정밀 위치가 나오면 '어떤 천체에서' 나오는지 직접 연결할 수 있어 정체 규명에 큰 진전이 된다."
+        ],
+        "verification_points": [
+          "CHIME·MeerKAT·국제 전파망의 반복 FRB 위치 발표 기록 확인.",
+          "정밀 위치가 나온 FRB 근처에 알려진 천체(예: 활동성 은하핵, 초신성 잔해, 중성자별 등)가 존재하는지 관측 데이터 비교.",
+          "여러 망원경의 동시 관측으로 신호의 천문학적 특성(주기성·분광)이 재현되는지 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 반복 FRB와 일부 정밀 위치 발표가 있다. 가설: 같은 지점에서 반복된다면 특정 천체(중성자별·블랙홀 주변·강한 자기장 영역)에서 발생한다.",
+        "visualization_ideas": [
+          "수초짜리 전파 펄스 애니메이션(스펙트럼과 시간축)",
+          "하늘 지도에 FRB 위치 핀으로 반복성 표시",
+          "관측망(전파망)과 대상 은하 확대 샷"
+        ],
+        "comment_question": "계속 같은 지점에서 나오면 당신은 그곳을 '별의 소리'라고 부르겠는가, '문명의 신호'라고 보겠는가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      },
+      {
+        "title": "밤하늘이 불타면 누구의 불꽃일까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "태양에서 불덩어리가 튀면, 우리가 보는 오로라는 얼마나 극적일까?",
+        "plain_language_summary": "태양 플레어·코로나 질량 방출이 지구 쪽으로 올 때 '강한 오로라'와 통신·전력 영향이 어떻게 나타나는지 한 장면으로 보여준다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 6,
+        "unfamiliar_terms": [
+          "태양 플레어 — 태양 표면의 강한 폭발",
+          "CME(코로나 질량 방출) — 태양에서 우주로 뿜어져 나오는 거대한 플라즈마 덩어리"
+        ],
+        "self_insert_question": "만약 당신이 밤에 창문을 열었는데 하늘이 녹색·붉은 빛으로 바뀌면 가장 먼저 무엇을 확인하겠는가?",
+        "core_facts": [
+          "태양은 활동 주기(약 11년)를 가지며 X·M급 플레어와 CME가 지구 영향으로 연결된 사례가 있다.",
+          "강한 CME가 지구 자기장과 상호작용하면 고위도뿐 아니라 낮은 위도에서도 오로라를 확장할 수 있다.",
+          "역사적으로 큰 태양 폭풍은 전신·전력 설비에 심각한 피해를 준 적이 있다(예: 1859년 카링턴 사건)."
+        ],
+        "verification_points": [
+          "NOAA·SWPC의 태양 활동·예보 기록과 과거 대형 태양 폭풍 사례 대조.",
+          "지구 자기장 변화와 오로라 관측 리포트(사진·목격담) 비교 검증.",
+          "최근(2025–2026) 보고된 M/X급 플레어·CME 통보 기록 확인."
+        ],
+        "fact_hypothesis_distinction": "사실: 태양 폭발은 실제로 오로라와 전자기 영향(통신 장애 등)을 일으킨다. 가설: 특정 경우 밤하늘이 도시에서도 '불타는 듯' 보일 정도로 변할 수 있다(가능하지만 위상·시야·대기 조건에 좌우됨).",
+        "visualization_ideas": [
+          "지구 지도 위에 오로라 확장 애니메이션(평소 vs 극한 CME)",
+          "카링턴 사건 등 역사적 사진·기록 재연 컷",
+          "도시의 밤하늘이 오로라로 물드는 짧은 재구성 장면"
+        ],
+        "comment_question": "만약 당신이 그날 밖에 있었으면 사진을 찍었을까, 아니면 집으로 뛰어들어가 전자기기부터 끄겠는가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 19,
+          "source_traceability": 10,
+          "visualization": 19,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 76,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      },
+      {
+        "title": "달 표면에서 번쩍여? 우주선 승무원이 봤다면?",
+        "category": "우주 미스터리",
+        "one_line_hook": "우주선 승무원이 달 표면에서 여러 번의 순간 섬광을 목격했다면 그 정체는 충돌일까, 가스 분출일까?",
+        "plain_language_summary": "Artemis II 등 임무에서 목격·보고된 '달 표면의 순간 섬광' 관측을 시작점으로 가능한 원인과 우리의 상상을 연결한다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 7,
+        "unfamiliar_terms": [
+          "TLP(달 표면 순간적 현상) — 달 표면의 일시적 빛·섬광 보고",
+          "Artemis II — 최근 유인 달 탐사 임무(예: 승무원 관측 보고와 연결해 사용)"
+        ],
+        "self_insert_question": "만약 당신이 우주선 창문 너머로 달의 한 점이 여러 번 번쩍이는 걸 봤다면 무엇을 먼저 떠올리겠는가?",
+        "core_facts": [
+          "달에서 때때로 '순간 섬광'이 보고되어 왔으며 이를 TLP라고 부른다.",
+          "최근 유인 임무에서 승무원들이 달 표면의 섬광을 관측·기록한 보고가 공개되어 논의가 늘었다.",
+          "섬광의 원인으로는 소형 운석 충돌, 지각의 휘발성 물질 분출, 관측 기기·광학적 아티팩트 등이 제시된다."
+        ],
+        "verification_points": [
+          "NASA·임무 보고서에 기록된 승무원 관측·사진·타임스탬프 확인.",
+          "지상 관측 기록이나 다른 우주선의 동시 관측이 있는지 교차 검증.",
+          "충돌 산물(새로 생긴 크레이터) 탐지 여부 및 분광 데이터 분석."
+        ],
+        "fact_hypothesis_distinction": "사실: 달에서 순간 섬광 보고(TLP)는 다수의 사례가 있다. 가설: 특정 관측은 소형 운석 충돌이나 가스 분출로 설명될 수 있다; 그러나 광학·카메라 아티팩트일 가능성도 있다.",
+        "visualization_ideas": [
+          "달 표면 확대에 순간 섬광이 깜빡이는 재구성(승무원 시점)",
+          "운석 충돌 순간의 먼지·빛 퍼짐 모사",
+          "관측 로그(타임스탬프·사진)와 현장 메모를 화면에 짧게 보여주기"
+        ],
+        "comment_question": "당신이 그 광경을 봤다면 '운석 충돌'과 '뭔가 분출' 중 어느 쪽을 더 믿겠는가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 20,
+          "source_traceability": 10,
+          "visualization": 20,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 78,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260620-191932-579540",
+    "selected_title": "밤하늘이 불타면 누구의 불꽃일까?",
+    "selected_candidate_index": 1,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "우주현상",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 57
+    },
+    "trend_report": "outputs\\knowledge\\20260620-191932-579540\\01_trend_report.json",
+    "selected_at": "2026-06-20T19:30:11",
+    "final_package": "outputs\\knowledge\\20260620-191932-579540\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 58,
+    "latest_script_feedback": "인간은 블랙홀을 만들 수 있을까?\n\n블랙홀은 원래\n\n거대한 별이 죽으면서 만들어집니다.\n\n그런데 일부 물리학자들은\n\n인간도 블랙홀을 만들 수 있다고 생각했습니다.\n\n그래서 2008년\n\nCERN은 인류 역사상 가장 강력한 실험을 시작합니다.\n\n빛에 가까운 속도로 입자를 충돌시킨 것입니다.\n\n목표는 단 하나.\n\n우주 탄생 직후의 상태를 재현하는 것.\n\n그런데 여기서 무서운 질문이 등장합니다.\n\n만약 이 충돌이\n\n초미세 블랙홀을 만들어낸다면?\n\n실제로 이 가능성 때문에\n\n실험 중단 소송까지 제기됐습니다.\n\n일부 사람들은\n\n그 블랙홀이 성장해\n\n지구를 집어삼킬 수 있다고 주장했습니다.\n\n하지만 CERN은 반박했습니다.\n\n우주는 이미 수십억 년 동안\n\nLHC보다 강한 충돌을 반복해왔고\n\n지구는 여전히 존재한다는 것입니다.\n\n그래서 실험은 계속됐습니다.\n\n그리고 지금도 계속되고 있습니다.\n\n그런데 여기서 끝이 아닙니다.\n\nCERN 연구진은 최근까지도\n\n초미세 블랙홀의 흔적을 찾고 있습니다.\n\n왜냐하면 만약 발견된다면\n\n그것은 단순한 블랙홀이 아니라\n\n추가 차원과 새로운 물리법칙의 증거가 될 수 있기 때문입니다.\n\n그렇다면 질문이 하나 남습니다.\n\n만약 인류가 정말 블랙홀 생성 조건을 완벽하게 이해하게 된다면\n\n우리는 우주의 비밀을 푸는 걸까요?\n\n아니면\n\n처음으로 건드리면 안 되는 문을 열게 되는 걸까요? 이런 스타일로 고쳐줘 나래이션을",
+    "script_revision_count": 3,
+    "final_video": "outputs\\knowledge\\20260620-191932-579540\\final_short.mp4",
+    "actual_real_media_percent": 0,
+    "background_music_title": "un_seen",
+    "background_music_file": "un_seen.mp3",
+    "video_duration_seconds": 72.0
+  },
+  {
+    "production_date": "2026-06-21",
+    "schedule_reason": "일요일 · 이번 주 최고 점수 아이템 리메이크",
+    "category": "우주 미스터리",
+    "character_comment": "달의 숨은 동굴, 화성의 사라지는 메탄, 그리고 반복 전파폭발—세 후보 모두 한 장면으로 즉시 '뭐야 이거?'를 만들 수 있어 시청자 후킹에 강합니다.",
+    "candidates": [
+      {
+        "title": "달 표면의 작은 구멍, 그 아래에 사람이 살까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "달 표면의 작은 '구멍' 사진 — 그 아래에 사람이 살 수 있는 거대한 동굴이 있다면?",
+        "plain_language_summary": "달의 스카이라이트(작은 구멍) 사진들이 큰 용암 동굴과 연결되어 실제 거주지가 될 수 있다는 증거가 나왔다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "스카이라이트(용암 동굴 입구)",
+          "LRO(달정찰궤도선)"
+        ],
+        "self_insert_question": "만약 당신이 달 표면의 작은 구멍 앞에 서 있다면, 그 아래로 들어가 볼래요?",
+        "core_facts": [
+          "달에서 표면에 뚫린 작은 구멍(스카이라이트)이 관측됐다.",
+          "레이더·고해상도 사진과 지형 분석으로 내부 빈 공간·터널 흔적이 보고되었다.",
+          "과학자들은 이런 동굴을 인간 거주·기지 후보지로 고려한다."
+        ],
+        "verification_points": [
+          "LRO(달정찰궤도선)와 일본·중국의 달 궤도선이 관측한 스카이라이트·지형자료 확인.",
+          "레이더 반사율과 그림자 패턴이 빈 공간(동굴)과 일치하는지 비교.",
+          "직접 착륙·지상 라이다·소형 로버 탐사가 실제로 계획되었는지 여부 검증."
+        ],
+        "fact_hypothesis_distinction": "사실: 스카이라이트 관측과 레이더·영상 데이터 존재. 가설: 그 아래가 연결된 거대한 안전한 거주공간이라는 추론(구조·안정성·진공·방사선 차폐는 미확인).",
+        "visualization_ideas": [
+          "달 표면의 실제 스카이라이트 사진을 큰 중심 이미지로 제시",
+          "구멍 아래 단면 애니메이션(지상→동굴→넓은 공간)",
+          "사람 크기와 비교한 동굴 내부 상상도(작은 헬멧 그림자로 스케일 감각)"
+        ],
+        "comment_question": "당신이라면 그 구멍으로 들어가 먼저 무엇을 확인하겠어요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 8
+        },
+        "total_score": 72,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      },
+      {
+        "title": "화성에서 잡힌 메탄 '폭발'은 어디로 사라질까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "화성에서 가끔 잡히는 '메탄 폭발'—몇 시간 만에 흔적이 사라진다면 정체는 무엇일까?",
+        "plain_language_summary": "지상 로버는 메탄을 잡다가도 몇 시간·며칠 안에 사라지는 패턴을 보였고, 궤도 관측과의 불일치가 계속 미스터리를 만든다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 10,
+        "unfamiliar_terms": [
+          "메탄(간단히는 '생명 또는 분해 과정의 흔적')"
+        ],
+        "self_insert_question": "만약 당신이 화성에 서서 갑자기 공기에서 냄새 같은 '메탄 폭발'을 느낀다면, 어떻게 증거를 남기겠어요?",
+        "core_facts": [
+          "몇몇 지점에서 Curiosity 등 지상장비가 간헐적 메탄 증가를 관측했다.",
+          "동일 시점에 궤도선(예: ExoMars TGO)은 메탄 상한선을 더 낮게 보고해 불일치가 있다.",
+          "메탄은 지구에서 생물·지질 양쪽 원인으로 생성될 수 있어 '생명 신호'로 주목된다."
+        ],
+        "verification_points": [
+          "Curiosity의 SAM(분석기) 측정 시계열 데이터 검토.",
+          "ExoMars TGO 및 다른 궤도 관측의 장기 상한선 보고서 비교.",
+          "메탄 급증이 특정 지형·계절·온도 변화와 연관되는지 통계 검증."
+        ],
+        "fact_hypothesis_distinction": "사실: 지상에서 측정된 간헐적 메탄 상승 기록과 궤도 관측의 불일치. 가설: 빠른 산화·확산·지표 흡수 또는 미지의 지질적·화학적 싱크(흡수·분해)로 메탄이 '사라진다'.",
+        "visualization_ideas": [
+          "화성 표면 로버 사진과 메탄 농도 그래프를 겹쳐 빠르게 증가했다 사라지는 장면",
+          "지하의 메탄 방출 상상도(작은 균열→폭발처럼 퍼져나감)",
+          "지구의 '메탄 방출-산화' 짧은 비교 장면으로 이해 도움"
+        ],
+        "comment_question": "이 메탄이 생명에 의한 것이라면, 먼저 누구에게 알리고 무엇을 조사할래요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 17,
+          "sixty_second_fit": 18,
+          "comment_potential": 9
+        },
+        "total_score": 71,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      },
+      {
+        "title": "반복하는 하늘의 '똑딱'—이 전파는 왜 계속 올까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "하늘에서 몇 밀리초마다 터지는 반복 전파(Repeating FRB) — 일부는 왜 계속 규칙적으로 터질까?",
+        "plain_language_summary": "최근 발견된 반복 FRB들은 예측 불가능하지만 때론 규칙성을 보이고, 그 근원(중성자별·블랙홀·혹은 전혀 다른 것) 논쟁이 활발하다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 10,
+        "unfamiliar_terms": [
+          "FRB(짧고 강한 전파 폭발)",
+          "반복 FRB(같은 곳에서 여러 번 터지는 FRB)"
+        ],
+        "self_insert_question": "밤하늘에 초단발 소리가 계속 들린다면, 당신은 그 소리를 어디로 향해 녹음하겠어요?",
+        "core_facts": [
+          "FRB는 밀리초 단위의 강한 전파 신호로 관측된다.",
+          "일부 FRB는 같은 위치에서 반복 발화해 '반복 FRB'로 분류된다.",
+          "천체물리학자들은 마그네타(초강력 자기장을 가진 중성자별) 등 여러 후보를 놓고 논쟁 중이다."
+        ],
+        "verification_points": [
+          "CHIME, ASKAP 등 대형 전파망원경의 반복 FRB 관측 기록 확인.",
+          "특정 FRB의 발화 패턴(주기성·집중성) 분석 자료 검토.",
+          "관측 주파수·폴라리제이션(편광) 정보로 근원 물리 조건 추정."
+        ],
+        "fact_hypothesis_distinction": "사실: 반복 FRB의 존재와 관측된 발화 패턴. 가설: 규칙성은 회전·궤도·외부 영향(예: 동반체) 또는 인간이 아직 모르는 발화 메커니즘의 결과일 수 있음.",
+        "visualization_ideas": [
+          "전파 망원경 탐지 그래프(펄스가 반복되는 파형)를 빠른 컷으로 보여주기",
+          "우주 공간의 상상도: 마그네타 표면에서 전파가 튀어나오는 연출",
+          "'소리'를 시청각화해 짧은 똑딱 소리로 반복성 강조"
+        ],
+        "comment_question": "이 신호가 외계 문명이 보낸 것이라면, 당신은 첫 메시지에 무엇을 쓰겠어요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 20,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 76,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260621-074430-194289",
+    "selected_title": "달 표면의 작은 구멍, 그 아래에 사람이 살까?",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "우주",
+    "discovery_mode": "user_direction",
+    "topic_library_result": {
+      "added": 3,
+      "duplicates": 0,
+      "total": 60
+    },
+    "trend_report": "outputs\\knowledge\\20260621-074430-194289\\01_trend_report.json",
+    "selected_at": "2026-06-21T08:52:06",
+    "final_package": "outputs\\knowledge\\20260621-074430-194289\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 52,
+    "manual_script_edit_count": 3,
+    "manual_script_edited_at": "2026-06-21T09:48:49",
+    "latest_script_feedback": "제목이 흥미가 없음\n달과 스카이라이트의 비밀 이렇게 수정",
+    "script_revision_count": 3,
+    "render_options": {
+      "fit_to_60_seconds": true,
+      "target_seconds": 60,
+      "maximum_speed_factor": 1.2,
+      "eligible_max_natural_seconds": 72
+    },
+    "actual_real_media_percent": 78,
+    "background_music_title": "The Unseen Architecture (1)",
+    "background_music_file": "The Unseen Architecture (1).mp3",
+    "video_duration_seconds": 60.007,
+    "external_clip_seconds": 20.0,
+    "final_video": "outputs\\knowledge\\20260621-074430-194289\\final_short.mp4"
+  },
+  {
+    "production_date": "2026-06-21",
+    "schedule_reason": "사용자가 토픽헌터에게 직접 지정한 주제",
+    "category": "우주 미스터리",
+    "character_comment": "좋은 핵심을 그대로 살렸어요 — ‘눈 감았다 뜨면 미래’라는 안심을 뒤집는 공포. 제목을 질문형으로 더 강하게 만들어 후킹을 올렸고, 근거 수집은 ‘인간 장기냉동 재생 기록 없음 / 냉각이 세포에 남기는 손상 / 저체온에서 뇌 활동 가능성’ 쪽으로 하면 됩니다. 대본 확장은 ‘당신이 100년을 꿈으로 보냈다면 겪을 감정’(정체성·후회)과 ‘사회가 냉동생존자를 어떻게 취급할지’(법·의료·유산)로 넓히면 쇼츠 하나가 인간적 공감에서 문명적 문제로 자연스럽게 연결됩니다. 같이 연출하면: 첫 3초는 질문 자막, 3–15초는 실제 기록(냉동 보관 업체·실험), 15–40초는 두 가지 무서운 가설(뇌의 꿈, 세포의 미세노화), 40–55초는 인간·사회 영향, 마지막에 “당신이라면?” 질문으로 끝냅시다.",
+    "candidates": [
+      {
+        "title": "100년 뒤 깨어났는데… 이미 늙어 있다면?",
+        "category": "우주 미스터리",
+        "one_line_hook": "냉동수면은 시간 건너뛰기일까, 100년짜리 서서히 죽음일까?",
+        "plain_language_summary": "사람을 100년 동안 얼렸다가 되살린 사례가 없어, 뇌가 무엇을 느끼는지와 세포 수준의 손상이 시간이 지나도 계속되는지 둘 다 불확실하다는 이야기입니다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "냉동수면(크라이오닉스)",
+          "비트리피케이션(유리화) — 얼음 생성을 막는 급속보존법"
+        ],
+        "self_insert_question": "만약 당신이 100년 동안 잠들어 깨는데, 젊은 몸으로 도착할 거라 믿을 건가요?",
+        "core_facts": [
+          "지금까지 사람을 100년 이상 얼렸다가 성공적으로 되살렸다는 공개 기록은 없다.",
+          "냉각 과정에서 세포 내·외부에 얼음이 생기면 조직 손상이 발생한다.",
+          "유리화(비트리피케이션)는 얼음 대신 고체화된 상태로 보존하려는 기법이다.",
+          "저체온 상태의 뇌는 일부 전기적 활동을 계속할 수 있다는 동물 및 임상 관찰이 있다."
+        ],
+        "verification_points": [
+          "냉동보존(cryopreservation) 인체 적용 사례와 공개 기록 확인(업체·논문)",
+          "유리화(비트리피케이션) 관련 실험·한계 자료(동물모델·장기 수준)",
+          "저체온·동면 상태에서의 뇌전기 활동 연구 논문(동물·인간 관련 임상 관찰)",
+          "시간 경과에 따른 DNA 손상·단백질 변성 연구"
+        ],
+        "fact_hypothesis_distinction": "사실: 장기간 사람 재생 기록 없음, 냉각이 세포에 손상 가능성 있음, 일부 뇌활동은 저체온에서도 관찰됨. 가설: 냉동수면 중 의식이 꿈처럼 지속될 수 있다; 장기 보존 중에도 미세한 노화가 계속돼 깨어날 때 이미 늙어 있을 수 있다.",
+        "visualization_ideas": [
+          "닫히는 캡슐의 실루엣→흰 자막 ‘2126’(충격 0–3초)",
+          "냉동 캡슐 내부 단면 애니메이션(세포 수준 얼음 형성 vs 유리화)",
+          "심전도/뇌파 모양의 느려지는 선 그래픽으로 ‘뇌 활동’ 표기",
+          "타임라인으로 '오늘→100년 후'와 남은 삶 짧아지는 막대 그래프"
+        ],
+        "comment_question": "당신이라면 미래로 갈 위험(젊음 상실)을 알면서도 냉동수면을 선택할까요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 9,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 10
+        },
+        "total_score": 73,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": ""
+      }
+    ],
+    "run_id": "20260621-074623-536554",
+    "selected_title": "100년 뒤 깨어났는데… 이미 늙어 있다면?",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "쇼츠 제목\n\n\"100년 뒤 깨어났는데... 당신은 이미 늙어 있었을지도 모른다\"\n\n대본\n\n\"오늘 당신은 냉동수면에 들어갑니다.\n\n목표는 100년 후의 미래.\n\n캡슐 문이 닫히고,\n\n눈을 감습니다.\n\n그리고 다음 순간.\n\n2126년.\n\n사람들은 냉동수면을 이렇게 상상합니다.\n\n'눈 감았다 뜨면 미래다.'\n\n하지만 정말 그럴까요?\n\n우리는 아직 인간을 100년 동안 얼렸다가\n\n되살린 적이 없습니다.\n\n그래서 아무도 모릅니다.\n\n냉동수면 중에 뇌가 완전히 멈추는지,\n\n아니면 무언가를 경험하는지.\n\n만약 뇌가 꿈을 꾼다면?\n\n당신은 100년 동안 또 하나의 인생을 살았을 수도 있습니다.\n\n그런데 더 무서운 문제가 있습니다.\n\n만약 몸은 얼어 있어도,\n\n세포 수준의 손상이나 미세한 노화가 계속된다면?\n\n당신은 젊은 몸으로 미래에 도착하는 것이 아니라,\n\n100년의 시간을 몸속에 안고 깨어날 수도 있습니다.\n\n즉,\n\n냉동수면은 시간을 건너뛰는 기술이 아니라,\n\n100년 동안 서서히 죽어가는 기술일 수도 있는 겁니다.\n\n그리고 캡슐이 열리는 순간,\n\n당신은 미래를 보게 됩니다.\n\n하지만 그 미래를 즐길 시간은 얼마 남지 않았을지도 모릅니다.\"",
+    "direct_topic_request": "쇼츠 제목\n\n\"100년 뒤 깨어났는데... 당신은 이미 늙어 있었을지도 모른다\"\n\n대본\n\n\"오늘 당신은 냉동수면에 들어갑니다.\n\n목표는 100년 후의 미래.\n\n캡슐 문이 닫히고,\n\n눈을 감습니다.\n\n그리고 다음 순간.\n\n2126년.\n\n사람들은 냉동수면을 이렇게 상상합니다.\n\n'눈 감았다 뜨면 미래다.'\n\n하지만 정말 그럴까요?\n\n우리는 아직 인간을 100년 동안 얼렸다가\n\n되살린 적이 없습니다.\n\n그래서 아무도 모릅니다.\n\n냉동수면 중에 뇌가 완전히 멈추는지,\n\n아니면 무언가를 경험하는지.\n\n만약 뇌가 꿈을 꾼다면?\n\n당신은 100년 동안 또 하나의 인생을 살았을 수도 있습니다.\n\n그런데 더 무서운 문제가 있습니다.\n\n만약 몸은 얼어 있어도,\n\n세포 수준의 손상이나 미세한 노화가 계속된다면?\n\n당신은 젊은 몸으로 미래에 도착하는 것이 아니라,\n\n100년의 시간을 몸속에 안고 깨어날 수도 있습니다.\n\n즉,\n\n냉동수면은 시간을 건너뛰는 기술이 아니라,\n\n100년 동안 서서히 죽어가는 기술일 수도 있는 겁니다.\n\n그리고 캡슐이 열리는 순간,\n\n당신은 미래를 보게 됩니다.\n\n하지만 그 미래를 즐길 시간은 얼마 남지 않았을지도 모릅니다.\"",
+    "topic_hunter_reply": "좋은 핵심을 그대로 살렸어요 — ‘눈 감았다 뜨면 미래’라는 안심을 뒤집는 공포. 제목을 질문형으로 더 강하게 만들어 후킹을 올렸고, 근거 수집은 ‘인간 장기냉동 재생 기록 없음 / 냉각이 세포에 남기는 손상 / 저체온에서 뇌 활동 가능성’ 쪽으로 하면 됩니다. 대본 확장은 ‘당신이 100년을 꿈으로 보냈다면 겪을 감정’(정체성·후회)과 ‘사회가 냉동생존자를 어떻게 취급할지’(법·의료·유산)로 넓히면 쇼츠 하나가 인간적 공감에서 문명적 문제로 자연스럽게 연결됩니다. 같이 연출하면: 첫 3초는 질문 자막, 3–15초는 실제 기록(냉동 보관 업체·실험), 15–40초는 두 가지 무서운 가설(뇌의 꿈, 세포의 미세노화), 40–55초는 인간·사회 영향, 마지막에 “당신이라면?” 질문으로 끝냅시다.",
+    "discovery_mode": "direct_topic",
+    "topic_library_result": {
+      "added": 1,
+      "duplicates": 0,
+      "total": 61
+    },
+    "selected_at": "2026-06-21T07:46:44",
+    "final_package": "outputs\\knowledge\\20260621-074623-536554\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 66,
+    "actual_real_media_percent": 88,
+    "background_music_title": "Shock Fact",
+    "background_music_file": "Shock Fact.mp3",
+    "video_duration_seconds": 60.032,
+    "external_clip_seconds": 20.0,
+    "manual_script_edit_count": 1,
+    "manual_script_edited_at": "2026-06-21T08:34:06",
+    "render_options": {
+      "fit_to_60_seconds": true,
+      "target_seconds": 60,
+      "maximum_speed_factor": 1.2,
+      "eligible_max_natural_seconds": 72
+    },
+    "final_video": "outputs\\knowledge\\20260621-074623-536554\\final_short.mp4",
+    "style_rebuild_requested_at": "2026-06-21T08:42:04"
+  },
+  {
+    "production_date": "2026-06-21",
+    "schedule_reason": "사용자가 토픽헌터에게 직접 지정한 주제",
+    "category": "우주 미스터리",
+    "character_comment": "핵심은 그대로 살렸어 — “블랙홀은 삼키지만, 그 안을 지나간다면 무엇이 보일까?”라는 충격 질문을 유지하고, 질문을 더 강하게 «당신 눈앞에서 시간이 왜 늘어나고 하늘은 왜 찢어지는가?»로 다듬었어. 실제 근거는 아인슈타인 중력 이론과 실제 블랙홀 관측(그림자·중력파)으로 깔고, 이상한 증거는 사건지평선 근처에서 빛이 늘어나는(중력렌즈) 관측과 이론적 예측을 짧게 보여주자. 대본 확장 방향: 1) 0–3초: “블랙홀 안에선 시간이 어떻게 보일까?”라는 질문, 2) 3–15초: 2019년 M87 그림자·중력파 관측 같은 ‘실제 관측’ 한 줄로 신뢰, 3) 15–35초: 사건지평선 근처 빛 굴절·시간지연의 ‘이상한 증거’ 장면, 4) 35–50초: 만약 여행자가 들어가면 겪을 ‘시각적 체험’(늘어나는 빛줄기, 하늘이 찢기는 듯한 왜곡)과 인간·문명적 함의(시간 단절, 정보 회수 불가능성)로 확장, 5) 50–60초: 최신 시뮬레이션 연구(블랙홀 주변 광선추적)와 남는 미해결 질문으로 끝내자. 같이 쓸 실제 근거 찾아볼 키워드(예: 사건지평선, 중력렌즈, EHT 관측, 중력파 LIGO/Virgo, 광선추적 시뮬레이션). 연출 팁: 중심 이미지(블랙홀 그림자 또는 렌더링) 하나로 시작하고, 자막은 짧게, 마지막에 “당신이 보게 될 마지막 풍경은?”으로 댓글 유도하자.",
+    "candidates": [
+      {
+        "title": "블랙홀 안으로 들어가면 무엇을 볼까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "블랙홀은 삼키지만, 그 안을 지나간다면 당신 눈앞엔 무엇이 펼쳐질까?",
+        "plain_language_summary": "블랙홀 주변과 사건지평선에서 빛과 시간이 어떻게 왜곡되는지 실제 관측과 시뮬레이션을 바탕으로 '안으로 들어갈 때 보이는 장면'을 상상해 본다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "사건지평선(black hole 경계)",
+          "중력렌즈(빛이 중력에 휘어지는 현상)"
+        ],
+        "self_insert_question": "만약 당신이 우주선을 몰고 사건지평선 바로 밖까지 내려간다면, 무엇을 먼저 보겠는가?",
+        "core_facts": [
+          "블랙홀은 자체 중력으로 빛도 빠져나오기 힘든 영역을 만든다 — 경계는 사건지평선이라고 부른다.",
+          "2019년 EHT(사건지평선망원경)는 블랙홀의 그림자를 처음으로 촬영했다(관측 사실).",
+          "LIGO/Virgo는 블랙홀 병합에서 나오는 중력파를 검출해 블랙홀 존재를 직접 증명했다(관측 사실).",
+          "사건지평선 근처에서는 빛의 경로가 크게 휘고, 시간 지연이 극적으로 커진다(일반상대성이론 예측).",
+          "광선추적(ray-tracing) 시뮬레이션은 여행자 시점에서 하늘이 어떻게 찌그러지는지 보여준다(최근 연구·시뮬레이션 근거)."
+        ],
+        "verification_points": [
+          "EHT(사건지평선망원경)의 2019 M87 블랙홀 이미지와 관련 보도 기록을 확인한다.",
+          "LIGO·Virgo의 블랙홀 병합 중력파 검출 논문 및 공지(검출 연도·사건 이름)를 확인한다.",
+          "광선추적 시뮬레이션(black hole ray-tracing) 논문 또는 연구팀의 시각자료로 여행자 관측 예측을 확인한다.",
+          "사건지평선 바깥과 안쪽의 물리적 차이에 대한 이론적 한계(정보 손실 문제 등)를 짚는다."
+        ],
+        "fact_hypothesis_distinction": "영상에서는 관측된 사실(EHT·LIGO 관측)과 이론·시뮬레이션(광선추적으로 예측한 ‘보이는 장면’)을 구분해 표기한다 — 관측은 '확인된 기록', 여행자 관측은 '가상 시나리오'.",
+        "visualization_ideas": [
+          "초반 1초: 실제 EHT 이미지를 어둡게 처리한 화면 위 자막으로 질문 제시(확인된 기록 배지).",
+          "중간: 사건지평선 바로 밖에서 주변 별빛과 빛줄기가 휘어지는 광선추적 시뮬레이션 클립(재구성 표기).",
+          "후반: 여행자 시점 POV 렌더링 — 시간이 늘어난 듯한 잔상, 주변 빛이 끌려오는 듯한 스트레치 효과(짧게, 과장 없이).",
+          "마지막: '움직이지 않는 시계' 이미지와 함께 시간 단절을 암시하는 자막으로 마무리."
+        ],
+        "comment_question": "당신이 블랙홀 근처로 한 번만 갈 수 있다면 — 밖에서 돌아오겠는가, 안으로 들어가겠는가?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 9,
+          "source_traceability": 9,
+          "visualization": 9,
+          "sixty_second_fit": 9,
+          "comment_potential": 8
+        },
+        "total_score": 44,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": "user_direct_topic"
+      }
+    ],
+    "run_id": "20260621-082624-559797",
+    "selected_title": "블랙홀 안으로 들어가면 무엇을 볼까?",
+    "selected_candidate_index": 0,
+    "production_status": "package_ready",
+    "human_approved": false,
+    "requested_direction": "블랙홀은 모든걸 집어삼키는데\n그안을 여행할수 있다면 어떤모습을 볼수 있을까",
+    "direct_topic_request": "블랙홀은 모든걸 집어삼키는데\n그안을 여행할수 있다면 어떤모습을 볼수 있을까",
+    "topic_hunter_reply": "핵심은 그대로 살렸어 — “블랙홀은 삼키지만, 그 안을 지나간다면 무엇이 보일까?”라는 충격 질문을 유지하고, 질문을 더 강하게 «당신 눈앞에서 시간이 왜 늘어나고 하늘은 왜 찢어지는가?»로 다듬었어. 실제 근거는 아인슈타인 중력 이론과 실제 블랙홀 관측(그림자·중력파)으로 깔고, 이상한 증거는 사건지평선 근처에서 빛이 늘어나는(중력렌즈) 관측과 이론적 예측을 짧게 보여주자. 대본 확장 방향: 1) 0–3초: “블랙홀 안에선 시간이 어떻게 보일까?”라는 질문, 2) 3–15초: 2019년 M87 그림자·중력파 관측 같은 ‘실제 관측’ 한 줄로 신뢰, 3) 15–35초: 사건지평선 근처 빛 굴절·시간지연의 ‘이상한 증거’ 장면, 4) 35–50초: 만약 여행자가 들어가면 겪을 ‘시각적 체험’(늘어나는 빛줄기, 하늘이 찢기는 듯한 왜곡)과 인간·문명적 함의(시간 단절, 정보 회수 불가능성)로 확장, 5) 50–60초: 최신 시뮬레이션 연구(블랙홀 주변 광선추적)와 남는 미해결 질문으로 끝내자. 같이 쓸 실제 근거 찾아볼 키워드(예: 사건지평선, 중력렌즈, EHT 관측, 중력파 LIGO/Virgo, 광선추적 시뮬레이션). 연출 팁: 중심 이미지(블랙홀 그림자 또는 렌더링) 하나로 시작하고, 자막은 짧게, 마지막에 “당신이 보게 될 마지막 풍경은?”으로 댓글 유도하자.",
+    "discovery_mode": "direct_topic",
+    "topic_library_result": {
+      "added": 1,
+      "duplicates": 0,
+      "total": 62
+    },
+    "selected_at": "2026-06-21T13:10:17",
+    "final_package": "outputs\\knowledge\\20260621-082624-559797\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 50
+  },
+  {
+    "production_date": "2026-06-21",
+    "schedule_reason": "사용자가 토픽헌터에게 직접 지정한 주제",
+    "category": "우주 미스터리",
+    "character_comment": "핵심은 그대로 살렸어 — ‘블랙홀은 모든 걸 삼키는데, 그 내부를 실제로 여행하면 무엇이 보일까?’라는 충격 질문을 유지하고, 질문을 더 강하게 \"사라진 뒤에도 무엇이 남을까?\"로 좁혔어. 근거는 현존 관측(중력파·사건지평선 영상)과 일반상대성이론·수치상대론 시뮬레이션을 찾아 증거를 쌓고, 목격 장면은 우주선 창밖 POV(속도감 낮추기)로 연출하자. 대본 확장 방향은: (1) 실제 기록·관측(이벤트호라이즌 망원경·중력파)로 시작 → (2) 이상한 증거(광선 굴절, 시간 지연, 플라즈마 뜨거운 고리) 제시 → (3) 내부 가설(충돌·스파게티화·지평선 너머의 시공간 구조) → (4) 인간적 질문(우주선 승무원은 어떤 감각을 잃고 얻는가?) → (5) 문명적 파급(블랙홀 탐사 기술이 정보·에너지 이해를 어떻게 바꿀까?) 순으로 확장하면 쇼츠에서 강한 반전을 줄 수 있어. 같이 한 번 시놉시스 뽑아볼까?",
+    "candidates": [
+      {
+        "title": "블랙홀 안으로 들어가면 무엇이 보일까?",
+        "category": "우주 미스터리",
+        "one_line_hook": "블랙홀에 들어간 우주선 — 창밖에 남는 건 '빛'일까, '기억'일까?",
+        "plain_language_summary": "블랙홀 안으로 진입하는 관찰자가 실제로 무엇을 보고 느낄지 관측 기록과 이론을 섞어 장면으로 보여준다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "사건지평선(블랙홀이 보이는 경계)",
+          "스파게티화(강한 차등 중력으로 물체가 늘어나는 현상)"
+        ],
+        "self_insert_question": "만약 당신이라면 블랙홀 안으로 들어가 창밖을 본다면 무엇을 기억하고 싶나요?",
+        "core_facts": [
+          "블랙홀은 매우 강한 중력으로 빛도 빠져나가지 못하는 영역을 만든다.",
+          "이벤트호라이즌(사건지평선)은 바깥에서 볼 때 블랙홀의 경계로 보인다.",
+          "중력파와 이벤트호라이즌 망원경은 블랙홀의 존재와 주변 현상을 관측했다.",
+          "일반상대성이론과 수치상대론 시뮬레이션은 내부에서의 시공간 왜곡을 예측한다.",
+          "승객에게는 시간 흐름과 공간 인식이 극적으로 달라질 수 있다는 이론적 예측이 있다."
+        ],
+        "verification_points": [
+          "이벤트호라이즌 망원경이 촬영한 블랙홀 주변 밝은 고리(관측 기록).",
+          "LIGO/Virgo가 감지한 블랙홀 병합으로부터 얻은 중력파 데이터(관측 기록).",
+          "수치상대론 시뮬레이션에서 예측되는 빛의 굴절과 플라즈마 발광 패턴(연구 결과).",
+          "이론적 예측인 '스파게티화'는 극심한 조석력의 존재를 암시한다(일반상대성이론).",
+          "사건지평선 너머 내부 구조는 관측으로 직접 확인되지 않아 '가설' 상태임."
+        ],
+        "fact_hypothesis_distinction": "관측 기록(중력파, 사건지평선 주변 영상)은 사실로 제시하고, '안에서 보이는 장면'은 수치 시뮬레이션과 일반상대성이론 기반의 가설로 구분해 설명한다.",
+        "visualization_ideas": [
+          "우주선 창밖 POV: 주변 빛이 늘어나고 빨라지며 색이 변하는 연속 컷",
+          "블랙홀 주변의 밝은 고리(관측 사진)을 어둡게 처리한 배경 위에 선명하게 배치",
+          "시간이 왜곡되는 장면을 보여주는 시계·사진의 반복(슬로 모션·프레임 드랍)",
+          "스파게티화 효과로 늘어나는 간단한 그래픽(사람 손 모형으로 연출)",
+          "사건지평선 표식과 '확인된 기록'·'가설' 라벨을 작은 배지로 표시"
+        ],
+        "comment_question": "당신이라면 블랙홀 안에서 기억을 남길 수 있다면 무엇을 전하고 싶나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 20,
+          "comment_potential": 10
+        },
+        "total_score": 76,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": "user_direct_topic"
+      }
+    ],
+    "run_id": "20260621-095907-873579",
+    "selected_title": "블랙홀 안으로 들어가면 무엇이 보일까?",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "블랙홀은 모든걸 집어삼키는데 그안을 여행할수 있다면 어떤모습을 볼수 있을까",
+    "direct_topic_request": "블랙홀은 모든걸 집어삼키는데 그안을 여행할수 있다면 어떤모습을 볼수 있을까",
+    "topic_hunter_reply": "핵심은 그대로 살렸어 — ‘블랙홀은 모든 걸 삼키는데, 그 내부를 실제로 여행하면 무엇이 보일까?’라는 충격 질문을 유지하고, 질문을 더 강하게 \"사라진 뒤에도 무엇이 남을까?\"로 좁혔어. 근거는 현존 관측(중력파·사건지평선 영상)과 일반상대성이론·수치상대론 시뮬레이션을 찾아 증거를 쌓고, 목격 장면은 우주선 창밖 POV(속도감 낮추기)로 연출하자. 대본 확장 방향은: (1) 실제 기록·관측(이벤트호라이즌 망원경·중력파)로 시작 → (2) 이상한 증거(광선 굴절, 시간 지연, 플라즈마 뜨거운 고리) 제시 → (3) 내부 가설(충돌·스파게티화·지평선 너머의 시공간 구조) → (4) 인간적 질문(우주선 승무원은 어떤 감각을 잃고 얻는가?) → (5) 문명적 파급(블랙홀 탐사 기술이 정보·에너지 이해를 어떻게 바꿀까?) 순으로 확장하면 쇼츠에서 강한 반전을 줄 수 있어. 같이 한 번 시놉시스 뽑아볼까?",
+    "discovery_mode": "direct_topic",
+    "topic_library_result": {
+      "added": 1,
+      "duplicates": 0,
+      "total": 63
+    },
+    "selected_at": "2026-06-21T09:59:22",
+    "final_package": "outputs\\knowledge\\20260621-095907-873579\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 55,
+    "manual_script_edit_count": 1,
+    "manual_script_edited_at": "2026-06-21T10:09:57",
+    "render_options": {
+      "fit_to_60_seconds": true,
+      "target_seconds": 60,
+      "maximum_speed_factor": 1.2,
+      "eligible_max_natural_seconds": 72
+    },
+    "final_video": "outputs\\knowledge\\20260621-095907-873579\\final_short.mp4",
+    "actual_real_media_percent": 80,
+    "background_music_title": "The Unseen Architecture (1)",
+    "background_music_file": "The Unseen Architecture (1).mp3",
+    "video_duration_seconds": 80.7,
+    "external_clip_seconds": 20.0,
+    "latest_video_feedback": "10번화면에서는 상상해본 블랙홀 안의 상상장면을 동영상으로 넣어줘야돼",
+    "video_revision_error": "영상 피드백 재제작에 실패해 이전 영상을 복원했습니다."
+  },
+  {
+    "production_date": "2026-06-21",
+    "schedule_reason": "사용자가 토픽헌터에게 직접 지정한 주제",
+    "category": "우주 미스터리",
+    "character_comment": "핵심은 '양자이동(quantum teleportation) 기술이 사람 이동으로 확장된다면'이라는 상상이에요. 질문을 더 강하게 다듬어 '양자정보 이동이 사람 몸 전체로 확장되면 우리의 정체성과 법, 국경은 어떻게 바뀌나?'로 만들었습니다. 증거는 '양자 상태 원격전송(실험 기록)', '원자·분자 재조립 기술(나노·합성화학 실험)', '윤리·법 연구(생명윤리·우주법 관련 보고서)'를 찾아보세요. 대본에서는 먼저 짧은 충격 질문 → 양자텔레포테이션 실험 화면(실제 연구기관·장면 암시) → '그렇다면 사람은?'이라는 반전 → 가능한 작동 방식과 실패 사례(동일성 상실·복제 문제) → 인간·법·문명 영향(형사책임·여권·이민·전쟁) → 현재 연구 한계로 마무리해 미해결 질문을 남기는 방향으로 확장합니다. 같이 만들면 60초 안에 '잠깐 뭐라고?'를 만들 수 있어요.",
+    "candidates": [
+      {
+        "title": "양자이동으로 사람이 순간이동하면 무슨 일이?",
+        "category": "우주 미스터리",
+        "one_line_hook": "양자정보 전송은 있는데, '너' 전체를 옮기면 여전히 너일까?",
+        "plain_language_summary": "양자 상태 전송 기술이 사람 전체 이동으로 확장되면 정체성, 법, 국경이 모두 흔들린다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "양자텔레포테이션(양자상태 원격전송)"
+        ],
+        "self_insert_question": "만약 당신이 A 지점에서 분해되어 B 지점에서 완전한 복제체로 재조립된다면, 당신은 여전히 '당신'인가?",
+        "core_facts": [
+          "양자텔레포테이션은 실험실에서 양자 상태(광자·전자 등)를 원격으로 전송한 기록이 있다.",
+          "현재 기술로는 물질 자체를 통째로 전송하는 것은 불가능하다.",
+          "물리·철학에서 '동일성(identity)' 문제는 오래된 논쟁거리다.",
+          "나노조립·합성기술은 분해·재조립을 상상하게 만든다."
+        ],
+        "verification_points": [
+          "양자텔레포테이션 실험 실적(광자·얽힘 이용) 확인",
+          "물질 분해·재조립에 대한 공학적 한계(에너지·정확도)",
+          "철학·법적 관점에서의 '정체성' 토론 자료",
+          "인간 대상 적용 가능한 안전·윤리 규정 존재 여부"
+        ],
+        "fact_hypothesis_distinction": "사실: 양자 상태 원격전송 실험이 존재한다. 가설: 그 방법을 사람 전체 이동(물질 분해·재조립 포함)에 적용할 수 있다.",
+        "visualization_ideas": [
+          "3초: 어두운 화면에 큰 자막 '순간이동, 진짜 가능해졌다면?'",
+          "실험 장비(광자·레이저) 사진을 빠르게 보여주며 '실제로 있다' 표시",
+          "사람 실루엣이 픽셀처럼 분해되어 다른 곳에서 재조립되는 간단한 애니메이션",
+          "자막으로 '정체성 문제'와 '법적 혼란'을 교차 제시"
+        ],
+        "comment_question": "당신이라면 재조립 방식의 위험을 감수하고 순간이동을 이용하겠나요?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 10,
+          "visualization": 18,
+          "sixty_second_fit": 15,
+          "comment_potential": 10
+        },
+        "total_score": 71,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": "user_direct_topic"
+      }
+    ],
+    "run_id": "20260621-165812-877446",
+    "selected_title": "양자이동으로 사람이 순간이동하면 무슨 일이?",
+    "selected_candidate_index": 0,
+    "production_status": "video_style_outdated",
+    "human_approved": true,
+    "requested_direction": "양자이동을활용한 순간이동에 성공한다면?",
+    "direct_topic_request": "양자이동을활용한 순간이동에 성공한다면?",
+    "topic_hunter_reply": "핵심은 '양자이동(quantum teleportation) 기술이 사람 이동으로 확장된다면'이라는 상상이에요. 질문을 더 강하게 다듬어 '양자정보 이동이 사람 몸 전체로 확장되면 우리의 정체성과 법, 국경은 어떻게 바뀌나?'로 만들었습니다. 증거는 '양자 상태 원격전송(실험 기록)', '원자·분자 재조립 기술(나노·합성화학 실험)', '윤리·법 연구(생명윤리·우주법 관련 보고서)'를 찾아보세요. 대본에서는 먼저 짧은 충격 질문 → 양자텔레포테이션 실험 화면(실제 연구기관·장면 암시) → '그렇다면 사람은?'이라는 반전 → 가능한 작동 방식과 실패 사례(동일성 상실·복제 문제) → 인간·법·문명 영향(형사책임·여권·이민·전쟁) → 현재 연구 한계로 마무리해 미해결 질문을 남기는 방향으로 확장합니다. 같이 만들면 60초 안에 '잠깐 뭐라고?'를 만들 수 있어요.",
+    "discovery_mode": "direct_topic",
+    "topic_library_result": {
+      "added": 1,
+      "duplicates": 0,
+      "total": 64
+    },
+    "selected_at": "2026-06-21T16:58:27",
+    "final_package": "outputs\\knowledge\\20260621-165812-877446\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 55,
+    "latest_script_feedback": "말투가 한사람이 말하는것처름 일관되어야함",
+    "render_options": {
+      "fit_to_60_seconds": false,
+      "target_seconds": 60,
+      "maximum_speed_factor": 1.2,
+      "eligible_max_natural_seconds": 72
+    },
+    "script_revision_count": 4,
+    "final_video": "outputs\\knowledge\\20260621-165812-877446\\final_short.mp4",
+    "actual_real_media_percent": 30,
+    "background_music_title": "Shock Fact",
+    "background_music_file": "Shock Fact.mp3",
+    "video_duration_seconds": 104.95,
+    "external_clip_seconds": 24.0,
+    "latest_video_feedback": "7번부터 23번까지 화면이 들어가지 않고 나래이션만 나오므로 수정바람",
+    "video_revision_error": "영상 피드백 재제작에 실패해 이전 영상을 복원했습니다."
+  },
+  {
+    "production_date": "2026-06-21",
+    "schedule_reason": "사용자가 토픽헌터에게 직접 지정한 주제",
+    "category": "역사 미스터리",
+    "character_comment": "핵심은 살렸어요 — ‘로마가 476년에 갑자기 사라졌나?’라는 질문 그대로. 질문을 더 강하게: “476년 이후에도 로마는 어떤 모습으로 남았나?”를 제안합니다. 근거 찾을 방향: 황제 퇴위·오도아케르 기록, 법·도로·동전·교회 문서의 연속성 자료, 오스트로고트·비잔티움 통치 기록을 우선 검색하세요. 대본 확장: 짧게 1) 충격 질문, 2) 476년 기록(퇴위 장면), 3) 이후 수십년의 법·동전·도로 관리 같은 ‘연속성 증거’ 제시, 4) 가설(정치적 중심은 사라졌지만 문화·제도는 어떻게 남았는가), 5) 문명적 함의(‘멸망’의 의미 재정의) 순으로 엮어 댓글 유도형 미해결 질문으로 끝냅니다. 같이 만드는 톤으로 빠르게 정리했어요 — 더 좁게(예: 법·동전만) 파서 바로 자료 링크 찾을까요?",
+    "candidates": [
+      {
+        "title": "로마는 정말 476년에 '멸망'했나?",
+        "category": "역사 미스터리",
+        "one_line_hook": "황제 사라진 그날, 로마는 정말 끝난 걸까?",
+        "plain_language_summary": "전통적으로 476년을 서로마 '멸망' 연도로 보지만, 법·동전·도로 등은 얼마나 계속 이어졌는지로 '멸망'의 의미를 다시 묻는다.",
+        "audience_difficulty": "easy",
+        "required_background_seconds": 8,
+        "unfamiliar_terms": [
+          "제도연속성"
+        ],
+        "self_insert_question": "만약 당신이라면 476년 이후에도 남아있을 것 같은 로마의 것(법, 도로, 화폐) 하나를 골라볼래?",
+        "core_facts": [
+          "전통적 사건: 476년 로마 황제 로물루스 아우구스툴루스가 폐위되며 서로마 멸망 연도로 표기됨.",
+          "정치적 변화: 이탈리아에는 오도아케르 같은 게르만 군주가 권력을 장악함.",
+          "연속 증거: 동전, 법문서(법학자·판결 기록), 도로·도시 인프라 유지 흔적이 이후에도 발견됨.",
+          "문화적 지속: 라틴어 교회, 로마 법 전통, 지방 행정 관행 일부는 계속 작동함."
+        ],
+        "verification_points": [
+          "476년 로물루스 아우구스툴루스 폐위 기록(연대기·사료).",
+          "이후 동전(주화) 발행 연속성: 왕조·발행자 명칭 변화 추적.",
+          "법·문서 기록의 연속: 법학자·판결·문서에 나타난 로마법 용어 사용 여부.",
+          "인프라 유지 증거: 도로·교량 수리 기록 또는 고고학적 보수 흔적.",
+          "지역 지배자(오도아케르·오스테로고트 등) 행정 문서와 비잔티움의 개입 기록."
+        ],
+        "fact_hypothesis_distinction": "사실: 476년 황제 폐위는 기록된 사건이다. 가설: '멸망'은 정치 중심의 소멸을 의미할 뿐, 법·제도·생활 수준의 즉각적 소멸을 뜻하지 않는다.",
+        "visualization_ideas": [
+          "0-3초: 고대 연대기 책 페이지에서 '476' 숫자 확대(충격 질문).",
+          "3-15초: 로물루스 폐위 삽화 또는 연대기 문장 자막(확인된 기록 배지).",
+          "15-35초: 같은 지역에서 발굴된 5세기·6세기 동전·도로 사진을 빠르게 겹치기(연속성 증거).",
+          "35-50초: 지도에서 정치권력 변화(왕 이름 등장)와 동시에 법·교회 표식은 지속되는 장면 교차(가설 전개).",
+          "50-60초: 마지막에 ‘그러면 로마는 정말 사라진 걸까?’ 자막과 댓글 질문."
+        ],
+        "comment_question": "476년 이후의 어떤 흔적을 보면 ‘로마는 계속 있다’고 느낄까?",
+        "criteria": {
+          "title_curiosity": true,
+          "source_or_claim_traceable": true,
+          "explainable_in_60_seconds": true,
+          "easy_to_visualize": true,
+          "has_twist_or_misconception_resolution": true,
+          "has_comment_question": true,
+          "interesting_without_exaggeration": true
+        },
+        "score": {
+          "hook": 18,
+          "source_traceability": 1,
+          "visualization": 18,
+          "sixty_second_fit": 18,
+          "comment_potential": 1
+        },
+        "total_score": 56,
+        "selection_status": "candidate",
+        "rejection_reason": "",
+        "selection_override": "user_direct_topic"
+      }
+    ],
+    "run_id": "20260621-183731-369271",
+    "selected_title": "로마는 정말 476년에 '멸망'했나?",
+    "selected_candidate_index": 0,
+    "production_status": "video_failed",
+    "human_approved": true,
+    "requested_direction": "로마멸망 미스테리",
+    "direct_topic_request": "로마멸망 미스테리",
+    "topic_hunter_reply": "핵심은 살렸어요 — ‘로마가 476년에 갑자기 사라졌나?’라는 질문 그대로. 질문을 더 강하게: “476년 이후에도 로마는 어떤 모습으로 남았나?”를 제안합니다. 근거 찾을 방향: 황제 퇴위·오도아케르 기록, 법·도로·동전·교회 문서의 연속성 자료, 오스트로고트·비잔티움 통치 기록을 우선 검색하세요. 대본 확장: 짧게 1) 충격 질문, 2) 476년 기록(퇴위 장면), 3) 이후 수십년의 법·동전·도로 관리 같은 ‘연속성 증거’ 제시, 4) 가설(정치적 중심은 사라졌지만 문화·제도는 어떻게 남았는가), 5) 문명적 함의(‘멸망’의 의미 재정의) 순으로 엮어 댓글 유도형 미해결 질문으로 끝냅니다. 같이 만드는 톤으로 빠르게 정리했어요 — 더 좁게(예: 법·동전만) 파서 바로 자료 링크 찾을까요?",
+    "discovery_mode": "direct_topic",
+    "topic_library_result": {
+      "added": 1,
+      "duplicates": 0,
+      "total": 65
+    },
+    "selected_at": "2026-06-21T18:37:55",
+    "final_package": "outputs\\knowledge\\20260621-183731-369271\\final_knowledge_short.json",
+    "audience_verdict": "revise",
+    "predicted_retention_score": 56,
+    "render_options": {
+      "fit_to_60_seconds": true,
+      "target_seconds": 60,
+      "maximum_speed_factor": 1.2,
+      "eligible_max_natural_seconds": 72
+    },
+    "video_error": "FFmpeg 오류: [vost#0:0/libx264 @ 0000022703b56180] Error submitting a packet to the muxer: No space left on device\n    Last message repeated 1 times\n[out#0/mp4 @ 0000022703adfdc0] Error muxing a packet\n[out#0/mp4 @ 0000022703adfdc0] Task finished with error code: -28 (No space left on device)\n[out#0/mp4 @ 0000022703adfdc0] Terminating thread with return code -28 (No space left on device)\n[out#0/mp4 @ 0000022703adfdc0] Error writing trailer: No space left on device\n[out#0/mp4 @ 0000022703adfdc0] Error closing file: No space left on device"
+  }
+]

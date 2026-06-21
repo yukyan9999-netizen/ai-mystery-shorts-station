@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>미스터리 다큐 AI 스튜디오</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">MYSTERY DOCUMENTARY AI STUDIO v3.0</p>
+      <h1>미스터리 다큐 AI 스튜디오</h1>
+    </div>
+    <div id="connectionBadge" class="connection pending">연결 확인 중</div>
+  </header>
+
+  <main class="workspace">
+    <section class="manager-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">PROGRAM CONTROL</p>
+          <h2>편성·제작 매니저</h2>
+        </div>
+        <button id="refreshButton" class="icon-button" title="현황 새로고침">↻</button>
+      </div>
+
+      <div class="metrics">
+        <article><span>패키지 완성</span><strong id="completedCount">0</strong></article>
+        <article><span>진행 중</span><strong id="runningCount">0</strong></article>
+        <article><span>주제 선택 대기</span><strong id="waitingCount">0</strong></article>
+        <article class="danger"><span>오류·재시도</span><strong id="blockedCount">0</strong></article>
+      </div>
+
+      <div id="activeJob" class="active-job idle">
+        <span class="pulse"></span>
+        <div>
+          <small>현재 관리 작업</small>
+          <strong>대기 중</strong>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button data-command="오늘 편성 확인">오늘 편성</button>
+        <button data-command="오늘 후보 3개 제작" class="primary">후보 3개 제작</button>
+        <button data-command="현재 작업 중지" class="stop">작업 중지</button>
+      </div>
+
+      <div class="command-area">
+        <label for="managerCommand">제작 매니저에게 지시</label>
+        <textarea id="managerCommand" rows="3" placeholder="예: 오늘 편성 확인&#10;예: 오늘 후보 3개 제작"></textarea>
+        <button id="sendCommand" class="send-button">지시 보내기 <span>↵</span></button>
+        <p id="commandFeedback" class="feedback"></p>
+      </div>
+
+      <section class="knowledge-planner-panel">
+        <div class="list-heading">
+          <div>
+            <p class="section-kicker">TODAY'S SCHEDULE</p>
+            <h3>오늘의 지식 미스터리 편성</h3>
+          </div>
+          <span id="scheduleDate">-</span>
+        </div>
+        <div class="schedule-card">
+          <strong id="scheduleCategory">편성 확인 중</strong>
+          <p id="scheduleReason">요일별 순환 규칙을 불러오고 있습니다.</p>
+        </div>
+        <label class="direction-field" for="topicDirection">
+          원하는 소재 방향 <small>비워두면 자동 편성</small>
+          <input id="topicDirection" placeholder="예: 우주, 로마 역사, 고대 이집트, UFO">
+        </label>
+        <button id="generateKnowledgeButton" class="idea-save" type="button">
+          AI 후보 3개 생성 · 제작 주제는 내가 선택
+        </button>
+        <p id="referenceStatus" class="reference-status">유튜브 레퍼런스 확인 중</p>
+        <p class="token-note">AI는 후보만 제안합니다. 사람이 주제를 고르고 승인해야 MP4 제작이 시작됩니다.</p>
+      </section>
+
+      <section class="direct-topic-panel">
+        <div class="list-heading">
+          <div>
+            <p class="section-kicker">DIRECT TOPIC DESK</p>
+            <h3>토픽헌터와 바로 기획하기</h3>
+          </div>
+          <span>후보 선택 생략</span>
+        </div>
+        <div id="directTopicChat" class="direct-topic-chat">
+          <article class="hunter-message">
+            <strong>헌터</strong>
+            <p>대략적인 생각만 주세요. 핵심은 유지하고 실제 근거와 인간·문명 영향이 있는 주제로 다듬어 바로 대본 제작에 넘기겠습니다.</p>
+          </article>
+        </div>
+        <label for="directTopicPrompt">
+          토픽헌터에게 전달할 아이디어
+          <textarea id="directTopicPrompt" rows="4" placeholder="예: 순간이동에 성공했는데 원래 내가 사라지지 않으면 어떻게 될까?&#10;예: 로마가 멸망하지 않았다면 지금도 황제가 있을까?"></textarea>
+        </label>
+        <button id="directTopicButton" class="direct-topic-button" type="button">
+          헌터와 상의하고 바로 대본 제작
+        </button>
+        <p id="directTopicFeedback" class="feedback"></p>
+        <p class="token-note">토픽헌터가 한 주제로 정리한 뒤 조사와 대본 작성까지 자동 진행합니다. 최종 대본은 사람이 승인해야 영상 제작이 시작됩니다.</p>
+      </section>
+
+      <section class="topic-library-panel">
+        <div class="list-heading">
+          <div>
+            <p class="section-kicker">TOPIC ARCHIVE</p>
+            <h3>누적 소재 보관함</h3>
+          </div>
+          <span id="topicLibraryCount">총 0개</span>
+        </div>
+        <div class="topic-search-row">
+          <input id="topicLibrarySearch" placeholder="보관함 검색: 우주, 로마, UFO">
+          <button id="topicLibrarySearchButton" type="button">검색</button>
+        </div>
+        <div id="topicLibraryList" class="topic-library-list">
+          <p class="idea-empty">발굴한 소재가 여기에 계속 누적됩니다.</p>
+        </div>
+      </section>
+
+      <div class="episode-list-wrap">
+        <div class="list-heading">
+          <h3>지식 쇼츠 제작 현황</h3>
+          <span id="totalCount">총 0건</span>
+        </div>
+        <div id="knowledgeRunList" class="episode-list"></div>
+      </div>
+    </section>
+
+    <section class="work-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">LIVE KNOWLEDGE FLOOR</p>
+          <h2>실시간 제작 작업실</h2>
+        </div>
+        <div class="log-actions">
+          <label><input id="autoScroll" type="checkbox" checked> 자동 스크롤</label>
+          <button id="clearLog" class="icon-button">로그 비우기</button>
+        </div>
+      </div>
+
+      <div class="pixel-office">
+        <div class="studio-roof">
+          <span class="office-sign">MYSTERY DOCUMENTARY LAB</span>
+          <span id="officeState" class="office-state idle">현재 작업 없음</span>
+        </div>
+        <section class="studio-floor second-floor">
+          <div class="floor-label">2F · 영상 · 음성 · 음악 제작실</div>
+          <div class="editing-monitors"><i></i><i></i><i></i></div>
+          <div id="videoStudioStage" class="video-studio-stage"></div>
+        </section>
+        <section class="studio-floor first-floor">
+          <div class="floor-label">1F · 14 AGENTS · REALITY → CONSEQUENCE → MYSTERY → SHORTS EDIT</div>
+          <div id="agentStage" class="agent-stage"></div>
+        </section>
+      </div>
+
+      <div id="dialogueBox" class="dialogue-box">
+        <img id="speakerPortrait" src="/assets/agents/production-manager.png" alt="">
+        <div>
+          <div class="speaker-meta">
+            <strong id="speakerName">한실장</strong>
+            <span id="speakerRole">ProductionManager</span>
+          </div>
+          <p id="speakerLine">현재는 대기 중입니다. 후보 제작을 누르면 각 담당자의 판단을 여기서 볼 수 있어요.</p>
+        </div>
+      </div>
+
+      <div class="conversation-panel">
+        <div class="conversation-heading">
+          <strong>캐릭터 제작 회의록</strong>
+          <span id="conversationEpisode">검토 결과 요약</span>
+        </div>
+        <div id="characterConversation" class="character-conversation">
+          <p class="conversation-empty">작업이 시작되면 담당자들이 자신의 검토 결과를 짧게 보고합니다.</p>
+        </div>
+      </div>
+      <div id="logStream" class="log-stream" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <div id="videoModal" class="video-modal" hidden>
+    <div class="video-modal-card">
+      <div class="video-modal-heading">
+        <strong id="videoModalTitle">완성된 지식 쇼츠</strong>
+        <button id="closeVideoModal" type="button">닫기</button>
+        </div>
+        <video id="knowledgeVideo" controls playsinline></video>
+        <section class="video-feedback-panel">
+          <strong>완성 영상 장면 피드백</strong>
+          <small>장면 번호와 바꿀 내용을 적어주세요. 대본·음성·음악은 유지됩니다.</small>
+          <div id="videoSceneGuide" class="video-scene-guide">장면 목록을 불러오는 중...</div>
+          <textarea id="videoSceneFeedback" rows="3" placeholder="예: 10번 화면이 생성되지 않았으니 복구해줘. 9번 화면은 지금과 다른 NASA 영상으로 교체해줘."></textarea>
+          <button id="submitVideoFeedback" type="button">장면 수정 후 다시 제작</button>
+          <p id="videoFeedbackMessage" class="feedback"></p>
+        </section>
+      </div>
+    </div>
+
+  <div id="scriptReviewModal" class="script-review-modal" hidden>
+    <div class="script-review-card">
+      <div class="script-review-heading">
+        <div>
+          <small>HUMAN SCRIPT APPROVAL</small>
+          <strong id="scriptReviewTitle">최종 대본 검토</strong>
+        </div>
+        <button id="closeScriptReview" type="button">닫기</button>
+      </div>
+      <div id="scriptReviewBody" class="script-review-body"></div>
+      <label class="script-feedback-field" for="scriptFeedback">
+        작가에게 보낼 수정 의견
+        <textarea id="scriptFeedback" rows="4" placeholder="예: 첫 문장을 더 강하게, 설명을 20% 줄이고 마지막 반전을 늦춰줘."></textarea>
+      </label>
+      <label class="duration-fit-option" for="fitTo60Seconds">
+        <input id="fitTo60Seconds" type="checkbox">
+        <span>
+          <strong>60초 자동 맞춤</strong>
+          <small>자연 길이가 60~72초일 때만 TTS를 최대 1.2배 빠르게 조절합니다. 72초를 넘으면 자연 속도를 유지합니다.</small>
+        </span>
+      </label>
+      <p id="scriptReviewFeedback" class="feedback"></p>
+      <div class="script-review-actions">
+        <button id="toggleDirectScriptEdit" type="button" class="review-edit">직접 수정하기</button>
+        <button id="saveDirectScriptEdit" type="button" class="review-save" hidden>수정본 저장</button>
+        <button id="submitScriptFeedback" type="button" class="review-revise">피드백 반영 요청</button>
+        <button id="approveReviewedScript" type="button" class="review-approve">이 대본 승인하고 영상 제작</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

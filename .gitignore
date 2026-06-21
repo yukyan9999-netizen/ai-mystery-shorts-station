@@ -1,0 +1,17 @@
+.env
+.env.local
+.venv/
+__pycache__/
+*.pyc
+logs/*.log
+outputs/drafts/*
+outputs/final/*
+outputs/drafts/**/.episode.lock
+!outputs/drafts/.gitkeep
+!outputs/final/.gitkeep
+outputs/knowledge/
+*.MP4
+*.MOV
+*.mp4
+*.mov
+media/stock/

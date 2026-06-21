@@ -1,0 +1,196 @@
+model: gpt-5-mini
+# gpt-5 및 o-series 모델에서는 아래 temperature 값이 자동으로 생략됩니다.
+temperature: 0.6
+max_revision_loops: 3
+max_turns_per_agent: 4
+heartbeat_seconds: 10
+agent_timeout_seconds: 60
+manager_intervention_timeout_seconds: 10
+expedite_timeout_seconds: 45
+expedite_max_tokens: 2500
+episode_manager_report_seconds: 30
+topic_policy:
+  preferred_difficulty: easy
+  allow_medium: true
+  reject_hard: true
+  max_background_seconds: 10
+  max_unfamiliar_terms: 2
+  max_title_characters: 42
+  audience: "초등학교 고학년부터 성인까지"
+  retry_with_simpler_angle: true
+shorts:
+  min_seconds: 55
+  preferred_seconds: 90
+  max_seconds: 120
+video_studio:
+  image_model: gpt-image-2
+  image_quality: medium
+  image_size: 1024x1536
+  speech_model: gpt-4o-mini-tts
+  knowledge_narrator_voice: cedar
+  speech_instructions: "친구에게 신기하고 조금 섬뜩한 이야기를 들려주는 자연스러운 한국어 남성 목소리다. 다큐멘터리 해설자나 뉴스 앵커처럼 읽지 않는다. 평소 대화처럼 편안하게 시작하고, 이상한 부분에서는 목소리를 살짝 낮추며, 반전 직전에는 짧게 숨을 고른다. 문장마다 과장된 힘을 주지 말고 중요한 단어에만 자연스럽게 강조한다. 친근하지만 가볍게 웃지는 않으며, 듣는 사람이 다음 말을 궁금해하게 읽는다."
+  knowledge_visual_style:
+    version: 4
+    motion: subtle_dynamic
+    headline_font_size: 82
+    subtitle_font_size: 70
+    truth_label_font_size: 25
+    accent_color: "#ef2b22"
+    text_color: "#ffffff"
+    outline_width: 6
+    caption_bottom_margin: 250
+    caption_box_alpha: 115
+    darken_overlay: 55
+    ai_marker_font_size: 18
+    ai_marker_alpha: 82
+    regenerate_ai_images_on_style_rebuild: true
+  voice_cast:
+    protagonist:
+      voice: marin
+      direction: "여행 중인 젊은 주인공이다. 호기심과 자신감이 있지만 실수 뒤에는 당황과 민망함이 드러난다. 실제 애니메이션 캐릭터 대사처럼 생동감 있게 연기한다."
+    staff:
+      voice: cedar
+      direction: "직원이나 안내 역할이다. 차분하고 친절하며 정확하게 말한다. 주인공보다 낮고 안정적인 톤으로 짧게 대응한다."
+    companion:
+      voice: coral
+      direction: "동행자나 주변 인물이다. 주인공과 확실히 구별되는 밝고 반응이 빠른 목소리로 연기한다."
+    narrator:
+      voice: sage
+      direction: "미스터리 해설자다. 사실 장면은 또렷하게, 전승·목격담·반전은 긴장감 있고 극적으로 읽는다."
+  width: 1080
+  height: 1920
+  fps: 30
+  font_path: "C:/Windows/Fonts/malgun.ttf"
+  bold_font_path: "C:/Windows/Fonts/malgunbd.ttf"
+  stock_clips:
+    enabled: true
+    max_total_seconds: 24
+    min_clip_seconds: 1
+    max_clip_seconds: 4
+    preferred_clip_seconds: 3.6
+    minimum_candidates: 3
+    max_source_reuse: 2
+    max_download_megabytes: 120
+    request_timeout_seconds: 18
+    providers:
+      svs:
+        enabled: true
+      nasa:
+        enabled: true
+      pexels:
+        enabled: true
+      pixabay:
+        enabled: true
+  music_library:
+    enabled: true
+    folder: music
+    mix_volume: 0.20
+    preserve_original_track: true
+    start_offset_seconds: 0
+    normalize: false
+    fade: false
+    fallback: "un_seen.mp3"
+    tracks:
+      - file: "The Unseen Architecture (1).mp3"
+        mood: "우주·UAP·시간·미지의 공간"
+        keywords:
+          - 우주
+          - 화성
+          - UAP
+          - UFO
+          - 외계
+          - 웜홀
+          - 광속
+          - 시간여행
+          - 블랙홀
+          - 달
+          - 행성
+      - file: "Shock Fact.mp3"
+        mood: "충격적 사실·과학 반전·심리 미스터리"
+        keywords:
+          - 충격
+          - 반전
+          - 공룡
+          - 질병
+          - 비만
+          - 뇌
+          - 가위눌림
+          - 살인
+          - 붕괴
+          - 감염
+      - file: "un_seen.mp3"
+        mood: "역사·고대문명·제도·문명적 여운"
+        keywords:
+          - 역사
+          - 로마
+          - 고대
+          - 문명
+          - 제국
+          - 유물
+          - 기록
+          - 피라미드
+          - 몽골
+  scene_timing:
+    use_actual_narration_length: true
+    narration_tail_seconds: 0.35
+    minimum_scene_seconds: 1.8
+    duration_fit:
+      target_seconds: 60
+      eligible_overrun_ratio: 0.20
+      maximum_speed_factor: 1.20
+      fitted_tail_seconds: 0.05
+agents:
+  ProductionManager:
+    temperature: 0.1
+  TrendAnalyst:
+    temperature: 0.2
+  TopicHunter:
+    temperature: 0.5
+  ScientificResearcher:
+    temperature: 0.1
+  HistoricalResearcher:
+    temperature: 0.1
+  HumanCuriosityDirector:
+    temperature: 0.5
+  FutureConsequenceSimulator:
+    temperature: 0.3
+  GihwanAgent:
+    temperature: 0.6
+  MysteryArchitect:
+    temperature: 0.4
+  AudienceSimulator:
+    temperature: 0.2
+  TopicGenerator:
+    temperature: 0.5
+  FactChecker:
+    temperature: 0.1
+  KnowledgeScriptWriter:
+    temperature: 0.4
+  ShortsAdaptationEditor:
+    temperature: 0.5
+  VisualPromptGenerator:
+    temperature: 0.5
+  SourceResearcher:
+    temperature: 0.4
+  MixedMediaPlanner:
+    temperature: 0.3
+media_mix:
+  target_real_media_percent: 78
+  minimum_real_media_percent: 60
+  maximum_ai_generated_percent: 50
+  community_sources_enabled: true
+  international_community_sources_enabled: true
+  community_material_default_use: reference_only
+  require_license_evidence_for_final_media: true
+  allow_unverified_mysteries: true
+  require_truth_status_label: true
+mystery_policy:
+  require_verified_anchor: true
+  separate_fact_theory_speculation: true
+  entertainment_first: true
+  allow_dramatic_exaggeration: true
+  allow_composite_reconstruction: true
+  allow_unverified_claims: true
+  reject_for_low_verifiability: false
+  block_only_for_serious_safety_issue: true
+  required_reconstruction_label: "미스터리 재구성"
