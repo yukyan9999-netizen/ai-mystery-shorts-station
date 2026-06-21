@@ -617,6 +617,92 @@ class KnowledgeVideoStudio:
         except Exception:
             return ""
 
+    def _search_stock_image(
+        self,
+        run_dir: Path,
+        scene: KnowledgeScene,
+    ) -> Path | None:
+        stock_dir = run_dir / "media" / "downloaded"
+        stock_dir.mkdir(parents=True, exist_ok=True)
+        cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
+        if cached:
+            return cached[0]
+        keywords = re.sub(
+            r"[^\w\s]", "",
+            scene.visual_description[:80],
+            flags=re.UNICODE,
+        ).strip()
+        if not keywords:
+            return None
+        import os
+        pexels_key = os.environ.get("PEXELS_API_KEY", "")
+        pixabay_key = os.environ.get("PIXABAY_API_KEY", "")
+        for provider, url, headers, extract in [
+            (
+                "pexels",
+                "https://api.pexels.com/v1/search?"
+                + urllib.parse.urlencode({
+                    "query": keywords, "orientation": "portrait",
+                    "size": "medium", "per_page": 3,
+                }),
+                {"Authorization": pexels_key},
+                lambda data: next(
+                    (
+                        p.get("src", {}).get("large2x") or p.get("src", {}).get("original")
+                        for p in data.get("photos", [])
+                        if p.get("src")
+                    ),
+                    None,
+                ),
+            ),
+            (
+                "pixabay",
+                "https://pixabay.com/api/?"
+                + urllib.parse.urlencode({
+                    "key": pixabay_key, "q": keywords,
+                    "image_type": "photo", "orientation": "vertical",
+                    "per_page": 3, "safesearch": "true",
+                }),
+                {},
+                lambda data: next(
+                    (h.get("largeImageURL") for h in data.get("hits", []) if h.get("largeImageURL")),
+                    None,
+                ),
+            ),
+        ]:
+            api_key = pexels_key if provider == "pexels" else pixabay_key
+            if not api_key:
+                continue
+            try:
+                request = urllib.request.Request(url, headers={
+                    "User-Agent": "KnowledgeShortsStudio/1.0",
+                    **headers,
+                })
+                with urllib.request.urlopen(request, timeout=10) as response:
+                    data = json.loads(response.read().decode("utf-8"))
+                image_url = extract(data)
+                if not image_url:
+                    continue
+                img_request = urllib.request.Request(
+                    image_url,
+                    headers={"User-Agent": "KnowledgeShortsStudio/1.0"},
+                )
+                with urllib.request.urlopen(img_request, timeout=15) as img_response:
+                    img_bytes = img_response.read(10 * 1024 * 1024)
+                if len(img_bytes) < 1000:
+                    continue
+                suffix = ".jpg"
+                content_type = img_response.headers.get_content_type() if hasattr(img_response, 'headers') else ""
+                if "png" in str(content_type):
+                    suffix = ".png"
+                path = stock_dir / f"scene_{scene.scene_number:02d}_stock{suffix}"
+                path.write_bytes(img_bytes)
+                Image.open(path).verify()
+                return path
+            except Exception:
+                continue
+        return None
+
     def _generate_ai_image(
         self,
         run_dir: Path,
@@ -855,12 +941,16 @@ class KnowledgeVideoStudio:
             if plan.asset_mode == "motion_graphics":
                 image = self._motion_graphic(run_dir, package, scene)
                 used_mode = "motion_graphics"
-            elif existing_generated:
-                image = existing_generated[0]
-                used_mode = "ai_reconstruction_fallback"
             else:
-                image = self._generate_ai_image(run_dir, scene, plan)
-                used_mode = "ai_reconstruction_fallback"
+                image = self._search_stock_image(run_dir, scene)
+                if image is not None:
+                    used_mode = "stock_image"
+                elif existing_generated:
+                    image = existing_generated[0]
+                    used_mode = "ai_reconstruction_fallback"
+                else:
+                    image = self._generate_ai_image(run_dir, scene, plan)
+                    used_mode = "ai_reconstruction_fallback"
         log_entry = {
             "scene_number": scene.scene_number,
             "planned_mode": plan.asset_mode,
