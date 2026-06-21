@@ -913,6 +913,27 @@ class KnowledgeVideoStudio:
         plan: SceneAssetPlan,
         force_ai: bool = False,
     ) -> tuple[Path, dict[str, Any]]:
+        # 모든 장면을 AI 이미지로 통일하는 모드 (기본 활성).
+        # 스톡 이미지/영상/모션그래픽은 관련 없는 로고·검은 화면을 가져오는
+        # 경우가 많아 품질이 불안정하므로 AI 이미지를 기본으로 사용한다.
+        if bool(self.config.get("ai_images_only", True)):
+            generated = run_dir / "media" / "generated"
+            cached = (
+                sorted(generated.glob(f"scene_{scene.scene_number:02d}.*"))
+                if generated.exists()
+                else []
+            )
+            image = cached[0] if cached else self._generate_ai_image(
+                run_dir, scene, plan
+            )
+            return image, {
+                "scene_number": scene.scene_number,
+                "planned_mode": plan.asset_mode,
+                "used_mode": "ai_reconstruction_fallback",
+                "source_page_url": "",
+                "license_status": "not_applicable",
+                "file": str(image.relative_to(run_dir)),
+            }
         source = self._find_source(package, plan)
         image = None
         used_mode = plan.asset_mode
