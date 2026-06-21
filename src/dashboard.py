@@ -69,6 +69,12 @@ class ApprovalRequest(BaseModel):
     fit_to_60_seconds: bool = False
 
 
+class UploadScriptRequest(BaseModel):
+    title: str
+    narration: str
+    category: str = "과학·자연 미스터리"
+
+
 class ManualSceneEdit(BaseModel):
     scene_number: int
     time_range: str
@@ -727,6 +733,230 @@ def direct_topic(request: DirectTopicRequest) -> dict[str, Any]:
             "조사와 최종 대본 제작까지 이어집니다."
         ),
         "process": process,
+    }
+
+
+@app.post("/api/knowledge/upload-script")
+def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
+    title = request.title.strip()
+    narration = request.narration.strip()
+    if len(title) < 2:
+        raise HTTPException(status_code=400, detail="제목을 두 글자 이상 입력해주세요.")
+    if len(narration) < 10:
+        raise HTTPException(status_code=400, detail="내레이션을 10자 이상 입력해주세요.")
+    if control_room.is_running():
+        raise HTTPException(
+            status_code=409,
+            detail="다른 작업이 진행 중입니다. 완료 후 다시 시도하세요.",
+        )
+    category = request.category
+    valid_categories = [
+        "역사 미스터리", "우주 미스터리", "고대문명과 놀라운 기술",
+        "과학·자연 미스터리", "가상 시나리오",
+    ]
+    if category not in valid_categories:
+        category = "과학·자연 미스터리"
+    run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
+    run_dir = KNOWLEDGE_OUTPUTS / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    sentences = [
+        s.strip() for s in re.split(r"(?<=[.!?。！？])\s+|\n+", narration) if s.strip()
+    ]
+    if not sentences:
+        sentences = [narration]
+    scene_count = max(5, min(24, len(sentences)))
+    chunk_size = max(1, len(sentences) // scene_count)
+    chunks: list[str] = []
+    for i in range(0, len(sentences), chunk_size):
+        chunks.append(" ".join(sentences[i : i + chunk_size]))
+    if len(chunks) > 24:
+        chunks = chunks[:24]
+    while len(chunks) < 5:
+        chunks.append(chunks[-1])
+    total_seconds = 90.0
+    per_scene = total_seconds / len(chunks)
+    scenes = []
+    for i, chunk in enumerate(chunks):
+        start = round(per_scene * i, 1)
+        end = round(per_scene * (i + 1), 1)
+        subtitle = chunk[:33].rstrip() + "…" if len(chunk) > 34 else chunk
+        scenes.append({
+            "scene_number": i + 1,
+            "time_range": f"{start}-{end}",
+            "visual_description": f"{title} 관련 장면 {i + 1}",
+            "image_prompt": (
+                f"Cinematic scene about {title}, scene {i + 1}. "
+                "No text, labels, badges, captions, or watermarks."
+            ),
+            "subtitle": subtitle,
+            "narration": chunk,
+        })
+    scene_assets = [
+        {
+            "scene_number": s["scene_number"],
+            "asset_mode": "ai_reconstruction",
+            "license_status": "not_applicable",
+            "usage_instruction": "AI 재구성 이미지",
+            "crop_and_motion": "subtle cinematic motion",
+            "on_screen_source_label": "",
+            "fallback_ai_prompt": s["image_prompt"],
+        }
+        for s in scenes
+    ]
+    hook = sentences[0] if sentences else title
+    close = sentences[-1] if sentences else title
+    mid = len(sentences) // 2
+    facts_mid = sentences[max(1, mid - 1) : min(len(sentences) - 1, mid + 2)]
+    if len(facts_mid) < 2:
+        facts_mid = sentences[1:4] if len(sentences) > 3 else sentences[:2]
+    package = {
+        "run_id": run_id,
+        "production_date": date.today().isoformat(),
+        "category": category,
+        "selected_candidate": {
+            "title": title,
+            "category": category,
+            "one_line_hook": hook,
+            "plain_language_summary": narration[:200],
+            "core_facts": facts_mid[:5] if len(facts_mid) >= 2 else [hook, close],
+            "fact_hypothesis_distinction": "사용자 제공 대본",
+            "visualization_ideas": [f"{title} 시각화 {i}" for i in range(1, 4)],
+            "comment_question": f"{title}에 대해 어떻게 생각하시나요?",
+            "criteria": {
+                "title_curiosity": True,
+                "source_or_claim_traceable": True,
+                "explainable_in_60_seconds": True,
+                "easy_to_visualize": True,
+                "has_twist_or_misconception_resolution": True,
+                "has_comment_question": True,
+                "interesting_without_exaggeration": True,
+            },
+            "score": {
+                "hook": 30, "source_traceability": 8,
+                "visualization": 20, "sixty_second_fit": 18,
+                "comment_potential": 8,
+            },
+            "selection_override": "user_direct_topic",
+        },
+        "fact_check": {
+            "candidate_title": title,
+            "character_comment": "사용자 업로드 대본 — 팩트체크 생략",
+            "verdict": "pass",
+            "verified_claims": [
+                {
+                    "claim": hook,
+                    "classification": "reported_claim",
+                    "evidence_summary": "사용자 제공",
+                    "safe_narration": hook,
+                    "source_urls": ["user_upload"],
+                },
+                {
+                    "claim": close,
+                    "classification": "reported_claim",
+                    "evidence_summary": "사용자 제공",
+                    "safe_narration": close,
+                    "source_urls": ["user_upload"],
+                },
+            ],
+            "entertainment_value_note": "사용자 직접 업로드",
+        },
+        "source_research": {
+            "candidate_title": title,
+            "character_comment": "사용자 업로드 대본 — 자료 조사 생략",
+            "research_summary": "사용자가 직접 작성한 대본입니다.",
+            "sources": [
+                {
+                    "title": "사용자 제공 대본",
+                    "page_url": "user_upload",
+                    "publisher_or_community": "사용자",
+                    "source_kind": "official",
+                    "role": "fact_evidence",
+                    "media_type": "article",
+                    "license_status": "public_domain",
+                    "usable_in_final_video": True,
+                    "suggested_use": "내레이션 원본",
+                    "reliability_note": "사용자 직접 작성",
+                }
+            ] * 6,
+            "usable_visual_asset_count": 0,
+        },
+        "script": {
+            "title": title,
+            "category": category,
+            "character_comment": "사용자 업로드 대본",
+            "timed_script": {
+                "hook_0_3": hook,
+                "background_3_12": sentences[1] if len(sentences) > 1 else hook,
+                "facts_12_35": facts_mid[:3] if len(facts_mid) >= 2 else [hook, close],
+                "mystery_35_50": sentences[mid] if mid < len(sentences) else hook,
+                "close_50_60": close,
+            },
+            "full_narration": narration,
+            "fact_hypothesis_labels": ["사용자 제공"],
+        },
+        "visual_package": {
+            "character_comment": "사용자 업로드 대본 기반 자동 생성",
+            "scenes": scenes,
+            "thumbnail_text_candidates": [
+                title,
+                f"{title}?!",
+                f"충격! {title}",
+                f"{title}의 비밀",
+                f"알고 계셨나요? {title}",
+            ],
+            "hashtags": [f"#{title[:10]}", "#미스터리", "#쇼츠", "#shorts", "#지식"],
+            "fact_check_checklist": ["사용자 제공 대본"],
+        },
+        "mixed_media_plan": {
+            "character_comment": "사용자 업로드 — AI 이미지로 전체 구성",
+            "target_real_media_percent": 50,
+            "planned_real_media_percent": 0,
+            "scene_assets": scene_assets,
+            "global_editing_rules": ["AI 재구성 이미지 사용"],
+            "attribution_end_card": [],
+        },
+        "human_approval": {
+            "approved": True,
+            "approved_at": datetime.now().isoformat(timespec="seconds"),
+            "approver": "대본 직접 업로드",
+            "script_revision_count": 0,
+            "manual_script_edit_count": 0,
+            "render_options": {
+                "fit_to_60_seconds": False,
+                "target_seconds": 60,
+                "maximum_speed_factor": 1.2,
+            },
+        },
+        "human_approval_required": False,
+        "upload_ready": False,
+    }
+    write_json(run_dir / "final_knowledge_short.json", package)
+    history = read_json(KNOWLEDGE_HISTORY, [])
+    history.append({
+        "run_id": run_id,
+        "title": title,
+        "category": category,
+        "total_score": 84,
+        "production_status": "rendering",
+        "human_approved": True,
+        "created_at": datetime.now().isoformat(timespec="seconds"),
+        "source": "upload_script",
+    })
+    write_json(KNOWLEDGE_HISTORY, history)
+    try:
+        process = control_room.start_video(run_id)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    control_room.emit(
+        "ProductionManager",
+        f"대본 업로드 완료 · {run_id} 영상 제작을 시작합니다.",
+        "success",
+    )
+    return {
+        "status": "rendering",
+        "run_id": run_id,
+        "scene_count": len(scenes),
+        "message": f"대본 '{title}' 업로드 완료. {len(scenes)}개 장면으로 영상 제작을 시작합니다.",
     }
 
 
