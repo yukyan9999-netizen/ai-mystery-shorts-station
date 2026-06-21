@@ -3,12 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from src.knowledge_models import (
-    ConsequenceReport,
-    CuriosityReport,
-    GihwanReport,
     KnowledgeCandidate,
     KnowledgeScript,
-    NarrativeArchitecture,
     ResearchDossier,
 )
 from src.knowledge_runtime import KnowledgeRuntime
@@ -23,19 +19,11 @@ class ScriptWriter:
         candidate: KnowledgeCandidate,
         scientific: ResearchDossier,
         historical: ResearchDossier,
-        curiosity: CuriosityReport,
-        consequences: ConsequenceReport,
-        gihwan: GihwanReport,
-        architecture: NarrativeArchitecture,
     ) -> KnowledgeScript:
         payload = {
             "candidate": candidate.model_dump(mode="json"),
             "scientific_research": scientific.model_dump(mode="json"),
             "historical_research": historical.model_dump(mode="json"),
-            "curiosity_report": curiosity.model_dump(mode="json"),
-            "consequence_report": consequences.model_dump(mode="json"),
-            "gihwan_report": gihwan.model_dump(mode="json"),
-            "narrative_architecture": architecture.model_dump(mode="json"),
             "studio_reference": self.runtime.reference_context(),
         }
         return self.runtime.run_structured(
@@ -52,10 +40,6 @@ class ScriptWriter:
         candidate: KnowledgeCandidate,
         scientific: ResearchDossier,
         historical: ResearchDossier,
-        curiosity: CuriosityReport,
-        consequences: ConsequenceReport,
-        gihwan: GihwanReport,
-        architecture: NarrativeArchitecture,
         current_script: KnowledgeScript,
         user_feedback: str,
         feedback_history: list[str] | None = None,
@@ -73,10 +57,6 @@ class ScriptWriter:
             "candidate": candidate.model_dump(mode="json"),
             "scientific_research": scientific.model_dump(mode="json"),
             "historical_research": historical.model_dump(mode="json"),
-            "curiosity_report": curiosity.model_dump(mode="json"),
-            "consequence_report": consequences.model_dump(mode="json"),
-            "gihwan_report": gihwan.model_dump(mode="json"),
-            "narrative_architecture": architecture.model_dump(mode="json"),
             "studio_reference": self.runtime.reference_context(),
             "revision_rules": [
                 "current_user_feedback의 실행 가능한 요구를 빠짐없이 직접 반영한다.",
