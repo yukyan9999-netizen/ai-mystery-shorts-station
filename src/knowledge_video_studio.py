@@ -1222,6 +1222,8 @@ class KnowledgeVideoStudio:
     ) -> list[Path]:
         audio_dir = run_dir / "audio"
         audio_dir.mkdir(exist_ok=True)
+        timing = self.config.get("scene_timing", {})
+        base_speed = max(1.0, float(timing.get("base_speed_factor", 1.0)))
         paths: list[Path] = []
         scenes = package.visual_package.scenes
         self._state("VoiceProducer", "working")
@@ -1241,6 +1243,7 @@ class KnowledgeVideoStudio:
                 percent,
                 f"{scene.scene_number}번 장면 내레이션을 제작하고 있습니다.",
             )
+            raw_path = audio_dir / f"scene_{scene.scene_number:02d}_raw.wav"
             with self.client.audio.speech.with_streaming_response.create(
                 model=self.config["speech_model"],
                 voice=str(self.config.get("knowledge_narrator_voice", "cedar")),
@@ -1248,7 +1251,19 @@ class KnowledgeVideoStudio:
                 instructions=self.config["speech_instructions"],
                 response_format="wav",
             ) as response:
-                response.stream_to_file(path)
+                response.stream_to_file(raw_path)
+            if base_speed > 1.0:
+                self._run_ffmpeg(
+                    [
+                        "-i", str(raw_path),
+                        "-filter:a", f"atempo={base_speed:.6f}",
+                        "-c:a", "pcm_s16le",
+                        str(path),
+                    ]
+                )
+                raw_path.unlink(missing_ok=True)
+            else:
+                raw_path.rename(path)
             paths.append(path)
         self._state("VoiceProducer", "idle")
         return paths
