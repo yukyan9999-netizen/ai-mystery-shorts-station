@@ -37,6 +37,20 @@ class TopicLibrary:
     def known_titles(self, limit: int = 150) -> list[str]:
         return [str(item.get("title", "")) for item in self.load()[-limit:]]
 
+    def known_topics_summary(self, limit: int = 60) -> list[dict[str, str]]:
+        results = []
+        for item in self.load()[-limit:]:
+            title = str(item.get("title", ""))
+            keywords = item.get("core_facts", [])
+            if not keywords:
+                keywords = [w for w in title.replace("?", "").replace("—", " ").split() if len(w) > 1][:5]
+            results.append({
+                "title": title,
+                "keywords": ", ".join(str(k)[:20] for k in keywords[:5]),
+                "category": str(item.get("category", "")),
+            })
+        return results
+
     def add_batch(
         self,
         batch: DailyTopicBatch,
