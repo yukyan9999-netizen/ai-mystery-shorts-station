@@ -785,9 +785,12 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
     if not user_feedback:
         raise ValueError("대본 수정 피드백이 비어 있습니다.")
 
-    package = KnowledgeProductionPackage.model_validate_json(
-        final_path.read_text(encoding="utf-8")
-    )
+    raw_pkg = json.loads(final_path.read_text(encoding="utf-8"))
+    if "visual_package" in raw_pkg and len(raw_pkg["visual_package"].get("scenes", [])) > 24:
+        raw_pkg["visual_package"]["scenes"] = raw_pkg["visual_package"]["scenes"][:24]
+    if "mixed_media_plan" in raw_pkg and len(raw_pkg["mixed_media_plan"].get("scene_assets", [])) > 24:
+        raw_pkg["mixed_media_plan"]["scene_assets"] = raw_pkg["mixed_media_plan"]["scene_assets"][:24]
+    package = KnowledgeProductionPackage.model_validate(raw_pkg)
     required = {
         "scientific_research": package.scientific_research,
         "historical_research": package.historical_research,
