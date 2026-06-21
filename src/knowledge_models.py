@@ -123,9 +123,9 @@ class KnowledgeCandidate(BaseModel):
         elif self.criteria.passed_count < 3:
             self.selection_status = "rejected"
             self.rejection_reason = "선정 조건 7개 중 3개 미만 충족"
-        elif self.total_score < 70:
+        elif self.total_score < 60:
             self.selection_status = "rejected"
-            self.rejection_reason = f"총점 {self.total_score}점으로 70점 미만"
+            self.rejection_reason = f"총점 {self.total_score}점으로 60점 미만"
         elif self.total_score >= 85:
             self.selection_status = "priority"
             self.rejection_reason = ""
