@@ -101,6 +101,15 @@ class TopicHunter:
             "previously_discovered_titles_to_avoid": TopicLibrary(
                 self.root
             ).known_titles(),
+            "previously_covered_topics_with_keywords": TopicLibrary(
+                self.root
+            ).known_topics_summary(30),
+            "diversity_rule": (
+                "이전에 다룬 주제의 키워드와 겹치는 소재는 절대 선택하지 않는다. "
+                "같은 대상(블랙홀, 로마, 공룡 등)을 다시 다루려면 "
+                "완전히 다른 각도여야 한다. "
+                "최근 3회 이내에 같은 카테고리가 나왔으면 다른 카테고리를 우선한다."
+            ),
             "required_candidate_count": 3,
             "minimum_score": 70,
             "priority_score": 85,
