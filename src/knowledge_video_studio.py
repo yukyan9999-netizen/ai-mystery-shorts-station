@@ -352,7 +352,8 @@ class KnowledgeVideoStudio:
             available = max(1, 24 - len(expanded_scenes))
             if len(expanded_scenes) >= 24:
                 available = 1
-            part_count = min(max(1, math.ceil(planned / 5.5)), available)
+            max_parts = min(available, 2)
+            part_count = min(max(1, math.ceil(planned / 8.0)), max_parts)
             while part_count > 1:
                 per_part = planned / part_count
                 extra = part_count * max(0.0, min_scene_sec + tail_sec - per_part)
