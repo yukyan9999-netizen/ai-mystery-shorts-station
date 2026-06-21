@@ -5,6 +5,7 @@ import json
 import os
 import re
 import subprocess
+import time
 import urllib.parse
 import urllib.request
 from dataclasses import asdict, dataclass
@@ -131,6 +132,10 @@ class MediaClipSelector:
             self.config.get("max_download_megabytes", 120) * 1024 * 1024
         )
         self.timeout_seconds = int(self.config.get("request_timeout_seconds", 18))
+        # 전체 클립 선택에 쓸 최대 시간(초). 초과하면 나머지 장면은 이미지로 폴백.
+        self.total_time_budget = float(self.config.get("total_time_budget_seconds", 90))
+        # ffmpeg 다운로드/추출 1회당 최대 대기 시간(초).
+        self.ffmpeg_timeout = int(self.config.get("ffmpeg_timeout_seconds", 45))
         providers = self.config.get("providers", {})
         self.svs_enabled = bool(providers.get("svs", {}).get("enabled", True))
         self.nasa_enabled = bool(providers.get("nasa", {}).get("enabled", True))
@@ -192,7 +197,21 @@ class MediaClipSelector:
             self._write_outputs(run_dir, result)
             return result
 
+        start_time = time.monotonic()
+        budget_exceeded = False
         for scene, scene_duration in zip(scenes, durations):
+            if budget_exceeded or (
+                time.monotonic() - start_time > self.total_time_budget
+            ):
+                budget_exceeded = True
+                timeline.append(
+                    self._fallback_timeline_entry(
+                        scene,
+                        scene_duration,
+                        fallback_by_scene.get(scene.scene_number, {}),
+                    )
+                )
+                continue
             query = self._build_query(scene, package)
             candidates: list[MediaClipCandidate] = []
             provider_errors: list[str] = []
@@ -951,6 +970,7 @@ class MediaClipSelector:
             ],
             capture_output=True,
             text=True,
+            timeout=self.ffmpeg_timeout,
         )
         if completed.returncode != 0 or not clip.exists():
             raise RuntimeError(completed.stderr.strip() or "외부 클립 추출 실패")
@@ -988,6 +1008,7 @@ class MediaClipSelector:
             [self.ffmpeg, "-hide_banner", "-i", str(path), "-f", "null", "-"],
             capture_output=True,
             text=True,
+            timeout=self.ffmpeg_timeout,
         )
         match = re.search(
             r"Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)",

@@ -71,7 +71,9 @@ video_studio:
     minimum_candidates: 3
     max_source_reuse: 2
     max_download_megabytes: 120
-    request_timeout_seconds: 18
+    request_timeout_seconds: 8
+    total_time_budget_seconds: 90
+    ffmpeg_timeout_seconds: 30
     providers:
       svs:
         enabled: true
