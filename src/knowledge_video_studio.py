@@ -1003,6 +1003,27 @@ class KnowledgeVideoStudio:
                     f"{completed}/{len(scenes)}개 장면 이미지 준비 완료.",
                 )
         results.sort(key=lambda x: x[0])
+        ai_count = sum(1 for _, _, entry in results if entry["used_mode"] == "ai_reconstruction_fallback")
+        min_ai = int(self.config.get("min_ai_images", 3))
+        if ai_count < min_ai:
+            stock_indices = [
+                i for i, (_, _, entry) in enumerate(results)
+                if entry["used_mode"] == "stock_image"
+            ]
+            need = min_ai - ai_count
+            replace_indices = stock_indices[:need]
+            for idx in replace_indices:
+                orig_idx, _, entry = results[idx]
+                scene, plan = scene_plans[orig_idx]
+                image = self._generate_ai_image(run_dir, scene, plan)
+                entry["used_mode"] = "ai_reconstruction_fallback"
+                entry["file"] = str(image.relative_to(run_dir))
+                results[idx] = (orig_idx, image, entry)
+                self._progress(
+                    "VideoRenderer",
+                    40,
+                    f"AI 이미지 최소 {min_ai}개 확보를 위해 {scene.scene_number}번 장면을 AI로 교체.",
+                )
         images = [r[1] for r in results]
         log = [r[2] for r in results]
         return images, log
