@@ -101,6 +101,29 @@
         <p class="token-note">토픽헌터가 한 주제로 정리한 뒤 조사와 대본 작성까지 자동 진행합니다. 최종 대본은 사람이 승인해야 영상 제작이 시작됩니다.</p>
       </section>
 
+      <section class="direct-topic-panel">
+        <div class="list-heading">
+          <div>
+            <p class="section-kicker">SCRIPT UPLOAD</p>
+            <h3>최종 대본 업로드 → 바로 영상 제작</h3>
+          </div>
+          <span>AI 에이전트 생략</span>
+        </div>
+        <label for="uploadScriptTitle">
+          영상 제목
+          <input id="uploadScriptTitle" type="text" placeholder="예: 달이 사라지면 바다는 어떻게 될까?" />
+        </label>
+        <label for="uploadScriptNarration">
+          전체 내레이션 텍스트
+          <textarea id="uploadScriptNarration" rows="8" placeholder="완성된 내레이션 전체 텍스트를 붙여넣으세요. 문장 단위로 자동 장면 분할됩니다."></textarea>
+        </label>
+        <button id="uploadScriptButton" class="direct-topic-button" type="button">
+          대본 업로드하고 바로 영상 제작
+        </button>
+        <p id="uploadScriptFeedback" class="feedback"></p>
+        <p class="token-note">AI 소재 선정·조사·대본 작성을 모두 건너뛰고 바로 TTS·이미지·영상 제작에 들어갑니다.</p>
+      </section>
+
       <section class="topic-library-panel">
         <div class="list-heading">
           <div>

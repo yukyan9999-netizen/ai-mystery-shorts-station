@@ -642,6 +642,42 @@ async function startGeneration() {
   }
 }
 
+async function uploadScript() {
+  const title = $("#uploadScriptTitle").value.trim();
+  const narration = $("#uploadScriptNarration").value.trim();
+  const button = $("#uploadScriptButton");
+  const feedback = $("#uploadScriptFeedback");
+  if (!title) {
+    feedback.textContent = "제목을 입력해주세요.";
+    feedback.classList.add("error");
+    return;
+  }
+  if (!narration || narration.length < 10) {
+    feedback.textContent = "내레이션을 10자 이상 입력해주세요.";
+    feedback.classList.add("error");
+    return;
+  }
+  button.disabled = true;
+  feedback.classList.remove("error");
+  feedback.textContent = "대본 업로드 중...";
+  try {
+    const data = await api("/api/knowledge/upload-script", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, narration }),
+    });
+    feedback.textContent = data.message;
+    $("#uploadScriptTitle").value = "";
+    $("#uploadScriptNarration").value = "";
+    await refreshStatus();
+  } catch (error) {
+    feedback.textContent = error.message;
+    feedback.classList.add("error");
+  } finally {
+    button.disabled = false;
+  }
+}
+
 async function startDirectTopic() {
   const prompt = $("#directTopicPrompt").value.trim();
   const button = $("#directTopicButton");
@@ -1067,6 +1103,13 @@ $("#refreshButton").addEventListener("click", () => {
   refreshConversation();
 });
 $("#generateKnowledgeButton").addEventListener("click", startGeneration);
+$("#uploadScriptButton").addEventListener("click", uploadScript);
+$("#uploadScriptNarration").addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+    event.preventDefault();
+    uploadScript();
+  }
+});
 $("#directTopicButton").addEventListener("click", startDirectTopic);
 $("#directTopicPrompt").addEventListener("keydown", (event) => {
   if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
