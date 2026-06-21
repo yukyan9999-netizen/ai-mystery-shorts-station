@@ -372,8 +372,6 @@ class KnowledgeVideoStudio:
                 start = elapsed
                 elapsed += part_duration
                 subtitle = self._clean_caption(narration)
-                if len(subtitle) > 34:
-                    subtitle = subtitle[:33].rstrip() + "…"
                 variation = angle_notes[part_index % len(angle_notes)]
                 expanded_scenes.append(
                     scene.model_copy(
@@ -789,7 +787,27 @@ class KnowledgeVideoStudio:
             flags=re.I,
         )
         text = re.sub(r"[_]{2,}", " ", text)
-        return " ".join(text.split()).strip()[:70] or "미스터리는 아직 끝나지 않았다"
+        return " ".join(text.split()).strip()[:90] or "미스터리는 아직 끝나지 않았다"
+
+    @staticmethod
+    def _fit_caption_lines(
+        caption: str,
+        base_font_size: int,
+        base_width: int,
+        max_lines: int = 4,
+        min_font_size: int = 38,
+    ) -> tuple[list[str], int]:
+        """긴 자막도 잘리지 않도록 폰트 크기를 줄여 전부 보이게 한다."""
+        font_size = base_font_size
+        while font_size >= min_font_size:
+            width = max(8, int(base_width * base_font_size / font_size))
+            lines = wrap(caption, width=width)
+            if len(lines) <= max_lines:
+                return lines, font_size
+            font_size -= 4
+        # 최소 폰트로도 안 맞으면 최소 폰트로 전부 표시 (자르지 않음)
+        width = max(8, int(base_width * base_font_size / min_font_size))
+        return wrap(caption, width=width), min_font_size
 
     @staticmethod
     def _display_label(value: str) -> str:
@@ -1123,8 +1141,10 @@ class KnowledgeVideoStudio:
                     76 if scene.scene_number == 1 else 66,
                 )
             )
+            lines, font_size = self._fit_caption_lines(
+                caption, font_size, 12 if scene.scene_number == 1 else 15
+            )
             subtitle_font = self._font(True, font_size)
-            lines = wrap(caption, width=12 if scene.scene_number == 1 else 15)[:3]
             line_height = int(font_size * 1.28)
             if scene.scene_number == 1:
                 y = 150
@@ -1200,8 +1220,8 @@ class KnowledgeVideoStudio:
                     76 if scene.scene_number == 1 else 66,
                 )
             )
+            lines, font_size = self._fit_caption_lines(caption, font_size, 15)
             subtitle_font = self._font(True, font_size)
-            lines = wrap(caption, width=15)[:3]
             line_height = int(font_size * 1.28)
             block_height = line_height * len(lines)
             bottom_margin = int(self.visual_style.get("caption_bottom_margin", 250))
@@ -1333,8 +1353,10 @@ class KnowledgeVideoStudio:
                     76 if scene.scene_number == 1 else 66,
                 )
             )
+            lines, font_size = self._fit_caption_lines(
+                caption, font_size, 12 if scene.scene_number == 1 else 15
+            )
             subtitle_font = self._font(True, font_size)
-            lines = wrap(caption, width=12 if scene.scene_number == 1 else 15)[:3]
             line_height = int(font_size * 1.28)
             y = 150 if scene.scene_number == 1 else self.height - 440
             outline = int(self.visual_style.get("outline_width", 6))
