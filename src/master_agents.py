@@ -93,11 +93,19 @@ class TopicHunter:
         requested_direction: str,
     ) -> DailyTopicBatch:
         topic_policy = self.runner.runtime.config.get("topic_policy", {})
+        from src.topic_crawler import TopicCrawler
+
+        try:
+            trending = TopicCrawler().crawl_all()[:15]
+        except Exception:
+            trending = []
+
         payload = {
             "production_date": target.isoformat(),
             "schedule": schedule,
             "requested_direction": requested_direction,
             "trend_report": trend_report.model_dump(mode="json"),
+            "trending_topics_from_communities": trending,
             "previously_discovered_titles_to_avoid": TopicLibrary(
                 self.root
             ).known_titles(),
