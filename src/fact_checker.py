@@ -3,13 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 
 from src.knowledge_models import (
-    ConsequenceReport,
-    CuriosityReport,
     FactCheckReport,
-    GihwanReport,
     KnowledgeCandidate,
     KnowledgeScript,
-    NarrativeArchitecture,
     ResearchDossier,
 )
 from src.knowledge_runtime import KnowledgeRuntime
@@ -24,10 +20,6 @@ class FactChecker:
         candidate: KnowledgeCandidate,
         scientific: ResearchDossier,
         historical: ResearchDossier,
-        curiosity: CuriosityReport,
-        consequences: ConsequenceReport,
-        gihwan: GihwanReport,
-        architecture: NarrativeArchitecture,
         script: KnowledgeScript,
     ) -> FactCheckReport:
         payload = {

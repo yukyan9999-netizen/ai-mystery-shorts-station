@@ -15,16 +15,11 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.fact_checker import FactChecker
 from src.knowledge_models import (
-    AudienceSimulation,
-    ConsequenceReport,
-    CuriosityReport,
     DailyTopicBatch,
     FactCheckReport,
-    GihwanReport,
     KnowledgeProductionPackage,
     KnowledgeScript,
     MixedMediaPlan,
-    NarrativeArchitecture,
     ResearchDossier,
     ShortsAdaptationResult,
     SourceResearchReport,
@@ -32,12 +27,7 @@ from src.knowledge_models import (
     VisualPackage,
 )
 from src.master_agents import (
-    AudienceSimulator,
-    FutureConsequenceSimulator,
-    GihwanAgent,
     HistoricalResearcher,
-    HumanCuriosityDirector,
-    MysteryArchitect,
     ScientificResearcher,
     TopicHunter,
     TrendAnalyst,
@@ -304,7 +294,44 @@ def produce_direct_topic(target: date, user_topic: str) -> Path:
     return continue_selected(run_id, 0)
 
 
-def _load_or_research_pair(
+def _simple_script_checks(script: KnowledgeScript) -> list[str]:
+    """Replace AudienceSimulator with deterministic quality checks."""
+    warnings: list[str] = []
+    narration = script.full_narration if hasattr(script, "full_narration") else ""
+    if not narration and hasattr(script, "timed_script"):
+        parts = []
+        ts = script.timed_script
+        for field in ("hook_0_3", "context_3_10", "deep_dive_10_40", "climax_40_50", "closing_50_60"):
+            val = getattr(ts, field, None)
+            if val:
+                parts.append(val)
+        narration = " ".join(parts)
+
+    # Check 1: engagement (at least 3 question marks)
+    question_count = narration.count("?")
+    if question_count < 3:
+        warnings.append(f"질문이 {question_count}개뿐입니다 (최소 3개 권장).")
+
+    # Check 2: no repeated sentences
+    sentences = [s.strip() for s in narration.replace("!", ".").replace("?", ".").split(".") if s.strip()]
+    seen: set[str] = set()
+    for s in sentences:
+        if s in seen:
+            warnings.append(f"중복 문장 발견: '{s[:30]}...'")
+            break
+        seen.add(s)
+
+    # Check 3: reasonable length (200-800 chars)
+    length = len(narration)
+    if length < 200:
+        warnings.append(f"내레이션이 너무 짧습니다 ({length}자, 최소 200자 권장).")
+    elif length > 800:
+        warnings.append(f"내레이션이 너무 깁니다 ({length}자, 최대 800자 권장).")
+
+    return warnings
+
+
+def _load_or_research(
     run_dir: Path,
     selected: Any,
 ) -> tuple[ResearchDossier, ResearchDossier]:
@@ -313,54 +340,55 @@ def _load_or_research_pair(
     results: dict[str, ResearchDossier] = {}
     tasks: dict[Any, tuple[str, Path]] = {}
 
-    for role in ("ScientificResearcher", "HistoricalResearcher"):
-        emit_state(role, "working")
+    emit_state("Researcher", "working")
 
     if scientific_path.exists():
-        results["ScientificResearcher"] = ResearchDossier.model_validate_json(
+        results["scientific"] = ResearchDossier.model_validate_json(
             scientific_path.read_text(encoding="utf-8")
         )
     if historical_path.exists():
-        results["HistoricalResearcher"] = ResearchDossier.model_validate_json(
+        results["historical"] = ResearchDossier.model_validate_json(
             historical_path.read_text(encoding="utf-8")
         )
 
     with ThreadPoolExecutor(max_workers=2) as pool:
-        if "ScientificResearcher" not in results:
+        if "scientific" not in results:
             emit_progress(
-                "ScientificResearcher",
+                "Researcher",
                 10,
                 "논문·실험·공식 과학 자료에서 검증된 출발점을 찾고 있습니다.",
             )
             tasks[
                 pool.submit(ScientificResearcher(PROJECT_ROOT).research, selected)
-            ] = ("ScientificResearcher", scientific_path)
-        if "HistoricalResearcher" not in results:
+            ] = ("scientific", scientific_path)
+        if "historical" not in results:
             emit_progress(
-                "HistoricalResearcher",
-                10,
+                "Researcher",
+                50,
                 "기록·유물·박물관 자료에서 잊힌 세부를 찾고 있습니다.",
             )
             tasks[
                 pool.submit(HistoricalResearcher(PROJECT_ROOT).research, selected)
-            ] = ("HistoricalResearcher", historical_path)
+            ] = ("historical", historical_path)
         for future in as_completed(tasks):
-            role, path = tasks[future]
+            key, path = tasks[future]
             dossier = future.result()
-            results[role] = dossier
+            results[key] = dossier
             save_json(path, dossier)
 
-    for role in ("ScientificResearcher", "HistoricalResearcher"):
-        dossier = results[role]
-        emit_comment(role, dossier.character_comment)
-        emit_progress(
-            role,
-            100,
-            f"근거 {len(dossier.evidence)}개와 미해결 질문을 정리했습니다.",
-        )
-        emit_state(role, "idle")
+    for key in ("scientific", "historical"):
+        dossier = results[key]
+        emit_comment("Researcher", dossier.character_comment)
 
-    return results["ScientificResearcher"], results["HistoricalResearcher"]
+    total_evidence = len(results["scientific"].evidence) + len(results["historical"].evidence)
+    emit_progress(
+        "Researcher",
+        100,
+        f"과학·역사 근거 {total_evidence}개와 미해결 질문을 정리했습니다.",
+    )
+    emit_state("Researcher", "idle")
+
+    return results["scientific"], results["historical"]
 
 
 def continue_selected(run_id: str, candidate_index: int) -> Path:
@@ -390,114 +418,7 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         f"사람이 ‘{selected.title}’을 채택했습니다. 저장된 단계는 재사용하며 제작을 이어갑니다.",
     )
 
-    scientific, historical = _load_or_research_pair(run_dir, selected)
-
-    curiosity_path = run_dir / "04_curiosity_report.json"
-    emit_state("HumanCuriosityDirector", "working")
-    if curiosity_path.exists():
-        curiosity = CuriosityReport.model_validate_json(
-            curiosity_path.read_text(encoding="utf-8")
-        )
-        emit_progress(
-            "HumanCuriosityDirector", 100, "저장된 호기심 설계를 재사용합니다."
-        )
-    else:
-        emit_progress(
-            "HumanCuriosityDirector",
-            15,
-            "사실을 시청자가 자기 일처럼 느끼는 질문으로 바꾸고 있습니다.",
-        )
-        curiosity = HumanCuriosityDirector(PROJECT_ROOT).transform(
-            selected,
-            scientific,
-            historical,
-        )
-        save_json(curiosity_path, curiosity)
-    emit_comment("HumanCuriosityDirector", curiosity.character_comment)
-    emit_state("HumanCuriosityDirector", "idle")
-
-    consequence_path = run_dir / "05_consequence_report.json"
-    emit_state("FutureConsequenceSimulator", "working")
-    if consequence_path.exists():
-        consequences = ConsequenceReport.model_validate_json(
-            consequence_path.read_text(encoding="utf-8")
-        )
-        emit_progress(
-            "FutureConsequenceSimulator", 100, "저장된 미래 파급 분석을 재사용합니다."
-        )
-    else:
-        emit_progress(
-            "FutureConsequenceSimulator",
-            15,
-            "생물학·심리·사회·경제·정치·문명 결과를 연쇄 계산하고 있습니다.",
-        )
-        consequences = FutureConsequenceSimulator(PROJECT_ROOT).simulate(
-            selected,
-            scientific,
-            historical,
-            curiosity,
-        )
-        save_json(consequence_path, consequences)
-    emit_comment("FutureConsequenceSimulator", consequences.character_comment)
-    emit_progress(
-        "FutureConsequenceSimulator",
-        100,
-        f"파급 결과 {len(consequences.consequences)}개를 영향도순으로 정리했습니다.",
-    )
-    emit_state("FutureConsequenceSimulator", "idle")
-
-    gihwan_path = run_dir / "06_gihwan_report.json"
-    emit_state("GihwanAgent", "working")
-    if gihwan_path.exists():
-        gihwan = GihwanReport.model_validate_json(
-            gihwan_path.read_text(encoding="utf-8")
-        )
-        emit_progress("GihwanAgent", 100, "저장된 연쇄 질문을 재사용합니다.")
-    else:
-        emit_progress(
-            "GihwanAgent",
-            15,
-            "‘그래서, 그다음은?’을 반복해 정체성과 문명의 질문까지 밀어붙이고 있습니다.",
-        )
-        gihwan = GihwanAgent(PROJECT_ROOT).amplify(
-            selected,
-            curiosity,
-            consequences,
-        )
-        save_json(gihwan_path, gihwan)
-    emit_comment("GihwanAgent", gihwan.character_comment)
-    emit_progress(
-        "GihwanAgent",
-        100,
-        f"질문 사슬 {len(gihwan.question_chain)}단계를 완성했습니다.",
-    )
-    emit_state("GihwanAgent", "idle")
-
-    architecture_path = run_dir / "07_narrative_architecture.json"
-    emit_state("MysteryArchitect", "working")
-    if architecture_path.exists():
-        architecture = NarrativeArchitecture.model_validate_json(
-            architecture_path.read_text(encoding="utf-8")
-        )
-        emit_progress("MysteryArchitect", 100, "저장된 미스터리 구조를 재사용합니다.")
-    else:
-        emit_progress(
-            "MysteryArchitect",
-            15,
-            "증거를 먼저 보여주고 반전은 늦게 공개하도록 60초 구조를 설계합니다.",
-        )
-        architecture = MysteryArchitect(PROJECT_ROOT).build(
-            selected,
-            scientific,
-            historical,
-            curiosity,
-            consequences,
-            gihwan,
-        )
-        save_json(architecture_path, architecture)
-    emit_comment("MysteryArchitect", architecture.character_comment)
-    emit_progress("MysteryArchitect", 100, "미스터리 서사 구조를 완성했습니다.")
-    emit_state("MysteryArchitect", "idle")
+    scientific, historical = _load_or_research(run_dir, selected)
 
     script_path = run_dir / "08_script.json"
     emit_state("KnowledgeScriptWriter", "working")
@@ -516,10 +437,6 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
             selected,
             scientific,
             historical,
-            curiosity,
-            consequences,
-            gihwan,
-            architecture,
         )
         save_json(script_path, script)
     emit_comment("KnowledgeScriptWriter", script.character_comment)
@@ -552,7 +469,6 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         save_json(adaptation_path, adaptation)
         save_json(adapted_script_path, script)
         for downstream_name in (
-            "09_audience_simulation.json",
             "10_fact_check.json",
             "12_visual_package.json",
             "13_mixed_media_plan.json",
@@ -568,31 +484,15 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
     )
     emit_state("ShortsAdaptationEditor", "idle")
 
-    audience_path = run_dir / "09_audience_simulation.json"
-    emit_state("AudienceSimulator", "working")
-    if audience_path.exists():
-        audience = AudienceSimulation.model_validate_json(
-            audience_path.read_text(encoding="utf-8")
+    # Code-based quality checks (replaces AudienceSimulator)
+    script_warnings = _simple_script_checks(script)
+    if script_warnings:
+        for warning in script_warnings:
+            emit_comment("QualityCheck", warning)
+        print(
+            f"스크립트 품질 경고 {len(script_warnings)}건 (제작은 계속합니다).",
+            flush=True,
         )
-        emit_progress("AudienceSimulator", 100, "저장된 시청자 반응 예측을 재사용합니다.")
-    else:
-        emit_progress(
-            "AudienceSimulator",
-            15,
-            "첫 3초 이탈, 중간 혼란, 댓글 반응을 실제 시청자처럼 점검하고 있습니다.",
-        )
-        audience = AudienceSimulator(PROJECT_ROOT).evaluate(script, architecture)
-        save_json(audience_path, audience)
-    emit_comment("AudienceSimulator", audience.character_comment)
-    emit_progress(
-        "AudienceSimulator",
-        100,
-        (
-            f"예상 유지율 {audience.predicted_retention_score}점 · "
-            f"댓글 반응 {audience.predicted_comment_score}점입니다."
-        ),
-    )
-    emit_state("AudienceSimulator", "idle")
 
     fact_path = run_dir / "10_fact_check.json"
     emit_state("FactChecker", "working")
@@ -611,10 +511,6 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
             selected,
             scientific,
             historical,
-            curiosity,
-            consequences,
-            gihwan,
-            architecture,
             script,
         )
         save_json(fact_path, fact_check)
@@ -692,7 +588,7 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         visuals = VisualPromptGenerator(PROJECT_ROOT).generate(
             script,
             fact_check,
-            architecture,
+            None,
             source_research,
         )
         save_json(visual_path, visuals)
@@ -740,11 +636,11 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         trend_report=trend_report,
         scientific_research=scientific,
         historical_research=historical,
-        curiosity_report=curiosity,
-        consequence_report=consequences,
-        gihwan_report=gihwan,
-        narrative_architecture=architecture,
-        audience_simulation=audience,
+        curiosity_report=None,
+        consequence_report=None,
+        gihwan_report=None,
+        narrative_architecture=None,
+        audience_simulation=None,
         reference_brief=KnowledgeRuntime(PROJECT_ROOT).reference_context(),
         fact_check=fact_check,
         source_research=source_research,
@@ -759,15 +655,12 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         production_status="package_ready",
         final_package=str(final_path.relative_to(PROJECT_ROOT)),
         human_approved=False,
-        audience_verdict=audience.verdict,
-        predicted_retention_score=audience.predicted_retention_score,
     )
     save_json(
         run_dir / "RESULT.json",
         {
             "status": "package_ready",
-            "message": "미스터리 다큐 제작 패키지 완료. 사람 승인 후 MP4 제작을 시작합니다.",
-            "audience_verdict": audience.verdict,
+            "message": "제작 패키지 완료. 사람 승인 후 MP4 제작을 시작합니다.",
             "fact_check_verdict": fact_check.verdict,
         },
     )
@@ -794,11 +687,6 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
     required = {
         "scientific_research": package.scientific_research,
         "historical_research": package.historical_research,
-        "curiosity_report": package.curiosity_report,
-        "consequence_report": package.consequence_report,
-        "gihwan_report": package.gihwan_report,
-        "narrative_architecture": package.narrative_architecture,
-        "audience_simulation": package.audience_simulation,
     }
     missing = [name for name, value in required.items() if value is None]
     if missing:
@@ -839,10 +727,6 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
         package.selected_candidate,
         package.scientific_research,
         package.historical_research,
-        package.curiosity_report,
-        package.consequence_report,
-        package.gihwan_report,
-        package.narrative_architecture,
         current_script,
         user_feedback,
         feedback_history,
@@ -883,19 +767,11 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
     )
     emit_state("ShortsAdaptationEditor", "idle")
 
-    emit_state("AudienceSimulator", "working")
-    emit_progress(
-        "AudienceSimulator",
-        15,
-        "수정된 대본의 이탈 지점과 댓글 반응을 다시 평가합니다.",
-    )
-    audience = AudienceSimulator(PROJECT_ROOT).evaluate(
-        revised_script,
-        package.narrative_architecture,
-    )
-    save_json(run_dir / "09_audience_simulation.json", audience)
-    emit_comment("AudienceSimulator", audience.character_comment)
-    emit_state("AudienceSimulator", "idle")
+    # Code-based quality checks (replaces AudienceSimulator)
+    script_warnings = _simple_script_checks(revised_script)
+    if script_warnings:
+        for warning in script_warnings:
+            emit_comment("QualityCheck", warning)
 
     emit_state("FactChecker", "working")
     emit_progress(
@@ -907,10 +783,6 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
         package.selected_candidate,
         package.scientific_research,
         package.historical_research,
-        package.curiosity_report,
-        package.consequence_report,
-        package.gihwan_report,
-        package.narrative_architecture,
         revised_script,
     )
     if fact_check.verdict == "reject" and not fact_check.blocking_safety_issue:
@@ -933,7 +805,7 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
     visuals = VisualPromptGenerator(PROJECT_ROOT).generate(
         revised_script,
         fact_check,
-        package.narrative_architecture,
+        None,
         package.source_research,
     )
     save_json(run_dir / "12_visual_package.json", visuals)
@@ -992,7 +864,7 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
         update={
             "script": revised_script,
             "shorts_adaptation": adaptation,
-            "audience_simulation": audience,
+            "audience_simulation": None,
             "fact_check": fact_check,
             "visual_package": visuals,
             "mixed_media_plan": media_plan,
@@ -1007,8 +879,6 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
         human_approved=False,
         script_revision_count=revision_number,
         latest_script_feedback=user_feedback,
-        audience_verdict=audience.verdict,
-        predicted_retention_score=audience.predicted_retention_score,
     )
     save_json(
         run_dir / "RESULT.json",
