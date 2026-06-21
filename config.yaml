@@ -28,6 +28,7 @@ video_studio:
   image_size: 1024x1536
   speech_model: gpt-4o-mini-tts
   knowledge_narrator_voice: cedar
+  ai_images_only: true
   speech_instructions: "친구에게 신기하고 조금 섬뜩한 이야기를 들려주는 자연스러운 한국어 남성 목소리다. 다큐멘터리 해설자나 뉴스 앵커처럼 읽지 않는다. 평소 대화처럼 편안하게 시작하고, 이상한 부분에서는 목소리를 살짝 낮추며, 반전 직전에는 짧게 숨을 고른다. 문장마다 과장된 힘을 주지 말고 중요한 단어에만 자연스럽게 강조한다. 친근하지만 가볍게 웃지는 않으며, 듣는 사람이 다음 말을 궁금해하게 읽는다."
   knowledge_visual_style:
     version: 4
@@ -63,7 +64,7 @@ video_studio:
   font_path: "C:/Windows/Fonts/malgun.ttf"
   bold_font_path: "C:/Windows/Fonts/malgunbd.ttf"
   stock_clips:
-    enabled: true
+    enabled: false
     max_total_seconds: 24
     min_clip_seconds: 1
     max_clip_seconds: 4
