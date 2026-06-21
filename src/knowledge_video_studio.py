@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import concurrent.futures
 import html
 import json
 import math
@@ -791,17 +792,86 @@ class KnowledgeVideoStudio:
             stroke_fill="black",
         )
 
+    def _prepare_single_scene(
+        self,
+        run_dir: Path,
+        package: KnowledgeProductionPackage,
+        scene: KnowledgeScene,
+        plan: SceneAssetPlan,
+    ) -> tuple[Path, dict[str, Any]]:
+        source = self._find_source(package, plan)
+        image = None
+        used_mode = plan.asset_mode
+        existing_by_type: dict[str, list[Path]] = {}
+        for directory in ("downloaded", "generated", "motion_graphics"):
+            target = run_dir / "media" / directory
+            existing_by_type[directory] = (
+                sorted(target.glob(f"scene_{scene.scene_number:02d}.*"))
+                if target.exists()
+                else []
+            )
+        existing_downloaded = existing_by_type["downloaded"]
+        existing_generated = existing_by_type["generated"]
+        existing_motion = existing_by_type["motion_graphics"]
+        if existing_downloaded:
+            image = existing_downloaded[0]
+            used_mode = "licensed_real_media"
+        elif plan.asset_mode == "motion_graphics" and existing_motion:
+            image = existing_motion[0]
+            used_mode = "motion_graphics"
+        if image is not None:
+            used_mode = {
+                "downloaded": "licensed_real_media",
+                "generated": "ai_reconstruction_fallback",
+                "motion_graphics": "motion_graphics",
+            }.get(image.parent.name, "reused_existing_asset")
+        if plan.asset_mode in {"licensed_real_media", "official_media"}:
+            if image is None:
+                image = self._download_real_asset(
+                    run_dir,
+                    scene.scene_number,
+                    source,
+                )
+        elif plan.asset_mode in {"community_reference_only", "motion_graphics"}:
+            if image is None:
+                source = self._fallback_real_source(package)
+                image = self._download_real_asset(
+                    run_dir,
+                    scene.scene_number,
+                    source,
+                )
+                if image is not None:
+                    used_mode = "licensed_real_media"
+        if image is None:
+            if plan.asset_mode == "motion_graphics":
+                image = self._motion_graphic(run_dir, package, scene)
+                used_mode = "motion_graphics"
+            elif existing_generated:
+                image = existing_generated[0]
+                used_mode = "ai_reconstruction_fallback"
+            else:
+                image = self._generate_ai_image(run_dir, scene, plan)
+                used_mode = "ai_reconstruction_fallback"
+        log_entry = {
+            "scene_number": scene.scene_number,
+            "planned_mode": plan.asset_mode,
+            "used_mode": used_mode,
+            "source_page_url": source.page_url if source else "",
+            "license_status": source.license_status if source else plan.license_status,
+            "file": str(image.relative_to(run_dir)),
+        }
+        return image, log_entry
+
     def prepare_scene_images(
         self,
         run_dir: Path,
         package: KnowledgeProductionPackage,
     ) -> tuple[list[Path], list[dict[str, Any]]]:
-        images: list[Path] = []
-        log: list[dict[str, Any]] = []
         plans = {plan.scene_number: plan for plan in package.mixed_media_plan.scene_assets}
         scenes = package.visual_package.scenes
         self._state("VideoRenderer", "working")
-        for index, scene in enumerate(scenes, start=1):
+        scene_plans: list[tuple[KnowledgeScene, SceneAssetPlan]] = []
+        for scene in scenes:
             plan = plans.get(scene.scene_number)
             if plan is None:
                 plan = SceneAssetPlan(
@@ -812,76 +882,30 @@ class KnowledgeVideoStudio:
                     crop_and_motion="slow zoom",
                     fallback_ai_prompt=scene.image_prompt,
                 )
-            percent = 5 + round(index / len(scenes) * 35)
-            self._progress(
-                "VideoRenderer",
-                percent,
-                f"{scene.scene_number}번 장면의 실제 자료 또는 대체 화면을 준비 중입니다.",
-            )
-            source = self._find_source(package, plan)
-            image = None
-            used_mode = plan.asset_mode
-            existing_by_type: dict[str, list[Path]] = {}
-            for directory in ("downloaded", "generated", "motion_graphics"):
-                target = run_dir / "media" / directory
-                existing_by_type[directory] = (
-                    sorted(target.glob(f"scene_{scene.scene_number:02d}.*"))
-                    if target.exists()
-                    else []
+            scene_plans.append((scene, plan))
+        results: list[tuple[int, Path, dict[str, Any]]] = []
+        completed = 0
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            future_to_index = {
+                executor.submit(
+                    self._prepare_single_scene, run_dir, package, scene, plan
+                ): i
+                for i, (scene, plan) in enumerate(scene_plans)
+            }
+            for future in concurrent.futures.as_completed(future_to_index):
+                idx = future_to_index[future]
+                image, log_entry = future.result()
+                results.append((idx, image, log_entry))
+                completed += 1
+                percent = 5 + round(completed / len(scenes) * 35)
+                self._progress(
+                    "VideoRenderer",
+                    percent,
+                    f"{completed}/{len(scenes)}개 장면 이미지 준비 완료.",
                 )
-            existing_downloaded = existing_by_type["downloaded"]
-            existing_generated = existing_by_type["generated"]
-            existing_motion = existing_by_type["motion_graphics"]
-            if existing_downloaded:
-                image = existing_downloaded[0]
-                used_mode = "licensed_real_media"
-            elif plan.asset_mode == "motion_graphics" and existing_motion:
-                image = existing_motion[0]
-                used_mode = "motion_graphics"
-            if image is not None:
-                used_mode = {
-                    "downloaded": "licensed_real_media",
-                    "generated": "ai_reconstruction_fallback",
-                    "motion_graphics": "motion_graphics",
-                }.get(image.parent.name, "reused_existing_asset")
-            if plan.asset_mode in {"licensed_real_media", "official_media"}:
-                if image is None:
-                    image = self._download_real_asset(
-                        run_dir,
-                        scene.scene_number,
-                        source,
-                    )
-            elif plan.asset_mode in {"community_reference_only", "motion_graphics"}:
-                if image is None:
-                    source = self._fallback_real_source(package)
-                    image = self._download_real_asset(
-                        run_dir,
-                        scene.scene_number,
-                        source,
-                    )
-                    if image is not None:
-                        used_mode = "licensed_real_media"
-            if image is None:
-                if plan.asset_mode == "motion_graphics":
-                    image = self._motion_graphic(run_dir, package, scene)
-                    used_mode = "motion_graphics"
-                elif existing_generated:
-                    image = existing_generated[0]
-                    used_mode = "ai_reconstruction_fallback"
-                else:
-                    image = self._generate_ai_image(run_dir, scene, plan)
-                    used_mode = "ai_reconstruction_fallback"
-            images.append(image)
-            log.append(
-                {
-                    "scene_number": scene.scene_number,
-                    "planned_mode": plan.asset_mode,
-                    "used_mode": used_mode,
-                    "source_page_url": source.page_url if source else "",
-                    "license_status": source.license_status if source else plan.license_status,
-                    "file": str(image.relative_to(run_dir)),
-                }
-            )
+        results.sort(key=lambda x: x[0])
+        images = [r[1] for r in results]
+        log = [r[2] for r in results]
         return images, log
 
     def compose_frames(
