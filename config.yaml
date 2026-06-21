@@ -134,6 +134,7 @@ video_studio:
     use_actual_narration_length: true
     narration_tail_seconds: 0.35
     minimum_scene_seconds: 1.8
+    base_speed_factor: 1.2
     duration_fit:
       target_seconds: 60
       eligible_overrun_ratio: 0.20
