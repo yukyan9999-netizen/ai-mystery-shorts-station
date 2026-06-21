@@ -341,12 +341,27 @@ class KnowledgeVideoStudio:
             "side angle with foreground depth",
             "top-down or diagram-like composition",
         )
+        timing_cfg = self.config.get("scene_timing", {})
+        min_scene_sec = max(0.5, float(timing_cfg.get("minimum_scene_seconds", 1.8)))
+        tail_sec = max(0.0, float(timing_cfg.get("narration_tail_seconds", 0.35)))
+        max_total = float(self.shorts_config.get("max_seconds", 120))
+        estimated_total = 0.0
         for scene in scenes:
             planned = max(self._duration(scene, 5.0), len(scene.narration) / 6.0)
             available = max(1, 24 - len(expanded_scenes))
             part_count = min(max(1, math.ceil(planned / 5.5)), available)
+            while part_count > 1:
+                per_part = planned / part_count
+                extra = part_count * max(0.0, min_scene_sec + tail_sec - per_part)
+                if estimated_total + planned + extra <= max_total:
+                    break
+                part_count -= 1
             narration_parts = self._split_narration(scene.narration, part_count)
             part_duration = planned / part_count
+            estimated_total += sum(
+                max(min_scene_sec, part_duration + tail_sec)
+                for _ in range(part_count)
+            )
             source_plan = plans.get(scene.scene_number)
             for part_index, narration in enumerate(narration_parts):
                 number = len(expanded_scenes) + 1
