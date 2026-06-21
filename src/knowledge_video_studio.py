@@ -1028,6 +1028,21 @@ class KnowledgeVideoStudio:
                     40,
                     f"AI 이미지 최소 {min_ai}개 확보를 위해 {scene.scene_number}번 장면을 AI로 교체.",
                 )
+        import hashlib
+        seen_hashes: dict[str, int] = {}
+        for idx, (orig_idx, image, entry) in enumerate(results):
+            try:
+                h = hashlib.md5(image.read_bytes()).hexdigest()
+            except OSError:
+                continue
+            if h in seen_hashes and entry["used_mode"] != "ai_reconstruction_fallback":
+                scene, plan = scene_plans[orig_idx]
+                image = self._generate_ai_image(run_dir, scene, plan)
+                entry["used_mode"] = "ai_reconstruction_fallback"
+                entry["file"] = str(image.relative_to(run_dir))
+                results[idx] = (orig_idx, image, entry)
+            else:
+                seen_hashes[h] = idx
         images = [r[1] for r in results]
         log = [r[2] for r in results]
         return images, log
