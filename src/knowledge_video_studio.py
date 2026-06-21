@@ -350,6 +350,8 @@ class KnowledgeVideoStudio:
         for scene in scenes:
             planned = max(self._duration(scene, 5.0), len(scene.narration) / 6.0)
             available = max(1, 24 - len(expanded_scenes))
+            if len(expanded_scenes) >= 24:
+                available = 1
             part_count = min(max(1, math.ceil(planned / 5.5)), available)
             while part_count > 1:
                 per_part = planned / part_count
@@ -416,6 +418,9 @@ class KnowledgeVideoStudio:
                             fallback_ai_prompt=expanded_scenes[-1].image_prompt,
                         )
                     )
+        if len(expanded_scenes) > 24:
+            expanded_scenes = expanded_scenes[:24]
+            expanded_plans = expanded_plans[:24]
         if len(expanded_scenes) == len(scenes):
             return 0
         package.visual_package = package.visual_package.model_copy(
