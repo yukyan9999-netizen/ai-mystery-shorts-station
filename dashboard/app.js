@@ -2,16 +2,6 @@ const $ = (selector) => document.querySelector(selector);
 
 const agents = [
   {
-    key: "TrendAnalyst", name: "트렌드", role: "트렌드 분석가",
-    image: "programming-director.png",
-    keywords: ["TrendAnalyst", "트렌드"],
-    lines: {
-      start: "인기보다 질문의 수명이 긴 신호를 찾겠습니다.",
-      progress: "지금 반응과 장기 호기심이 겹치는 지점을 보고 있어요.",
-      done: "유행을 따라갈 후보와 유행을 넘어설 후보를 나눴습니다.",
-    },
-  },
-  {
     key: "TopicHunter", name: "헌터", role: "토픽 헌터",
     image: "programming-director.png",
     keywords: ["TopicHunter", "TopicGenerator", "후보", "주제"],
@@ -22,63 +12,13 @@ const agents = [
     },
   },
   {
-    key: "ScientificResearcher", name: "사이언스", role: "과학 연구원",
+    key: "Researcher", name: "연구원", role: "과학·역사 연구원",
     image: "travel-researcher.png",
-    keywords: ["ScientificResearcher", "과학", "논문", "실험"],
+    keywords: ["ScientificResearcher", "HistoricalResearcher", "Researcher", "과학", "역사", "논문", "기록"],
     lines: {
-      start: "논문 이름부터 확인하겠습니다. 없는 연구는 절대 못 넣어요.",
-      progress: "가장 강한 근거와 아직 모르는 부분을 분리 중입니다.",
-      done: "검증된 출발점은 확보했습니다. 나머지는 질문으로 남겨야 합니다.",
-    },
-  },
-  {
-    key: "HistoricalResearcher", name: "아카이브", role: "역사 연구원",
-    image: "travel-researcher.png",
-    keywords: ["HistoricalResearcher", "역사", "기록", "유물", "박물관"],
-    lines: {
-      start: "후대의 전설과 당대 기록부터 갈라놓겠습니다.",
-      progress: "기록에서 자주 빠지는 이상한 세부를 찾고 있어요.",
-      done: "사실, 기록의 공백, 후대의 해석을 따로 정리했습니다.",
-    },
-  },
-  {
-    key: "HumanCuriosityDirector", name: "호기심", role: "호기심 연출",
-    image: "comedy-writer.png",
-    keywords: ["HumanCuriosityDirector", "호기심", "질문"],
-    lines: {
-      start: "정보는 충분해요. 이제 왜 내가 신경 써야 하는지 묻겠습니다.",
-      progress: "설명형 질문을 버리고 인간의 몸과 정체성에 연결 중이에요.",
-      done: "이제 시청자가 자기 문제처럼 느낄 질문이 생겼습니다.",
-    },
-  },
-  {
-    key: "FutureConsequenceSimulator", name: "미래관", role: "파급 시뮬레이터",
-    image: "shorts-director.png",
-    keywords: ["FutureConsequenceSimulator", "결과", "파급", "문명"],
-    lines: {
-      start: "한 번 일어나고 끝나는 사건인지, 사회를 바꾸는 사건인지 보겠습니다.",
-      progress: "생물학에서 정치와 문명까지 도미노를 계산 중입니다.",
-      done: "가능한 결과와 극적인 가정을 영향도순으로 나눴습니다.",
-    },
-  },
-  {
-    key: "GihwanAgent", name: "기환", role: "호기심 증폭기",
-    image: "programming-director.png",
-    keywords: ["GihwanAgent", "기환", "그다음"],
-    lines: {
-      start: "여기서 멈추면 평범하죠. 그래서 그다음은 뭔데요?",
-      progress: "인간이 잃는 것, 정체성이 바뀌는 곳까지 더 밀어볼게요.",
-      done: "좋아요. 이제 마지막 질문이 영상 밖까지 따라갑니다.",
-    },
-  },
-  {
-    key: "MysteryArchitect", name: "설계", role: "미스터리 설계자",
-    image: "character-director.png",
-    keywords: ["MysteryArchitect", "구조", "반전", "서사"],
-    lines: {
-      start: "반전은 숨기고 증거부터 쌓겠습니다.",
-      progress: "정보가 아니라 긴장으로 이어지도록 순서를 바꾸고 있어요.",
-      done: "반전 공개 시점과 잊히지 않는 마지막 질문을 고정했습니다.",
+      start: "과학 논문과 역사 기록을 동시에 조사하겠습니다.",
+      progress: "검증된 근거와 아직 모르는 부분을 분리 중입니다.",
+      done: "과학·역사 조사를 완료했습니다.",
     },
   },
   {
@@ -112,16 +52,6 @@ const agents = [
       start: "스톡 화면보다 실제 증거가 먼저입니다.",
       progress: "기록·논문·유물을 우선 배치하고 빈 장면만 재구성하고 있어요.",
       done: "실제 자료와 AI 재구성의 경계를 장면별로 정리했습니다.",
-    },
-  },
-  {
-    key: "AudienceSimulator", name: "시청자", role: "시청자 시뮬레이터",
-    image: "youtube-producer.png",
-    keywords: ["AudienceSimulator", "시청자", "CTR", "유지율", "댓글"],
-    lines: {
-      start: "제가 시청자라면 어디서 넘길지 냉정하게 볼게요.",
-      progress: "첫 3초와 반전 직전의 이탈 지점을 찾고 있습니다.",
-      done: "살릴 문장, 고칠 구간, 뺄 설명을 나눴습니다.",
     },
   },
   {
