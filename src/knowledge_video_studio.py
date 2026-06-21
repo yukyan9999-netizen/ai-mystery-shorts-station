@@ -893,6 +893,7 @@ class KnowledgeVideoStudio:
         package: KnowledgeProductionPackage,
         scene: KnowledgeScene,
         plan: SceneAssetPlan,
+        force_ai: bool = False,
     ) -> tuple[Path, dict[str, Any]]:
         source = self._find_source(package, plan)
         image = None
@@ -942,7 +943,8 @@ class KnowledgeVideoStudio:
                 image = self._motion_graphic(run_dir, package, scene)
                 used_mode = "motion_graphics"
             else:
-                image = self._search_stock_image(run_dir, scene)
+                if not force_ai:
+                    image = self._search_stock_image(run_dir, scene)
                 if image is not None:
                     used_mode = "stock_image"
                 elif existing_generated:
@@ -985,9 +987,11 @@ class KnowledgeVideoStudio:
         results: list[tuple[int, Path, dict[str, Any]]] = []
         completed = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            last_index = len(scene_plans) - 1
             future_to_index = {
                 executor.submit(
-                    self._prepare_single_scene, run_dir, package, scene, plan
+                    self._prepare_single_scene, run_dir, package, scene, plan,
+                    force_ai=(i == 0 or i == last_index),
                 ): i
                 for i, (scene, plan) in enumerate(scene_plans)
             }
