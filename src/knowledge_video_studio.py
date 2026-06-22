@@ -1401,6 +1401,62 @@ class KnowledgeVideoStudio:
             overlay.save(path)
         return overlays
 
+    @staticmethod
+    def _scene_emotion(
+        scene_index: int,
+        total_scenes: int,
+        narration: str,
+    ) -> str:
+        position = scene_index / max(total_scenes, 1)
+        has_question = "?" in narration
+        is_short = len(narration) < 20
+        has_exclamation = "!" in narration
+        keywords_surprise = any(
+            w in narration for w in ("근데", "잠깐", "이상한", "문제는", "충격", "소름")
+        )
+        keywords_fear = any(
+            w in narration for w in ("공포", "무섭", "죽", "사라", "멸망", "파괴")
+        )
+        if position < 0.15:
+            return (
+                "가볍고 호기심 가득한 톤. 친구한테 '야 이거 알아?' 하듯 편하게. "
+                "약간 빠르게, 에너지 있게 시작한다."
+            )
+        if position > 0.85:
+            return (
+                "여운을 남기는 톤. 속도를 천천히 줄이고 마지막 문장은 "
+                "살짝 낮은 목소리로 의미심장하게 끝낸다. 급하지 않게."
+            )
+        if keywords_surprise or (has_question and is_short):
+            return (
+                "놀란 듯 약간 높은 톤. '뭐?' 하는 반응처럼. "
+                "짧게 끊고 다음 말 전에 0.3초 숨을 고른다."
+            )
+        if keywords_fear:
+            return (
+                "낮고 긴장된 톤. 속삭이듯 천천히. "
+                "무서운 이야기를 들려주는 느낌으로."
+            )
+        if has_question:
+            return (
+                "궁금한 듯 살짝 올라가는 톤. 진심으로 궁금해하는 느낌. "
+                "질문 끝을 자연스럽게 올린다."
+            )
+        if has_exclamation:
+            return (
+                "확신에 찬 톤. 중요한 사실을 강조하듯 또렷하게. "
+                "핵심 단어에 힘을 준다."
+            )
+        if 0.4 < position < 0.7:
+            return (
+                "긴장이 쌓이는 톤. 조금씩 속도를 올리고 목소리를 낮춘다. "
+                "반전 직전의 분위기를 만든다."
+            )
+        return (
+            "사실을 전달하는 차분한 톤. 너무 빠르지 않게, "
+            "자연스러운 대화 속도로 읽는다."
+        )
+
     def generate_narration(
         self,
         run_dir: Path,
@@ -1410,6 +1466,7 @@ class KnowledgeVideoStudio:
         audio_dir.mkdir(exist_ok=True)
         timing = self.config.get("scene_timing", {})
         base_speed = max(1.0, float(timing.get("base_speed_factor", 1.0)))
+        base_instructions = self.config["speech_instructions"]
         paths: list[Path] = []
         scenes = package.visual_package.scenes
         self._state("VoiceProducer", "working")
@@ -1424,17 +1481,19 @@ class KnowledgeVideoStudio:
                 )
                 continue
             percent = round(index / len(scenes) * 100)
+            emotion = self._scene_emotion(index, len(scenes), scene.narration)
             self._progress(
                 "VoiceProducer",
                 percent,
                 f"{scene.scene_number}번 장면 내레이션을 제작하고 있습니다.",
             )
             raw_path = audio_dir / f"scene_{scene.scene_number:02d}_raw.wav"
+            scene_instructions = f"{base_instructions}\n\n이 장면의 감정: {emotion}"
             with self.client.audio.speech.with_streaming_response.create(
                 model=self.config["speech_model"],
                 voice=str(self.config.get("knowledge_narrator_voice", "cedar")),
                 input=scene.narration,
-                instructions=self.config["speech_instructions"],
+                instructions=scene_instructions,
                 response_format="wav",
             ) as response:
                 response.stream_to_file(raw_path)
