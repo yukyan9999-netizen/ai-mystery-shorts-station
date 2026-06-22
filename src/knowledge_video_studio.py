@@ -1089,76 +1089,83 @@ class KnowledgeVideoStudio:
             else:
                 stock_slots.add(idx)
 
+        # 1단계: 원본 장면만 병렬로 이미지 준비 (AI 4개 + 스톡 4개)
+        def _prepare_original(idx: int) -> tuple[int, Path, str]:
+            scene = scenes[idx]
+            plan = plans.get(scene.scene_number) or SceneAssetPlan(
+                scene_number=scene.scene_number,
+                asset_mode="ai_reconstruction",
+                license_status="not_applicable",
+                usage_instruction="AI 대체 장면",
+                crop_and_motion="slow zoom",
+                fallback_ai_prompt=scene.image_prompt,
+            )
+            # 캐시 우선
+            for d in ("generated", "downloaded"):
+                cd = run_dir / "media" / d
+                if cd.exists():
+                    cached = sorted(cd.glob(f"scene_{scene.scene_number:02d}.*"))
+                    if cached:
+                        mode = "ai_reconstruction_fallback" if d == "generated" else "stock_image"
+                        return idx, cached[0], mode
+            if idx in stock_slots:
+                image = self._search_stock_image(run_dir, scene)
+                if image:
+                    return idx, image, "stock_image"
+            image = self._generate_ai_image(run_dir, scene, plan)
+            return idx, image, "ai_reconstruction_fallback"
+
+        parent_image: dict[str, Path] = {}
+        original_results: dict[int, tuple[Path, str]] = {}
+        completed = 0
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            futures = {
+                executor.submit(_prepare_original, idx): idx
+                for idx in original_indices
+            }
+            for future in concurrent.futures.as_completed(futures):
+                idx, image, mode = future.result()
+                original_results[idx] = (image, mode)
+                prompt_base = scenes[idx].image_prompt.split("Visual beat")[0].strip()
+                parent_image[prompt_base] = image
+                completed += 1
+                self._progress(
+                    "VideoRenderer",
+                    5 + round(completed / max(len(original_indices), 1) * 30),
+                    f"원본 {completed}/{len(original_indices)}개 이미지 준비 완료.",
+                )
+
+        # 2단계: 전체 장면 목록을 순서대로 조립 (서브 장면은 부모 재사용)
         images: list[Path] = []
         log: list[dict[str, Any]] = []
-        completed = 0
         for i, scene in enumerate(scenes):
-            plan = plans.get(scene.scene_number)
-            if plan is None:
-                plan = SceneAssetPlan(
-                    scene_number=scene.scene_number,
-                    asset_mode="ai_reconstruction",
-                    license_status="not_applicable",
-                    usage_instruction="AI 대체 장면",
-                    crop_and_motion="slow zoom",
-                    fallback_ai_prompt=scene.image_prompt,
-                )
-            # 서브 장면 — 부모 이미지 재사용
-            prompt_base = scene.image_prompt.split("Visual beat")[0].strip()
-            if i not in original_indices and prompt_base in parent_image:
-                image = parent_image[prompt_base]
-                images.append(image)
-                log.append({
-                    "scene_number": scene.scene_number,
-                    "planned_mode": "reuse_parent",
-                    "used_mode": "reuse_parent",
-                    "source_page_url": "",
-                    "license_status": "not_applicable",
-                    "file": str(image.relative_to(run_dir)),
-                })
-            elif i in stock_slots:
-                image = self._search_stock_image(run_dir, scene)
+            if i in original_results:
+                image, mode = original_results[i]
+            else:
+                prompt_base = scene.image_prompt.split("Visual beat")[0].strip()
+                image = parent_image.get(prompt_base)
+                mode = "reuse_parent"
                 if image is None:
+                    plan = plans.get(scene.scene_number) or SceneAssetPlan(
+                        scene_number=scene.scene_number,
+                        asset_mode="ai_reconstruction",
+                        license_status="not_applicable",
+                        usage_instruction="AI 대체 장면",
+                        crop_and_motion="slow zoom",
+                        fallback_ai_prompt=scene.image_prompt,
+                    )
                     image = self._generate_ai_image(run_dir, scene, plan)
                     mode = "ai_reconstruction_fallback"
-                else:
-                    mode = "stock_image"
-                parent_image[prompt_base] = image
-                images.append(image)
-                log.append({
-                    "scene_number": scene.scene_number,
-                    "planned_mode": plan.asset_mode,
-                    "used_mode": mode,
-                    "source_page_url": "",
-                    "license_status": "not_applicable",
-                    "file": str(image.relative_to(run_dir)),
-                })
-            else:
-                generated = run_dir / "media" / "generated"
-                cached = (
-                    sorted(generated.glob(f"scene_{scene.scene_number:02d}.*"))
-                    if generated.exists()
-                    else []
-                )
-                image = cached[0] if cached else self._generate_ai_image(
-                    run_dir, scene, plan
-                )
-                parent_image[prompt_base] = image
-                images.append(image)
-                log.append({
-                    "scene_number": scene.scene_number,
-                    "planned_mode": plan.asset_mode,
-                    "used_mode": "ai_reconstruction_fallback",
-                    "source_page_url": "",
-                    "license_status": "not_applicable",
-                    "file": str(image.relative_to(run_dir)),
-                })
-            completed += 1
-            self._progress(
-                "VideoRenderer",
-                5 + round(completed / len(scenes) * 35),
-                f"{completed}/{len(scenes)}개 장면 이미지 준비 완료.",
-            )
+            images.append(image)
+            log.append({
+                "scene_number": scene.scene_number,
+                "planned_mode": "ai_reconstruction",
+                "used_mode": mode,
+                "source_page_url": "",
+                "license_status": "not_applicable",
+                "file": str(image.relative_to(run_dir)),
+            })
+        self._progress("VideoRenderer", 40, f"{len(scenes)}개 장면 이미지 준비 완료.")
         return images, log
 
     def compose_frames(
