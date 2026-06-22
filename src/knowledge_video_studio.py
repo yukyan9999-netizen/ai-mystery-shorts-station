@@ -1833,18 +1833,23 @@ class KnowledgeVideoStudio:
             else:
                 if overlay is None:
                     raise RuntimeError(f"Caption overlay missing for scene {scene.scene_number}")
+                total_frames = max(2, int(math.ceil(duration * self.fps)))
                 self._run_ffmpeg(
                     [
                         "-loop",
                         "1",
                         "-framerate",
                         str(self.fps),
+                        "-t",
+                        f"{duration:.3f}",
                         "-i",
                         str(frame),
                         "-loop",
                         "1",
                         "-framerate",
                         str(self.fps),
+                        "-t",
+                        f"{duration:.3f}",
                         "-i",
                         str(overlay),
                         "-i",
@@ -1856,7 +1861,7 @@ class KnowledgeVideoStudio:
                             "z='min(zoom+0.0006,1.12)':"
                             "x='iw/2-(iw/zoom/2)':"
                             "y='ih/2-(ih/zoom/2)':"
-                            f"d=1:s={self.width}x{self.height}:fps={self.fps},"
+                            f"d={total_frames}:s={self.width}x{self.height}:fps={self.fps},"
                             "format=yuv420p[base];"
                             f"[1:v]format=rgba,trim=duration={duration:.3f},"
                             "setpts=PTS-STARTPTS[ov];"
@@ -1991,7 +1996,8 @@ class KnowledgeVideoStudio:
                         f"[2:v]scale={self.width}:{self.height},setsar=1,"
                         "zoompan=z='min(zoom+0.0006,1.12)':"
                         "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
-                        f"d=1:s={self.width}x{self.height}:fps={self.fps},"
+                        f"d={max(2, int(math.ceil(remaining * self.fps)))}:"
+                        f"s={self.width}x{self.height}:fps={self.fps},"
                         f"trim=duration={remaining:.3f},setpts=PTS-STARTPTS[still];"
                         "[sv][still]concat=n=2:v=1:a=0[base];"
                         "[base][ov]overlay=0:0:shortest=1,format=yuv420p[v];"
