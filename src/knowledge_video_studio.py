@@ -98,6 +98,8 @@ class KnowledgeVideoStudio:
             [self.ffmpeg, "-hide_banner", "-loglevel", "error", "-y", *args],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         if completed.returncode != 0:
             raise RuntimeError(f"FFmpeg 오류: {completed.stderr.strip()}")
@@ -327,7 +329,7 @@ class KnowledgeVideoStudio:
         package: KnowledgeProductionPackage,
     ) -> int:
         scenes = list(package.visual_package.scenes)
-        if len(scenes) >= 24:
+        if len(scenes) >= 36:
             return 0
         plans = {
             plan.scene_number: plan
@@ -349,11 +351,13 @@ class KnowledgeVideoStudio:
         estimated_total = 0.0
         for scene in scenes:
             planned = max(self._duration(scene, 5.0), len(scene.narration) / 6.0)
-            available = max(1, 24 - len(expanded_scenes))
-            if len(expanded_scenes) >= 24:
+            available = max(1, 36 - len(expanded_scenes))
+            if len(expanded_scenes) >= 36:
                 available = 1
-            max_parts = min(available, 2)
-            part_count = min(max(1, math.ceil(planned / 8.0)), max_parts)
+            # 한 화면이 너무 오래 멈춰 있지 않도록 약 5초마다 분할 (최대 3분할).
+            # 모든 장면이 distinct한 AI 이미지라 분할해도 화면이 반복되지 않는다.
+            max_parts = min(available, 3)
+            part_count = min(max(1, math.ceil(planned / 5.0)), max_parts)
             while part_count > 1:
                 per_part = planned / part_count
                 extra = part_count * max(0.0, min_scene_sec + tail_sec - per_part)
@@ -417,9 +421,9 @@ class KnowledgeVideoStudio:
                             fallback_ai_prompt=expanded_scenes[-1].image_prompt,
                         )
                     )
-        if len(expanded_scenes) > 24:
-            expanded_scenes = expanded_scenes[:24]
-            expanded_plans = expanded_plans[:24]
+        if len(expanded_scenes) > 36:
+            expanded_scenes = expanded_scenes[:36]
+            expanded_plans = expanded_plans[:36]
         if len(expanded_scenes) == len(scenes):
             return 0
         package.visual_package = package.visual_package.model_copy(
@@ -436,10 +440,10 @@ class KnowledgeVideoStudio:
         if not package_path.exists():
             raise FileNotFoundError(f"제작 패키지를 찾을 수 없습니다: {package_path}")
         raw = json.loads(package_path.read_text(encoding="utf-8"))
-        if "visual_package" in raw and len(raw["visual_package"].get("scenes", [])) > 24:
-            raw["visual_package"]["scenes"] = raw["visual_package"]["scenes"][:24]
-        if "mixed_media_plan" in raw and len(raw["mixed_media_plan"].get("scene_assets", [])) > 24:
-            raw["mixed_media_plan"]["scene_assets"] = raw["mixed_media_plan"]["scene_assets"][:24]
+        if "visual_package" in raw and len(raw["visual_package"].get("scenes", [])) > 36:
+            raw["visual_package"]["scenes"] = raw["visual_package"]["scenes"][:36]
+        if "mixed_media_plan" in raw and len(raw["mixed_media_plan"].get("scene_assets", [])) > 36:
+            raw["mixed_media_plan"]["scene_assets"] = raw["mixed_media_plan"]["scene_assets"][:36]
         package = KnowledgeProductionPackage.model_validate(raw)
         if not package.human_approval or not package.human_approval.get("approved"):
             raise RuntimeError("사람 승인 후에만 영상을 제작할 수 있습니다.")
@@ -1790,7 +1794,7 @@ class KnowledgeVideoStudio:
                         (
                             f"[0:v]scale={self.width}:{self.height},"
                             "zoompan="
-                            "z='min(zoom+0.00035,1.06)':"
+                            "z='min(zoom+0.0006,1.12)':"
                             "x='iw/2-(iw/zoom/2)':"
                             "y='ih/2-(ih/zoom/2)':"
                             f"d=1:s={self.width}x{self.height}:fps={self.fps},"
@@ -1926,7 +1930,7 @@ class KnowledgeVideoStudio:
                         f"[1:v]format=rgba,trim=duration={scene_duration:.3f},"
                         "setpts=PTS-STARTPTS[ov];"
                         f"[2:v]scale={self.width}:{self.height},setsar=1,"
-                        "zoompan=z='min(zoom+0.00035,1.06)':"
+                        "zoompan=z='min(zoom+0.0006,1.12)':"
                         "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
                         f"d=1:s={self.width}x{self.height}:fps={self.fps},"
                         f"trim=duration={remaining:.3f},setpts=PTS-STARTPTS[still];"
