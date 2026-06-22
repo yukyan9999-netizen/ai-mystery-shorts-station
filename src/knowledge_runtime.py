@@ -47,7 +47,7 @@ class KnowledgeRuntime:
         except OSError:
             return []
         import re
-        blocks = re.split(r"<\d+번 참고 대본>", text)
+        blocks = re.split(r"<\d+번 참고 대본[^>]*>", text)
         scripts = []
         for block in blocks:
             block = block.strip().strip('"').strip()
@@ -56,7 +56,7 @@ class KnowledgeRuntime:
                     "script": block,
                     "length": len(block),
                 })
-        return scripts[:10]
+        return scripts[:20]
 
     def reference_context(self) -> dict[str, Any]:
         references_path = self.root / "ideas" / "video_references.json"
