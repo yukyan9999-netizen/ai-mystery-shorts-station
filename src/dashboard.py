@@ -859,6 +859,20 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
                 },
             ],
             "entertainment_value_note": "사용자 직접 업로드",
+            "sources": [
+                {
+                    "title": "사용자 제공",
+                    "url": "user_upload",
+                    "publisher": "사용자",
+                    "source_type": "primary",
+                },
+                {
+                    "title": "사용자 제공",
+                    "url": "user_upload",
+                    "publisher": "사용자",
+                    "source_type": "primary",
+                },
+            ],
         },
         "source_research": {
             "candidate_title": title,
