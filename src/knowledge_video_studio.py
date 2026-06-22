@@ -1975,9 +1975,24 @@ class KnowledgeVideoStudio:
                 )
             else:
                 if overlay is None:
-                    # No overlay and no stock clip — skip caption overlay layer
-                    # and render with image + audio only (no crash)
-                    total_frames = max(2, int(math.ceil(duration * self.fps)))
+                    # No overlay — render with image + audio only
+                    sw = int(self.width * 1.15)
+                    sh = int(self.height * 1.15)
+                    mx = sw - self.width
+                    my = sh - self.height
+                    mt = index % 4
+                    if mt == 0:
+                        cx = f"trunc({mx}*(1-t/{duration:.3f}))"
+                        cy = f"trunc({my}*(1-t/{duration:.3f}))"
+                    elif mt == 1:
+                        cx = f"trunc({mx}*t/{duration:.3f})"
+                        cy = str(my // 2)
+                    elif mt == 2:
+                        cx = f"trunc({mx}*t/{duration:.3f}/2)"
+                        cy = f"trunc({my}*t/{duration:.3f}/2)"
+                    else:
+                        cx = f"trunc({mx}*(1-t/{duration:.3f}))"
+                        cy = str(my // 2)
                     self._run_ffmpeg(
                         [
                             "-loop", "1",
@@ -1987,13 +2002,9 @@ class KnowledgeVideoStudio:
                             "-i", str(audio),
                             "-filter_complex",
                             (
-                                f"[0:v]scale={self.width}:{self.height},"
-                                "zoompan="
-                                "z='min(zoom+0.0006,1.12)':"
-                                "x='trunc(iw/2-(iw/zoom/2))':"
-                                "y='trunc(ih/2-(ih/zoom/2))':"
-                                f"d={total_frames}:s={self.width}x{self.height}:fps={self.fps},"
-                                "format=yuv420p[v];"
+                                f"[0:v]scale={sw}:{sh},"
+                                f"crop={self.width}:{self.height}:{cx}:{cy},"
+                                f"fps={self.fps},format=yuv420p[v];"
                                 f"[1:a]volume=1.08,apad,atrim=0:{duration:.3f}[a]"
                             ),
                             "-map", "[v]",
@@ -2007,6 +2018,28 @@ class KnowledgeVideoStudio:
                     clips.append(clip)
                     continue
                 total_frames = max(2, int(math.ceil(duration * self.fps)))
+                # 장면 번호에 따라 모션 방향을 번갈아 적용
+                sw = int(self.width * 1.15)
+                sh = int(self.height * 1.15)
+                margin_x = sw - self.width
+                margin_y = sh - self.height
+                motion_type = index % 4
+                if motion_type == 0:
+                    # 줌인 (좌상→중앙)
+                    crop_x = f"trunc({margin_x}*(1-t/{duration:.3f}))"
+                    crop_y = f"trunc({margin_y}*(1-t/{duration:.3f}))"
+                elif motion_type == 1:
+                    # 좌→우 패닝
+                    crop_x = f"trunc({margin_x}*t/{duration:.3f})"
+                    crop_y = str(margin_y // 2)
+                elif motion_type == 2:
+                    # 줌아웃 (중앙→확대)
+                    crop_x = f"trunc({margin_x}*t/{duration:.3f}/2)"
+                    crop_y = f"trunc({margin_y}*t/{duration:.3f}/2)"
+                else:
+                    # 우→좌 패닝
+                    crop_x = f"trunc({margin_x}*(1-t/{duration:.3f}))"
+                    crop_y = str(margin_y // 2)
                 self._run_ffmpeg(
                     [
                         "-loop",
@@ -2029,13 +2062,9 @@ class KnowledgeVideoStudio:
                         str(audio),
                         "-filter_complex",
                         (
-                            f"[0:v]scale={self.width}:{self.height},"
-                            "zoompan="
-                            "z='min(zoom+0.0006,1.12)':"
-                            "x='trunc(iw/2-(iw/zoom/2))':"
-                            "y='trunc(ih/2-(ih/zoom/2))':"
-                            f"d={total_frames}:s={self.width}x{self.height}:fps={self.fps},"
-                            "format=yuv420p[base];"
+                            f"[0:v]scale={sw}:{sh},"
+                            f"crop={self.width}:{self.height}:{crop_x}:{crop_y},"
+                            f"fps={self.fps},format=yuv420p[base];"
                             f"[1:v]format=rgba,trim=duration={duration:.3f},"
                             "setpts=PTS-STARTPTS[ov];"
                             "[base][ov]overlay=0:0:shortest=1,format=yuv420p[v];"
