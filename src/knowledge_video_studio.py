@@ -629,13 +629,36 @@ class KnowledgeVideoStudio:
         cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
         if cached:
             return cached[0]
-        keywords = re.sub(
-            r"[^\w\s]", "",
-            scene.visual_description[:80],
-            flags=re.UNICODE,
-        ).strip()
-        if not keywords:
-            return None
+        # 내레이션에서 한국어 핵심 명사를 추출하여 검색어로 사용.
+        # 영어 고유명사(NASA, Artemis 등)로 검색하면 로고가 나오므로
+        # 한국어 → 영어 주제 키워드 매핑을 사용.
+        topic_map = {
+            "달": "moon surface", "태양": "sun solar", "화성": "mars planet",
+            "목성": "jupiter planet", "블랙홀": "black hole space",
+            "은하": "galaxy stars", "우주": "deep space cosmos",
+            "소행성": "asteroid", "별": "stars night sky",
+            "지구": "earth planet", "로마": "roman empire ancient",
+            "이집트": "egypt pyramid ancient", "고대": "ancient civilization",
+            "공룡": "dinosaur fossil", "바다": "deep ocean", "화산": "volcano",
+            "뇌": "brain neuroscience", "DNA": "dna genetics",
+            "폭발": "explosion", "실험": "science experiment",
+            "우주선": "spacecraft", "망원경": "telescope observatory",
+            "행성": "planet space", "충돌": "impact collision space",
+        }
+        narration = scene.narration[:100]
+        query_parts = []
+        for ko, en in topic_map.items():
+            if ko in narration:
+                query_parts.append(en)
+                if len(query_parts) >= 2:
+                    break
+        if not query_parts:
+            # 한국어 키워드 매칭 실패 시 subtitle에서 짧은 영어 추출
+            keywords = re.sub(r"[가-힣\s]+", " ", scene.subtitle).strip()
+            if len(keywords) < 3:
+                return None
+            query_parts = [keywords[:30]]
+        keywords = " ".join(query_parts)
         import os
         pexels_key = os.environ.get("PEXELS_API_KEY", "")
         pixabay_key = os.environ.get("PIXABAY_API_KEY", "")
@@ -917,27 +940,22 @@ class KnowledgeVideoStudio:
         plan: SceneAssetPlan,
         force_ai: bool = False,
     ) -> tuple[Path, dict[str, Any]]:
-        # 모든 장면을 AI 이미지로 통일하는 모드 (기본 활성).
-        # 스톡 이미지/영상/모션그래픽은 관련 없는 로고·검은 화면을 가져오는
-        # 경우가 많아 품질이 불안정하므로 AI 이미지를 기본으로 사용한다.
-        if bool(self.config.get("ai_images_only", True)):
-            generated = run_dir / "media" / "generated"
-            cached = (
-                sorted(generated.glob(f"scene_{scene.scene_number:02d}.*"))
-                if generated.exists()
-                else []
-            )
-            image = cached[0] if cached else self._generate_ai_image(
-                run_dir, scene, plan
-            )
-            return image, {
-                "scene_number": scene.scene_number,
-                "planned_mode": plan.asset_mode,
-                "used_mode": "ai_reconstruction_fallback",
-                "source_page_url": "",
-                "license_status": "not_applicable",
-                "file": str(image.relative_to(run_dir)),
-            }
+        # 재제작 시 기존 이미지를 최대한 재사용.
+        # generated, downloaded 어디든 이미 있으면 새로 만들지 않는다.
+        for cache_dir_name in ("generated", "downloaded"):
+            cache_dir = run_dir / "media" / cache_dir_name
+            if cache_dir.exists():
+                cached = sorted(cache_dir.glob(f"scene_{scene.scene_number:02d}.*"))
+                if cached:
+                    mode = "ai_reconstruction_fallback" if cache_dir_name == "generated" else "stock_image"
+                    return cached[0], {
+                        "scene_number": scene.scene_number,
+                        "planned_mode": plan.asset_mode,
+                        "used_mode": mode,
+                        "source_page_url": "",
+                        "license_status": "not_applicable",
+                        "file": str(cached[0].relative_to(run_dir)),
+                    }
         source = self._find_source(package, plan)
         image = None
         used_mode = plan.asset_mode
