@@ -619,6 +619,8 @@ class KnowledgeVideoStudio:
         except Exception:
             return ""
 
+    _used_stock_urls: set[str] = set()
+
     def _search_stock_image(
         self,
         run_dir: Path,
@@ -629,56 +631,72 @@ class KnowledgeVideoStudio:
         cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
         if cached:
             return cached[0]
-        # 내레이션에서 한국어 핵심 명사를 추출하여 검색어로 사용.
-        # 영어 고유명사(NASA, Artemis 등)로 검색하면 로고가 나오므로
-        # 한국어 → 영어 주제 키워드 매핑을 사용.
-        topic_map = {
-            "달": "moon surface", "태양": "sun solar", "화성": "mars planet",
-            "목성": "jupiter planet", "블랙홀": "black hole space",
-            "은하": "galaxy stars", "우주": "deep space cosmos",
-            "소행성": "asteroid", "별": "stars night sky",
-            "지구": "earth planet", "로마": "roman empire ancient",
-            "이집트": "egypt pyramid ancient", "고대": "ancient civilization",
-            "공룡": "dinosaur fossil", "바다": "deep ocean", "화산": "volcano",
-            "뇌": "brain neuroscience", "DNA": "dna genetics",
-            "폭발": "explosion", "실험": "science experiment",
-            "우주선": "spacecraft", "망원경": "telescope observatory",
-            "행성": "planet space", "충돌": "impact collision space",
+        topic_map: dict[str, list[str]] = {
+            "달": ["moon surface", "lunar landscape", "moon crater closeup"],
+            "태양": ["sun solar flare", "sunrise dramatic", "solar corona"],
+            "화성": ["mars planet red", "mars surface rover", "martian landscape"],
+            "목성": ["jupiter planet", "gas giant planet", "jupiter red spot"],
+            "블랙홀": ["black hole space", "event horizon", "gravitational lens"],
+            "은하": ["galaxy spiral", "milky way stars", "nebula colorful"],
+            "우주": ["deep space cosmos", "universe starfield", "cosmic void"],
+            "소행성": ["asteroid belt", "meteorite rock", "comet tail space"],
+            "별": ["stars night sky", "constellation", "stellar nursery"],
+            "지구": ["earth from space", "planet earth blue", "atmosphere glow"],
+            "로마": ["roman empire ruins", "colosseum ancient", "roman architecture"],
+            "이집트": ["egypt pyramid giza", "pharaoh ancient", "hieroglyphics wall"],
+            "고대": ["ancient civilization ruins", "archaeological site", "ancient temple"],
+            "공룡": ["dinosaur fossil museum", "prehistoric skeleton", "jurassic"],
+            "바다": ["deep ocean abyss", "underwater dark", "ocean trench"],
+            "화산": ["volcano eruption lava", "volcanic landscape", "magma glow"],
+            "뇌": ["brain neuroscience scan", "neural network glow", "human brain"],
+            "DNA": ["dna helix", "genetics laboratory", "molecular biology"],
+            "폭발": ["explosion shockwave", "cosmic explosion", "impact blast"],
+            "실험": ["science experiment lab", "laboratory research", "scientific"],
+            "우주선": ["spacecraft orbit", "space station", "rocket launch"],
+            "망원경": ["telescope observatory", "space telescope", "astronomical dome"],
+            "행성": ["planet rings space", "exoplanet", "planetary system"],
+            "충돌": ["asteroid impact", "cosmic collision", "impact crater"],
+            "빛": ["light beam prism", "aurora borealis", "light phenomenon"],
+            "섬광": ["bright flash", "lightning strike", "flash of light"],
+            "중력": ["gravitational pull", "floating weightless", "zero gravity"],
+            "속도": ["speed motion blur", "fast moving light", "velocity"],
+            "물": ["water droplet", "ocean waves", "water splash"],
+            "로봇": ["robot arm", "robotic technology", "artificial intelligence"],
         }
-        narration = scene.narration[:100]
+        narration = scene.narration[:120]
         query_parts = []
-        for ko, en in topic_map.items():
+        for ko, variants in topic_map.items():
             if ko in narration:
-                query_parts.append(en)
+                variant = variants[scene.scene_number % len(variants)]
+                query_parts.append(variant)
                 if len(query_parts) >= 2:
                     break
         if not query_parts:
-            # 한국어 키워드 매칭 실패 시 subtitle에서 짧은 영어 추출
             keywords = re.sub(r"[가-힣\s]+", " ", scene.subtitle).strip()
             if len(keywords) < 3:
                 return None
             query_parts = [keywords[:30]]
         keywords = " ".join(query_parts)
+        page_offset = (scene.scene_number - 1) % 5 + 1
+        per_page = 8
         import os
         pexels_key = os.environ.get("PEXELS_API_KEY", "")
         pixabay_key = os.environ.get("PIXABAY_API_KEY", "")
-        for provider, url, headers, extract in [
+        for provider, url, headers, extract_all in [
             (
                 "pexels",
                 "https://api.pexels.com/v1/search?"
                 + urllib.parse.urlencode({
                     "query": keywords, "orientation": "portrait",
-                    "size": "medium", "per_page": 3,
+                    "size": "medium", "per_page": per_page,
+                    "page": page_offset,
                 }),
                 {"Authorization": pexels_key},
-                lambda data: next(
-                    (
-                        p.get("src", {}).get("large2x") or p.get("src", {}).get("original")
-                        for p in data.get("photos", [])
-                        if p.get("src")
-                    ),
-                    None,
-                ),
+                lambda data: [
+                    p.get("src", {}).get("large2x") or p.get("src", {}).get("original")
+                    for p in data.get("photos", [])
+                    if p.get("src")
+                ],
             ),
             (
                 "pixabay",
@@ -686,13 +704,15 @@ class KnowledgeVideoStudio:
                 + urllib.parse.urlencode({
                     "key": pixabay_key, "q": keywords,
                     "image_type": "photo", "orientation": "vertical",
-                    "per_page": 3, "safesearch": "true",
+                    "per_page": per_page, "page": page_offset,
+                    "safesearch": "true",
                 }),
                 {},
-                lambda data: next(
-                    (h.get("largeImageURL") for h in data.get("hits", []) if h.get("largeImageURL")),
-                    None,
-                ),
+                lambda data: [
+                    h.get("largeImageURL")
+                    for h in data.get("hits", [])
+                    if h.get("largeImageURL")
+                ],
             ),
         ]:
             api_key = pexels_key if provider == "pexels" else pixabay_key
@@ -705,7 +725,13 @@ class KnowledgeVideoStudio:
                 })
                 with urllib.request.urlopen(request, timeout=10) as response:
                     data = json.loads(response.read().decode("utf-8"))
-                image_url = extract(data)
+                candidates = extract_all(data)
+                # 이미 사용한 URL은 건너뛰어 중복 방지
+                image_url = None
+                for candidate_url in candidates:
+                    if candidate_url and candidate_url not in self._used_stock_urls:
+                        image_url = candidate_url
+                        break
                 if not image_url:
                     continue
                 img_request = urllib.request.Request(
@@ -723,6 +749,7 @@ class KnowledgeVideoStudio:
                 path = stock_dir / f"scene_{scene.scene_number:02d}_stock{suffix}"
                 path.write_bytes(img_bytes)
                 Image.open(path).verify()
+                self._used_stock_urls.add(image_url)
                 return path
             except Exception:
                 continue
