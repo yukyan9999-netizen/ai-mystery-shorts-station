@@ -419,7 +419,7 @@ class ShortsAdaptationResult(BaseModel):
 
 
 class KnowledgeScene(BaseModel):
-    scene_number: int = Field(ge=1, le=24)
+    scene_number: int = Field(ge=1, le=36)
     time_range: str
     visual_description: str
     image_prompt: str
@@ -437,7 +437,7 @@ class VisualPackage(BaseModel):
 
 
 class SceneAssetPlan(BaseModel):
-    scene_number: int = Field(ge=1, le=24)
+    scene_number: int = Field(ge=1, le=36)
     asset_mode: Literal[
         "licensed_real_media",
         "official_media",
@@ -464,7 +464,7 @@ class MixedMediaPlan(BaseModel):
 
 
 class VideoSceneRevision(BaseModel):
-    scene_number: int = Field(ge=1, le=24)
+    scene_number: int = Field(ge=1, le=36)
     action: Literal[
         "replace_visual",
         "recover_missing",
