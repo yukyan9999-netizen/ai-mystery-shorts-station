@@ -38,6 +38,26 @@ class KnowledgeRuntime:
             self.config.get("expedite_max_tokens", 2500)
         )
 
+    def _load_benchmark_scripts(self) -> list[dict[str, str]]:
+        bench_path = self.root / "bench" / "benchtext.txt"
+        if not bench_path.exists():
+            return []
+        try:
+            text = bench_path.read_text(encoding="utf-8")
+        except OSError:
+            return []
+        import re
+        blocks = re.split(r"<\d+번 참고 대본>", text)
+        scripts = []
+        for block in blocks:
+            block = block.strip().strip('"').strip()
+            if len(block) > 20:
+                scripts.append({
+                    "script": block,
+                    "length": len(block),
+                })
+        return scripts[:10]
+
     def reference_context(self) -> dict[str, Any]:
         references_path = self.root / "ideas" / "video_references.json"
         style_path = self.root / "ideas" / "reference_style_profile.json"
@@ -122,6 +142,13 @@ class KnowledgeRuntime:
                 "후킹 강도, 정보 공개 순서, 내레이션 호흡, 자막 밀도, "
                 "실제 자료와 재구성 화면의 배치 원리를 적극 참고한다. "
                 "특정 영상의 문장이나 고유 장면 배열을 그대로 복사하지 않는다."
+            ),
+            "benchmark_scripts": self._load_benchmark_scripts(),
+            "benchmark_usage_rule": (
+                "benchmark_scripts는 실제 인기 유튜브 쇼츠 대본 10개다. "
+                "이 대본들의 공통 패턴(문장 길이, 정보 공개 속도, 후킹 방식, "
+                "질문과 답의 리듬, 마무리 방식)을 반드시 참고하되 "
+                "문장을 그대로 복사하지 않는다."
             ),
         }
 
