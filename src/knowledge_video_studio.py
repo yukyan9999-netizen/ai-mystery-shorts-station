@@ -328,8 +328,19 @@ class KnowledgeVideoStudio:
         self,
         package: KnowledgeProductionPackage,
     ) -> int:
+        """Split long scenes by sentence boundaries.
+
+        Rules:
+        - Split narration on sentence-ending punctuation only (. ! ? 。)
+        - Each sub-scene keeps at least one complete sentence
+        - Maximum 2 splits per original scene (→ max 3 sub-scenes)
+        - Scenes under 6 seconds estimated are never split
+        - Total expanded scenes capped at 20
+        - Time budget capped at 120 seconds
+        - Sub-scenes reuse the parent's image_prompt (no suffix)
+        """
         scenes = list(package.visual_package.scenes)
-        if len(scenes) >= 36:
+        if len(scenes) >= 20:
             return 0
         plans = {
             plan.scene_number: plan
@@ -338,59 +349,106 @@ class KnowledgeVideoStudio:
         expanded_scenes: list[KnowledgeScene] = []
         expanded_plans: list[SceneAssetPlan] = []
         elapsed = 0.0
-        angle_notes = (
-            "wide establishing composition",
-            "closer detail composition",
-            "side angle with foreground depth",
-            "top-down or diagram-like composition",
-        )
         timing_cfg = self.config.get("scene_timing", {})
         min_scene_sec = max(0.5, float(timing_cfg.get("minimum_scene_seconds", 1.8)))
         tail_sec = max(0.0, float(timing_cfg.get("narration_tail_seconds", 0.35)))
         max_total = float(self.shorts_config.get("max_seconds", 120))
         estimated_total = 0.0
+
         for scene in scenes:
+            if len(expanded_scenes) >= 20:
+                break
             planned = max(self._duration(scene, 5.0), len(scene.narration) / 6.0)
-            available = max(1, 36 - len(expanded_scenes))
-            if len(expanded_scenes) >= 36:
-                available = 1
-            # 한 화면이 너무 오래 멈춰 있지 않도록 약 5초마다 분할 (최대 3분할).
-            # 모든 장면이 distinct한 AI 이미지라 분할해도 화면이 반복되지 않는다.
-            max_parts = min(available, 3)
-            part_count = min(max(1, math.ceil(planned / 5.0)), max_parts)
+
+            # Don't split short scenes
+            if planned < 6.0:
+                number = len(expanded_scenes) + 1
+                start = elapsed
+                elapsed += planned
+                estimated_total += max(min_scene_sec, planned + tail_sec)
+                expanded_scenes.append(
+                    scene.model_copy(update={
+                        "scene_number": number,
+                        "time_range": f"{start:.1f}-{elapsed:.1f}",
+                    })
+                )
+                source_plan = plans.get(scene.scene_number)
+                expanded_plans.append(
+                    source_plan.model_copy(update={"scene_number": number})
+                    if source_plan
+                    else SceneAssetPlan(
+                        scene_number=number,
+                        asset_mode="ai_reconstruction",
+                        license_status="not_applicable",
+                        usage_instruction="AI 대체 장면",
+                        crop_and_motion="slow zoom",
+                        fallback_ai_prompt=scene.image_prompt,
+                    )
+                )
+                continue
+
+            # Split by sentences only
+            sentences = [
+                s.strip()
+                for s in re.split(r'(?<=[.!?。])\s*', scene.narration)
+                if s.strip()
+            ]
+            if not sentences:
+                sentences = [scene.narration.strip()]
+
+            # Determine how many parts (max 3, limited by sentence count and cap)
+            available = 20 - len(expanded_scenes)
+            max_parts = min(available, 3, len(sentences))
+            part_count = min(max(1, math.ceil(planned / 6.0)), max_parts)
+
+            # Check time budget
             while part_count > 1:
                 per_part = planned / part_count
                 extra = part_count * max(0.0, min_scene_sec + tail_sec - per_part)
                 if estimated_total + planned + extra <= max_total:
                     break
                 part_count -= 1
-            narration_parts = self._split_narration(scene.narration, part_count)
+
+            # Distribute sentences evenly across parts
+            narration_parts: list[str] = []
+            if part_count <= 1 or len(sentences) <= 1:
+                narration_parts = [scene.narration.strip()]
+                part_count = 1
+            else:
+                base_per_part = len(sentences) // part_count
+                remainder = len(sentences) % part_count
+                idx = 0
+                for p in range(part_count):
+                    count = base_per_part + (1 if p < remainder else 0)
+                    chunk = " ".join(sentences[idx:idx + count])
+                    if chunk:
+                        narration_parts.append(chunk)
+                    idx += count
+                # Safety: merge any empty trailing parts
+                narration_parts = [p for p in narration_parts if p]
+                if not narration_parts:
+                    narration_parts = [scene.narration.strip()]
+                part_count = len(narration_parts)
+
             part_duration = planned / part_count
             estimated_total += sum(
                 max(min_scene_sec, part_duration + tail_sec)
                 for _ in range(part_count)
             )
             source_plan = plans.get(scene.scene_number)
-            for part_index, narration in enumerate(narration_parts):
+            for _part_index, narration in enumerate(narration_parts):
                 number = len(expanded_scenes) + 1
+                if number > 20:
+                    break
                 start = elapsed
                 elapsed += part_duration
                 subtitle = self._clean_caption(narration)
-                variation = angle_notes[part_index % len(angle_notes)]
+                # Sub-scenes reuse parent's image_prompt exactly (no suffix)
                 expanded_scenes.append(
                     scene.model_copy(
                         update={
                             "scene_number": number,
                             "time_range": f"{start:.1f}-{elapsed:.1f}",
-                            "visual_description": (
-                                f"{scene.visual_description} "
-                                f"Visual beat {part_index + 1}/{part_count}: {variation}."
-                            ),
-                            "image_prompt": (
-                                f"{scene.image_prompt} "
-                                f"Create a distinctly different {variation}. "
-                                "No text, labels, badges, captions, or watermarks."
-                            ),
                             "subtitle": subtitle or scene.subtitle,
                             "narration": narration,
                         }
@@ -402,10 +460,6 @@ class KnowledgeVideoStudio:
                             update={
                                 "scene_number": number,
                                 "on_screen_source_label": "",
-                                "fallback_ai_prompt": (
-                                    f"{source_plan.fallback_ai_prompt or scene.image_prompt} "
-                                    f"Distinct {variation}. No text or labels."
-                                ),
                             }
                         )
                     )
@@ -415,15 +469,15 @@ class KnowledgeVideoStudio:
                             scene_number=number,
                             asset_mode="ai_reconstruction",
                             license_status="not_applicable",
-                            usage_instruction="추가 시각 비트용 AI 재구성 이미지",
+                            usage_instruction="추가 분할용 AI 재구성 이미지",
                             crop_and_motion="subtle cinematic motion",
                             on_screen_source_label="",
-                            fallback_ai_prompt=expanded_scenes[-1].image_prompt,
+                            fallback_ai_prompt=scene.image_prompt,
                         )
                     )
-        if len(expanded_scenes) > 36:
-            expanded_scenes = expanded_scenes[:36]
-            expanded_plans = expanded_plans[:36]
+        if len(expanded_scenes) > 20:
+            expanded_scenes = expanded_scenes[:20]
+            expanded_plans = expanded_plans[:20]
         if len(expanded_scenes) == len(scenes):
             return 0
         package.visual_package = package.visual_package.model_copy(
@@ -1056,41 +1110,49 @@ class KnowledgeVideoStudio:
         run_dir: Path,
         package: KnowledgeProductionPackage,
     ) -> tuple[list[Path], list[dict[str, Any]]]:
+        """Prepare images for all scenes.
+
+        Strategy:
+        - Check cache first (generated/ or downloaded/)
+        - If this scene's image_prompt matches a previous scene, reuse that image
+        - First and last scene → AI image
+        - Others → try stock image first, fallback to AI
+        - Unique scenes that need new images are fetched in parallel
+        """
         plans = {plan.scene_number: plan for plan in package.mixed_media_plan.scene_assets}
         scenes = package.visual_package.scenes
         self._state("VideoRenderer", "working")
 
-        # 원본 장면 vs 서브 장면 식별.
-        # expand_long_scenes가 분할 시 image_prompt에 "Visual beat"를 추가.
-        # 첫 서브 장면은 원본 취급 (이미지 생성), 나머지 서브는 재사용.
-        parent_image: dict[str, Path] = {}  # image_prompt 접두사 → 이미지
-        original_indices: list[int] = []
+        # Build per-scene plan: cache check and dedup by image_prompt
+        prompt_to_image: dict[str, Path] = {}  # image_prompt → resolved image
+        cached: dict[int, tuple[Path, str]] = {}  # scene index → (path, mode)
+        needs_work: list[int] = []  # indices that need image generation
+
         for i, scene in enumerate(scenes):
-            if "Visual beat 1/" in scene.image_prompt or "Visual beat" not in scene.image_prompt:
-                original_indices.append(i)
-
-        # 원본 장면 중 첫/마지막은 AI, 나머지는 번갈아 스톡/AI (약 4+4).
-        ai_target = max(4, int(self.config.get("min_ai_images", 4)))
-        stock_target = max(0, len(original_indices) - ai_target)
-        ai_slots: set[int] = set()
-        stock_slots: set[int] = set()
-        if original_indices:
-            ai_slots.add(original_indices[0])
-            ai_slots.add(original_indices[-1])
-        ai_count = len(ai_slots)
-        for idx in original_indices:
-            if idx in ai_slots:
+            # Check cache
+            found_cache = False
+            for d in ("generated", "downloaded"):
+                cd = run_dir / "media" / d
+                if cd.exists():
+                    hits = sorted(cd.glob(f"scene_{scene.scene_number:02d}.*"))
+                    if hits:
+                        mode = "ai_reconstruction_fallback" if d == "generated" else "stock_image"
+                        cached[i] = (hits[0], mode)
+                        prompt_to_image[scene.image_prompt] = hits[0]
+                        found_cache = True
+                        break
+            if found_cache:
                 continue
-            if len(stock_slots) < stock_target:
-                stock_slots.add(idx)
-            elif ai_count < ai_target:
-                ai_slots.add(idx)
-                ai_count += 1
-            else:
-                stock_slots.add(idx)
 
-        # 1단계: 원본 장면만 병렬로 이미지 준비 (AI 4개 + 스톡 4개)
-        def _prepare_original(idx: int) -> tuple[int, Path, str]:
+            # Check if same image_prompt was already seen (sub-scene reuse)
+            if scene.image_prompt in prompt_to_image:
+                cached[i] = (prompt_to_image[scene.image_prompt], "reuse_parent")
+                continue
+
+            # Mark as needing work; reserve the prompt key
+            needs_work.append(i)
+
+        def _prepare_one(idx: int) -> tuple[int, Path, str]:
             scene = scenes[idx]
             plan = plans.get(scene.scene_number) or SceneAssetPlan(
                 scene_number=scene.scene_number,
@@ -1100,62 +1162,58 @@ class KnowledgeVideoStudio:
                 crop_and_motion="slow zoom",
                 fallback_ai_prompt=scene.image_prompt,
             )
-            # 캐시 우선
-            for d in ("generated", "downloaded"):
-                cd = run_dir / "media" / d
-                if cd.exists():
-                    cached = sorted(cd.glob(f"scene_{scene.scene_number:02d}.*"))
-                    if cached:
-                        mode = "ai_reconstruction_fallback" if d == "generated" else "stock_image"
-                        return idx, cached[0], mode
-            if idx in stock_slots:
+            # First and last scene → AI; others → try stock first
+            is_first_or_last = (idx == 0 or idx == len(scenes) - 1)
+            if not is_first_or_last:
                 image = self._search_stock_image(run_dir, scene)
                 if image:
                     return idx, image, "stock_image"
             image = self._generate_ai_image(run_dir, scene, plan)
             return idx, image, "ai_reconstruction_fallback"
 
-        parent_image: dict[str, Path] = {}
-        original_results: dict[int, tuple[Path, str]] = {}
         completed = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             futures = {
-                executor.submit(_prepare_original, idx): idx
-                for idx in original_indices
+                executor.submit(_prepare_one, idx): idx
+                for idx in needs_work
             }
             for future in concurrent.futures.as_completed(futures):
                 idx, image, mode = future.result()
-                original_results[idx] = (image, mode)
-                prompt_base = scenes[idx].image_prompt.split("Visual beat")[0].strip()
-                parent_image[prompt_base] = image
+                cached[idx] = (image, mode)
+                prompt_to_image[scenes[idx].image_prompt] = image
                 completed += 1
                 self._progress(
                     "VideoRenderer",
-                    5 + round(completed / max(len(original_indices), 1) * 30),
-                    f"원본 {completed}/{len(original_indices)}개 이미지 준비 완료.",
+                    5 + round(completed / max(len(needs_work), 1) * 30),
+                    f"이미지 {completed}/{len(needs_work)}개 준비 완료.",
                 )
 
-        # 2단계: 전체 장면 목록을 순서대로 조립 (서브 장면은 부모 재사용)
+        # After parallel work, resolve any remaining sub-scenes that share a prompt
+        # with a scene that was just generated
+        for i, scene in enumerate(scenes):
+            if i in cached:
+                continue
+            if scene.image_prompt in prompt_to_image:
+                cached[i] = (prompt_to_image[scene.image_prompt], "reuse_parent")
+            else:
+                # Shouldn't happen, but safety fallback
+                plan = plans.get(scene.scene_number) or SceneAssetPlan(
+                    scene_number=scene.scene_number,
+                    asset_mode="ai_reconstruction",
+                    license_status="not_applicable",
+                    usage_instruction="AI 대체 장면",
+                    crop_and_motion="slow zoom",
+                    fallback_ai_prompt=scene.image_prompt,
+                )
+                img = self._generate_ai_image(run_dir, scene, plan)
+                cached[i] = (img, "ai_reconstruction_fallback")
+                prompt_to_image[scene.image_prompt] = img
+
+        # Assemble ordered results
         images: list[Path] = []
         log: list[dict[str, Any]] = []
         for i, scene in enumerate(scenes):
-            if i in original_results:
-                image, mode = original_results[i]
-            else:
-                prompt_base = scene.image_prompt.split("Visual beat")[0].strip()
-                image = parent_image.get(prompt_base)
-                mode = "reuse_parent"
-                if image is None:
-                    plan = plans.get(scene.scene_number) or SceneAssetPlan(
-                        scene_number=scene.scene_number,
-                        asset_mode="ai_reconstruction",
-                        license_status="not_applicable",
-                        usage_instruction="AI 대체 장면",
-                        crop_and_motion="slow zoom",
-                        fallback_ai_prompt=scene.image_prompt,
-                    )
-                    image = self._generate_ai_image(run_dir, scene, plan)
-                    mode = "ai_reconstruction_fallback"
+            image, mode = cached[i]
             images.append(image)
             log.append({
                 "scene_number": scene.scene_number,
@@ -1896,12 +1954,19 @@ class KnowledgeVideoStudio:
                 percent,
                 f"{index}번 장면과 음성을 합성하고 있습니다.",
             )
-            stock = stock_clips.get(scene.scene_number)
             overlay = caption_overlays.get(scene.scene_number)
-            if stock and overlay and Path(str(stock.get("local_clip", ""))).exists():
+            stock = stock_clips.get(scene.scene_number)
+            stock_path = Path(str(stock.get("local_clip", ""))) if stock else None
+            use_stock = (
+                stock is not None
+                and overlay is not None
+                and stock_path is not None
+                and stock_path.exists()
+            )
+            if use_stock:
                 self._render_stock_scene_clip(
                     clip,
-                    Path(str(stock["local_clip"])),
+                    stock_path,
                     overlay,
                     frame,
                     audio,
@@ -1910,7 +1975,37 @@ class KnowledgeVideoStudio:
                 )
             else:
                 if overlay is None:
-                    raise RuntimeError(f"Caption overlay missing for scene {scene.scene_number}")
+                    # No overlay and no stock clip — skip caption overlay layer
+                    # and render with image + audio only (no crash)
+                    total_frames = max(2, int(math.ceil(duration * self.fps)))
+                    self._run_ffmpeg(
+                        [
+                            "-loop", "1",
+                            "-framerate", str(self.fps),
+                            "-t", f"{duration:.3f}",
+                            "-i", str(frame),
+                            "-i", str(audio),
+                            "-filter_complex",
+                            (
+                                f"[0:v]scale={self.width}:{self.height},"
+                                "zoompan="
+                                "z='min(zoom+0.0006,1.12)':"
+                                "x='iw/2-(iw/zoom/2)':"
+                                "y='ih/2-(ih/zoom/2)':"
+                                f"d={total_frames}:s={self.width}x{self.height}:fps={self.fps},"
+                                "format=yuv420p[v];"
+                                f"[1:a]volume=1.08,apad,atrim=0:{duration:.3f}[a]"
+                            ),
+                            "-map", "[v]",
+                            "-map", "[a]",
+                            "-t", f"{duration:.3f}",
+                            "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+                            "-c:a", "aac", "-b:a", "160k",
+                            str(clip),
+                        ]
+                    )
+                    clips.append(clip)
+                    continue
                 total_frames = max(2, int(math.ceil(duration * self.fps)))
                 self._run_ffmpeg(
                     [
