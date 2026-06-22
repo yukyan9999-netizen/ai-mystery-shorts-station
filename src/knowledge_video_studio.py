@@ -197,37 +197,7 @@ class KnowledgeVideoStudio:
         self,
         package: KnowledgeProductionPackage,
     ) -> list[str]:
-        approval = package.human_approval or {}
-        if int(approval.get("manual_script_edit_count", 0) or 0) > 0:
-            return []
-        scenes = package.visual_package.scenes
-        if not scenes:
-            return []
-
-        final_scene = scenes[-1]
-        additions: list[str] = []
-        current = self._compact_text(final_scene.narration)
-        close = package.script.timed_script.close_50_60.strip()
-        if close and not self._meaningfully_covered(close, final_scene.narration):
-            additions.append(close)
-            current += self._compact_text(close)
-
-        questions = re.findall(
-            r"[^.!?\n]+[?？]",
-            package.script.full_narration,
-        )
-        final_question = questions[-1].strip() if questions else ""
-        if final_question and self._compact_text(final_question) not in current:
-            additions.append(final_question)
-
-        if additions:
-            final_scene.narration = " ".join(
-                [final_scene.narration.strip(), *additions]
-            ).strip()
-            package.script.full_narration = " ".join(
-                scene.narration.strip() for scene in scenes
-            )
-        return additions
+        return []
 
     def align_scene_durations(
         self,
