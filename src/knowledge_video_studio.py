@@ -2170,7 +2170,7 @@ class KnowledgeVideoStudio:
                         "setpts=PTS-STARTPTS[ov];"
                         f"[2:v]scale={self.width}:{self.height},setsar=1,"
                         "zoompan=z='min(zoom+0.0006,1.12)':"
-                        "x='iw/2-(iw/zoom/2)':y='trunc(ih/2-(ih/zoom/2))':"
+                        "x='trunc(iw/2-(iw/zoom/2))':y='trunc(ih/2-(ih/zoom/2))':"
                         f"d={max(2, int(math.ceil(remaining * self.fps)))}:"
                         f"s={self.width}x{self.height}:fps={self.fps},"
                         f"trim=duration={remaining:.3f},setpts=PTS-STARTPTS[still];"
