@@ -83,10 +83,10 @@ def revise(run_id: str, feedback_path: Path) -> Path:
     feedback = str(payload.get("feedback", "")).strip()
     archived_video = str(payload.get("archived_video", "")).strip()
     raw_pkg = json.loads(package_path.read_text(encoding="utf-8"))
-    if "visual_package" in raw_pkg and len(raw_pkg["visual_package"].get("scenes", [])) > 24:
-        raw_pkg["visual_package"]["scenes"] = raw_pkg["visual_package"]["scenes"][:24]
-    if "mixed_media_plan" in raw_pkg and len(raw_pkg["mixed_media_plan"].get("scene_assets", [])) > 24:
-        raw_pkg["mixed_media_plan"]["scene_assets"] = raw_pkg["mixed_media_plan"]["scene_assets"][:24]
+    if "visual_package" in raw_pkg and len(raw_pkg["visual_package"].get("scenes", [])) > 36:
+        raw_pkg["visual_package"]["scenes"] = raw_pkg["visual_package"]["scenes"][:36]
+    if "mixed_media_plan" in raw_pkg and len(raw_pkg["mixed_media_plan"].get("scene_assets", [])) > 36:
+        raw_pkg["mixed_media_plan"]["scene_assets"] = raw_pkg["mixed_media_plan"]["scene_assets"][:36]
     package = KnowledgeProductionPackage.model_validate(raw_pkg)
     previous_timeline = {}
     timeline_path = run_dir / "timeline.json"
