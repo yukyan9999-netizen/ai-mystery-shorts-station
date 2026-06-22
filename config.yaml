@@ -81,9 +81,9 @@ video_studio:
       nasa:
         enabled: true
       pexels:
-        enabled: false
+        enabled: true
       pixabay:
-        enabled: false
+        enabled: true
   music_library:
     enabled: true
     folder: music
