@@ -1014,8 +1014,40 @@ class KnowledgeVideoStudio:
         plans = {plan.scene_number: plan for plan in package.mixed_media_plan.scene_assets}
         scenes = package.visual_package.scenes
         self._state("VideoRenderer", "working")
-        scene_plans: list[tuple[KnowledgeScene, SceneAssetPlan]] = []
-        for scene in scenes:
+
+        # 원본 장면 vs 서브 장면 식별.
+        # expand_long_scenes가 분할 시 image_prompt에 "Visual beat"를 추가.
+        # 첫 서브 장면은 원본 취급 (이미지 생성), 나머지 서브는 재사용.
+        parent_image: dict[str, Path] = {}  # image_prompt 접두사 → 이미지
+        original_indices: list[int] = []
+        for i, scene in enumerate(scenes):
+            if "Visual beat 1/" in scene.image_prompt or "Visual beat" not in scene.image_prompt:
+                original_indices.append(i)
+
+        # 원본 장면 중 첫/마지막은 AI, 나머지는 번갈아 스톡/AI (약 4+4).
+        ai_target = max(4, int(self.config.get("min_ai_images", 4)))
+        stock_target = max(0, len(original_indices) - ai_target)
+        ai_slots: set[int] = set()
+        stock_slots: set[int] = set()
+        if original_indices:
+            ai_slots.add(original_indices[0])
+            ai_slots.add(original_indices[-1])
+        ai_count = len(ai_slots)
+        for idx in original_indices:
+            if idx in ai_slots:
+                continue
+            if len(stock_slots) < stock_target:
+                stock_slots.add(idx)
+            elif ai_count < ai_target:
+                ai_slots.add(idx)
+                ai_count += 1
+            else:
+                stock_slots.add(idx)
+
+        images: list[Path] = []
+        log: list[dict[str, Any]] = []
+        completed = 0
+        for i, scene in enumerate(scenes):
             plan = plans.get(scene.scene_number)
             if plan is None:
                 plan = SceneAssetPlan(
@@ -1026,68 +1058,62 @@ class KnowledgeVideoStudio:
                     crop_and_motion="slow zoom",
                     fallback_ai_prompt=scene.image_prompt,
                 )
-            scene_plans.append((scene, plan))
-        results: list[tuple[int, Path, dict[str, Any]]] = []
-        completed = 0
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-            last_index = len(scene_plans) - 1
-            future_to_index = {
-                executor.submit(
-                    self._prepare_single_scene, run_dir, package, scene, plan,
-                    force_ai=(i == 0 or i == last_index),
-                ): i
-                for i, (scene, plan) in enumerate(scene_plans)
-            }
-            for future in concurrent.futures.as_completed(future_to_index):
-                idx = future_to_index[future]
-                image, log_entry = future.result()
-                results.append((idx, image, log_entry))
-                completed += 1
-                percent = 5 + round(completed / len(scenes) * 35)
-                self._progress(
-                    "VideoRenderer",
-                    percent,
-                    f"{completed}/{len(scenes)}개 장면 이미지 준비 완료.",
-                )
-        results.sort(key=lambda x: x[0])
-        ai_count = sum(1 for _, _, entry in results if entry["used_mode"] == "ai_reconstruction_fallback")
-        min_ai = int(self.config.get("min_ai_images", 3))
-        if ai_count < min_ai:
-            stock_indices = [
-                i for i, (_, _, entry) in enumerate(results)
-                if entry["used_mode"] == "stock_image"
-            ]
-            need = min_ai - ai_count
-            replace_indices = stock_indices[:need]
-            for idx in replace_indices:
-                orig_idx, _, entry = results[idx]
-                scene, plan = scene_plans[orig_idx]
-                image = self._generate_ai_image(run_dir, scene, plan)
-                entry["used_mode"] = "ai_reconstruction_fallback"
-                entry["file"] = str(image.relative_to(run_dir))
-                results[idx] = (orig_idx, image, entry)
-                self._progress(
-                    "VideoRenderer",
-                    40,
-                    f"AI 이미지 최소 {min_ai}개 확보를 위해 {scene.scene_number}번 장면을 AI로 교체.",
-                )
-        import hashlib
-        seen_hashes: dict[str, int] = {}
-        for idx, (orig_idx, image, entry) in enumerate(results):
-            try:
-                h = hashlib.md5(image.read_bytes()).hexdigest()
-            except OSError:
-                continue
-            if h in seen_hashes and entry["used_mode"] != "ai_reconstruction_fallback":
-                scene, plan = scene_plans[orig_idx]
-                image = self._generate_ai_image(run_dir, scene, plan)
-                entry["used_mode"] = "ai_reconstruction_fallback"
-                entry["file"] = str(image.relative_to(run_dir))
-                results[idx] = (orig_idx, image, entry)
+            # 서브 장면 — 부모 이미지 재사용
+            prompt_base = scene.image_prompt.split("Visual beat")[0].strip()
+            if i not in original_indices and prompt_base in parent_image:
+                image = parent_image[prompt_base]
+                images.append(image)
+                log.append({
+                    "scene_number": scene.scene_number,
+                    "planned_mode": "reuse_parent",
+                    "used_mode": "reuse_parent",
+                    "source_page_url": "",
+                    "license_status": "not_applicable",
+                    "file": str(image.relative_to(run_dir)),
+                })
+            elif i in stock_slots:
+                image = self._search_stock_image(run_dir, scene)
+                if image is None:
+                    image = self._generate_ai_image(run_dir, scene, plan)
+                    mode = "ai_reconstruction_fallback"
+                else:
+                    mode = "stock_image"
+                parent_image[prompt_base] = image
+                images.append(image)
+                log.append({
+                    "scene_number": scene.scene_number,
+                    "planned_mode": plan.asset_mode,
+                    "used_mode": mode,
+                    "source_page_url": "",
+                    "license_status": "not_applicable",
+                    "file": str(image.relative_to(run_dir)),
+                })
             else:
-                seen_hashes[h] = idx
-        images = [r[1] for r in results]
-        log = [r[2] for r in results]
+                generated = run_dir / "media" / "generated"
+                cached = (
+                    sorted(generated.glob(f"scene_{scene.scene_number:02d}.*"))
+                    if generated.exists()
+                    else []
+                )
+                image = cached[0] if cached else self._generate_ai_image(
+                    run_dir, scene, plan
+                )
+                parent_image[prompt_base] = image
+                images.append(image)
+                log.append({
+                    "scene_number": scene.scene_number,
+                    "planned_mode": plan.asset_mode,
+                    "used_mode": "ai_reconstruction_fallback",
+                    "source_page_url": "",
+                    "license_status": "not_applicable",
+                    "file": str(image.relative_to(run_dir)),
+                })
+            completed += 1
+            self._progress(
+                "VideoRenderer",
+                5 + round(completed / len(scenes) * 35),
+                f"{completed}/{len(scenes)}개 장면 이미지 준비 완료.",
+            )
         return images, log
 
     def compose_frames(
