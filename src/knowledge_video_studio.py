@@ -866,7 +866,7 @@ class KnowledgeVideoStudio:
             flags=re.I,
         )
         text = re.sub(r"[_]{2,}", " ", text)
-        return " ".join(text.split()).strip()[:90] or "미스터리는 아직 끝나지 않았다"
+        return " ".join(text.split()).strip() or "미스터리는 아직 끝나지 않았다"
 
     @staticmethod
     def _fit_caption_lines(
