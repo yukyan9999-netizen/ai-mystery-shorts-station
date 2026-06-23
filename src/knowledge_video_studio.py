@@ -649,58 +649,30 @@ class KnowledgeVideoStudio:
         self,
         run_dir: Path,
         scene: KnowledgeScene,
+        title: str = "",
     ) -> Path | None:
         stock_dir = run_dir / "media" / "downloaded"
         stock_dir.mkdir(parents=True, exist_ok=True)
         cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
         if cached:
             return cached[0]
-        topic_map: dict[str, list[str]] = {
-            "달": ["moon surface", "lunar landscape", "moon crater closeup"],
-            "태양": ["sun solar flare", "sunrise dramatic", "solar corona"],
-            "화성": ["mars planet red", "mars surface rover", "martian landscape"],
-            "목성": ["jupiter planet", "gas giant planet", "jupiter red spot"],
-            "블랙홀": ["black hole space", "event horizon", "gravitational lens"],
-            "은하": ["galaxy spiral", "milky way stars", "nebula colorful"],
-            "우주": ["deep space cosmos", "universe starfield", "cosmic void"],
-            "소행성": ["asteroid belt", "meteorite rock", "comet tail space"],
-            "별": ["stars night sky", "constellation", "stellar nursery"],
-            "지구": ["earth from space", "planet earth blue", "atmosphere glow"],
-            "로마": ["roman empire ruins", "colosseum ancient", "roman architecture"],
-            "이집트": ["egypt pyramid giza", "pharaoh ancient", "hieroglyphics wall"],
-            "고대": ["ancient civilization ruins", "archaeological site", "ancient temple"],
-            "공룡": ["dinosaur fossil museum", "prehistoric skeleton", "jurassic"],
-            "바다": ["deep ocean abyss", "underwater dark", "ocean trench"],
-            "화산": ["volcano eruption lava", "volcanic landscape", "magma glow"],
-            "뇌": ["brain neuroscience scan", "neural network glow", "human brain"],
-            "DNA": ["dna helix", "genetics laboratory", "molecular biology"],
-            "폭발": ["explosion shockwave", "cosmic explosion", "impact blast"],
-            "실험": ["science experiment lab", "laboratory research", "scientific"],
-            "우주선": ["spacecraft orbit", "space station", "rocket launch"],
-            "망원경": ["telescope observatory", "space telescope", "astronomical dome"],
-            "행성": ["planet rings space", "exoplanet", "planetary system"],
-            "충돌": ["asteroid impact", "cosmic collision", "impact crater"],
-            "빛": ["light beam prism", "aurora borealis", "light phenomenon"],
-            "섬광": ["bright flash", "lightning strike", "flash of light"],
-            "중력": ["gravitational pull", "floating weightless", "zero gravity"],
-            "속도": ["speed motion blur", "fast moving light", "velocity"],
-            "물": ["water droplet", "ocean waves", "water splash"],
-            "로봇": ["robot arm", "robotic technology", "artificial intelligence"],
-        }
-        narration = scene.narration[:120]
-        query_parts = []
-        for ko, variants in topic_map.items():
-            if ko in narration:
-                variant = variants[scene.scene_number % len(variants)]
-                query_parts.append(variant)
-                if len(query_parts) >= 2:
+        # 영상 클립 검색과 동일한 방식: 제목 기반 키워드 우선
+        from src.media_clip_selector import MediaClipSelector
+        topic_map = MediaClipSelector.KOREAN_SEARCH_MAP
+        # 1단계: 제목에서 주제 키워드 추출
+        title_keywords: list[str] = []
+        for ko, en_list in topic_map.items():
+            if ko in title:
+                title_keywords.append(en_list[scene.scene_number % len(en_list)])
+        # 2단계: 내레이션에서 추가 (매핑된 것만, 제목에 없는 것만)
+        for ko, en_list in topic_map.items():
+            if ko in scene.narration and not any(ko in t for t in title_keywords):
+                title_keywords.append(en_list[0])
+                if len(title_keywords) >= 3:
                     break
-        if not query_parts:
-            keywords = re.sub(r"[가-힣\s]+", " ", scene.subtitle).strip()
-            if len(keywords) < 3:
-                return None
-            query_parts = [keywords[:30]]
-        keywords = " ".join(query_parts)
+        if not title_keywords:
+            title_keywords = ["mystery documentary"]
+        keywords = " ".join(title_keywords[:3])
         import random
         page_offset = random.randint(1, 10)
         per_page = 8
@@ -1057,7 +1029,7 @@ class KnowledgeVideoStudio:
                 used_mode = "motion_graphics"
             else:
                 if not force_ai:
-                    image = self._search_stock_image(run_dir, scene)
+                    image = self._search_stock_image(run_dir, scene, package.selected_candidate.title)
                 if image is not None:
                     used_mode = "stock_image"
                 elif existing_generated:
@@ -1136,7 +1108,7 @@ class KnowledgeVideoStudio:
             # First and last scene → AI; others → try stock first
             is_first_or_last = (idx == 0 or idx == len(scenes) - 1)
             if not is_first_or_last:
-                image = self._search_stock_image(run_dir, scene)
+                image = self._search_stock_image(run_dir, scene, package.selected_candidate.title)
                 if image:
                     return idx, image, "stock_image"
             image = self._generate_ai_image(run_dir, scene, plan)
