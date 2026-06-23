@@ -530,12 +530,12 @@ class MediaClipSelector:
         search_url = "https://svs.gsfc.nasa.gov/api/search/?" + urllib.parse.urlencode(
             {
                 "search": query,
-                "limit": 12,
+                "limit": 5,
             }
         )
         payload = self._json_request(search_url)
         candidates: list[MediaClipCandidate] = []
-        for result in payload.get("results", [])[:12]:
+        for result in payload.get("results", [])[:5]:
             svs_id = str(result.get("id", "")).strip()
             if not svs_id:
                 continue
@@ -721,12 +721,12 @@ class MediaClipSelector:
             {
                 "q": query,
                 "media_type": "video",
-                "page_size": 12,
+                "page_size": 5,
             }
         )
         payload = self._json_request(url)
         candidates: list[MediaClipCandidate] = []
-        for item in payload.get("collection", {}).get("items", [])[:12]:
+        for item in payload.get("collection", {}).get("items", [])[:5]:
             data = (item.get("data") or [{}])[0]
             nasa_id = str(data.get("nasa_id", "")).strip()
             if not nasa_id:
