@@ -69,7 +69,7 @@ video_studio:
     min_clip_seconds: 1
     max_clip_seconds: 3
     preferred_clip_seconds: 2.5
-    minimum_candidates: 3
+    minimum_candidates: 1
     max_source_reuse: 1
     max_download_megabytes: 120
     request_timeout_seconds: 8
