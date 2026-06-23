@@ -1149,9 +1149,10 @@ class KnowledgeVideoStudio:
                 crop_and_motion="slow zoom",
                 fallback_ai_prompt=scene.image_prompt,
             )
-            # First and last scene → AI; others → try stock first
-            is_first_or_last = (idx == 0 or idx == len(scenes) - 1)
-            if not is_first_or_last:
+            # 첫/중간/마지막 → AI 이미지 고정; 나머지 → 스톡 우선
+            mid = len(scenes) // 2
+            is_key_scene = (idx == 0 or idx == mid or idx == len(scenes) - 1)
+            if not is_key_scene:
                 image = self._search_stock_image(run_dir, scene, package.selected_candidate.title, ai_keywords)
                 if image:
                     return idx, image, "stock_image"

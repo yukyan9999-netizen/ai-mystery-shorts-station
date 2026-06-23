@@ -273,6 +273,9 @@ class MediaClipSelector:
             except Exception:
                 pass
 
+        # 영상 클립을 골고루 배치하기 위해 장면당 예산을 설정
+        per_scene_budget = self.max_total_seconds / max(len(scenes), 1)
+
         start_time = time.monotonic()
         budget_exceeded = False
         for scene, scene_duration in zip(scenes, durations):
@@ -349,14 +352,15 @@ class MediaClipSelector:
                     reuse_key = f"{candidate.provider}:{candidate.source_id}"
                     if source_use_count.get(reuse_key, 0) >= self.max_source_reuse:
                         continue
-                    remaining_budget = self.max_total_seconds - total_used
-                    if remaining_budget < self.min_clip_seconds:
+                    global_remaining = self.max_total_seconds - total_used
+                    if global_remaining < self.min_clip_seconds:
                         break
                     desired = min(
                         self.preferred_clip_seconds,
                         self.max_clip_seconds,
                         float(scene_duration),
-                        remaining_budget,
+                        per_scene_budget,
+                        global_remaining,
                     )
                     if desired < self.min_clip_seconds:
                         continue
