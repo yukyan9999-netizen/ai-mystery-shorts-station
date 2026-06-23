@@ -592,6 +592,29 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
             source_research,
         )
         save_json(visual_path, visuals)
+    # 후처리: 한 줄짜리 장면을 이전 장면에 합침
+    merged_scenes = []
+    for scene in visuals.scenes:
+        if (
+            merged_scenes
+            and len(scene.narration.strip()) < 30
+            and len(merged_scenes[-1].narration.strip()) < 80
+        ):
+            prev = merged_scenes[-1]
+            merged_scenes[-1] = prev.model_copy(update={
+                "narration": prev.narration.strip() + " " + scene.narration.strip(),
+                "subtitle": prev.subtitle.strip() + " " + scene.subtitle.strip(),
+                "time_range": prev.time_range.split("-")[0] + "-" + scene.time_range.split("-")[-1],
+            })
+        else:
+            merged_scenes.append(scene.model_copy(update={"scene_number": len(merged_scenes) + 1}))
+    if len(merged_scenes) < len(visuals.scenes):
+        visuals = visuals.model_copy(update={"scenes": merged_scenes})
+        save_json(visual_path, visuals)
+        emit_progress(
+            "VisualPromptGenerator", 95,
+            f"짧은 장면 {len(visuals.scenes) - len(merged_scenes)}개를 합쳐 {len(merged_scenes)}개로 정리했습니다.",
+        )
     emit_comment("VisualPromptGenerator", visuals.character_comment)
     emit_progress("VisualPromptGenerator", 100, "장면·자막·썸네일 설계를 완성했습니다.")
     emit_state("VisualPromptGenerator", "idle")
@@ -809,6 +832,25 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
         package.source_research,
     )
     save_json(run_dir / "12_visual_package.json", visuals)
+    # 후처리: 짧은 장면 합치기
+    merged = []
+    for scene in visuals.scenes:
+        if (
+            merged
+            and len(scene.narration.strip()) < 30
+            and len(merged[-1].narration.strip()) < 80
+        ):
+            prev = merged[-1]
+            merged[-1] = prev.model_copy(update={
+                "narration": prev.narration.strip() + " " + scene.narration.strip(),
+                "subtitle": prev.subtitle.strip() + " " + scene.subtitle.strip(),
+                "time_range": prev.time_range.split("-")[0] + "-" + scene.time_range.split("-")[-1],
+            })
+        else:
+            merged.append(scene.model_copy(update={"scene_number": len(merged) + 1}))
+    if len(merged) < len(visuals.scenes):
+        visuals = visuals.model_copy(update={"scenes": merged})
+        save_json(run_dir / "12_visual_package.json", visuals)
     emit_comment("VisualPromptGenerator", visuals.character_comment)
 
     media_plan = MixedMediaPlanner(PROJECT_ROOT).plan(

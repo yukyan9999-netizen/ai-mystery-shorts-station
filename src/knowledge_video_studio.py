@@ -310,7 +310,7 @@ class KnowledgeVideoStudio:
         - Sub-scenes reuse the parent's image_prompt (no suffix)
         """
         scenes = list(package.visual_package.scenes)
-        if len(scenes) >= 20:
+        if len(scenes) >= 30:
             return 0
         plans = {
             plan.scene_number: plan
@@ -326,7 +326,7 @@ class KnowledgeVideoStudio:
         estimated_total = 0.0
 
         for scene in scenes:
-            if len(expanded_scenes) >= 20:
+            if len(expanded_scenes) >= 30:
                 break
             planned = max(self._duration(scene, 5.0), len(scene.narration) / 6.0)
 
@@ -408,7 +408,7 @@ class KnowledgeVideoStudio:
             source_plan = plans.get(scene.scene_number)
             for _part_index, narration in enumerate(narration_parts):
                 number = len(expanded_scenes) + 1
-                if number > 20:
+                if number > 30:
                     break
                 start = elapsed
                 elapsed += part_duration
@@ -446,8 +446,8 @@ class KnowledgeVideoStudio:
                         )
                     )
         if len(expanded_scenes) > 20:
-            expanded_scenes = expanded_scenes[:20]
-            expanded_plans = expanded_plans[:20]
+            expanded_scenes = expanded_scenes[:30]
+            expanded_plans = expanded_plans[:30]
         if len(expanded_scenes) == len(scenes):
             return 0
         package.visual_package = package.visual_package.model_copy(
