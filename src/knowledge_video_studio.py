@@ -1844,12 +1844,6 @@ class KnowledgeVideoStudio:
                 package.selected_candidate.category,
                 package.selected_candidate.one_line_hook,
                 package.script.full_narration,
-                package.narrative_architecture.mystery
-                if package.narrative_architecture
-                else "",
-                package.narrative_architecture.twist
-                if package.narrative_architecture
-                else "",
             ]
         ).lower()
         best: tuple[int, int, dict[str, Any], list[str]] | None = None

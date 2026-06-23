@@ -108,6 +108,15 @@ video_studio:
           - 블랙홀
           - 달
           - 행성
+          - 은하
+          - 별
+          - 소행성
+          - 태양
+          - 성운
+          - 천체
+          - 궤도
+          - 망원경
+          - NASA
       - file: "Shock Fact.mp3"
         mood: "충격적 사실·과학 반전·심리 미스터리"
         keywords:
@@ -121,6 +130,16 @@ video_studio:
           - 살인
           - 붕괴
           - 감염
+          - 멸종
+          - 소행성
+          - 폭발
+          - 실험
+          - 과학
+          - 연구
+          - 발견
+          - 충돌
+          - 위험
+          - 무서운
       - file: "un_seen.mp3"
         mood: "역사·고대문명·제도·문명적 여운"
         keywords:
@@ -133,6 +152,16 @@ video_studio:
           - 기록
           - 피라미드
           - 몽골
+          - 전쟁
+          - 삼국지
+          - 적벽
+          - 황제
+          - 왕조
+          - 칭기즈칸
+          - 중세
+          - 이집트
+          - 무덤
+          - 유적
   scene_timing:
     use_actual_narration_length: true
     narration_tail_seconds: 0.35
