@@ -1626,6 +1626,97 @@ def rerender_knowledge_video(run_id: str) -> dict[str, Any]:
     }
 
 
+class MusicChangeRequest(BaseModel):
+    track_file: str = ""
+
+
+@app.post("/api/knowledge/{run_id}/change-music")
+def change_music(run_id: str, request: MusicChangeRequest | None = None) -> dict[str, Any]:
+    if not re.fullmatch(r"\d{8}-\d{6}(?:-\d{6})?", run_id):
+        raise HTTPException(status_code=400, detail="올바르지 않은 실행번호입니다.")
+    run_dir = KNOWLEDGE_OUTPUTS / run_id
+    narration_video = run_dir / "narration_short.mp4"
+    if not narration_video.exists():
+        raise HTTPException(status_code=404, detail="narration_short.mp4가 없습니다. 영상을 먼저 제작하세요.")
+    import yaml
+    config = yaml.safe_load((PROJECT_ROOT / "config.yaml").read_text(encoding="utf-8"))
+    music_library = config.get("video_studio", {}).get("music_library", {})
+    music_dir = PROJECT_ROOT / str(music_library.get("folder", "music"))
+    available = {
+        p.name: p for p in music_dir.glob("*")
+        if p.is_file() and p.suffix.lower() in {".mp3", ".wav", ".m4a", ".aac"}
+    }
+    if not available:
+        raise HTTPException(status_code=500, detail="배경음악 파일이 없습니다.")
+    track_file = (request.track_file.strip() if request and request.track_file else "").strip()
+    if track_file and track_file in available:
+        music_path = available[track_file]
+    else:
+        import random
+        music_path = random.choice(list(available.values()))
+    # 기존 final 백업
+    final_video = run_dir / "final_short.mp4"
+    if final_video.exists():
+        preserve_current_video(run_dir, "배경음악 교체")
+    mix_volume = float(music_library.get("mix_volume", 0.20))
+    import imageio_ffmpeg
+    ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
+    import subprocess
+    completed = subprocess.run(
+        [
+            ffmpeg, "-hide_banner", "-loglevel", "error", "-y",
+            "-i", str(narration_video),
+            "-stream_loop", "-1",
+            "-i", str(music_path),
+            "-filter_complex",
+            f"[0:a]volume=1.0[v];[1:a]volume={mix_volume:.3f}[m];[v][m]amix=inputs=2:duration=first:dropout_transition=2[a]",
+            "-map", "0:v", "-map", "[a]",
+            "-c:v", "copy", "-c:a", "aac", "-b:a", "160k",
+            "-movflags", "+faststart",
+            str(final_video),
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=120,
+    )
+    if completed.returncode != 0:
+        raise HTTPException(status_code=500, detail=f"FFmpeg 오류: {completed.stderr.strip()}")
+    write_json(run_dir / "music_selection.json", {
+        "track_title": music_path.stem,
+        "source_file": music_path.name,
+        "reason": "사용자 배경음악 교체",
+    })
+    control_room.emit(
+        "MusicProducer",
+        f"{run_id} 배경음악을 '{music_path.stem}'으로 교체했습니다.",
+        "success",
+    )
+    return {
+        "status": "done",
+        "music": music_path.name,
+        "message": f"배경음악을 '{music_path.stem}'으로 교체 완료.",
+    }
+
+
+@app.get("/api/knowledge/{run_id}/music-options")
+def music_options(run_id: str) -> dict[str, Any]:
+    import yaml
+    config = yaml.safe_load((PROJECT_ROOT / "config.yaml").read_text(encoding="utf-8"))
+    music_library = config.get("video_studio", {}).get("music_library", {})
+    music_dir = PROJECT_ROOT / str(music_library.get("folder", "music"))
+    tracks = []
+    for track in music_library.get("tracks", []):
+        filename = str(track.get("file", ""))
+        if (music_dir / filename).exists():
+            tracks.append({
+                "file": filename,
+                "mood": track.get("mood", ""),
+            })
+    return {"tracks": tracks}
+
+
 @app.get("/api/conversation")
 def conversation(run_id: str | None = None) -> dict[str, Any]:
     return control_room.conversation(run_id)
