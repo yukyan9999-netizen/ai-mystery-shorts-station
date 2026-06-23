@@ -261,6 +261,18 @@ class MediaClipSelector:
             self._write_outputs(run_dir, result)
             return result
 
+        # AI 생성 검색 키워드 로드 (knowledge_video_studio에서 생성한 캐시)
+        ai_keywords: dict[int, str] = {}
+        kw_path = run_dir / "media" / "search_keywords.json"
+        if kw_path.exists():
+            try:
+                ai_keywords = {
+                    int(k): v
+                    for k, v in json.loads(kw_path.read_text(encoding="utf-8")).items()
+                }
+            except Exception:
+                pass
+
         start_time = time.monotonic()
         budget_exceeded = False
         for scene, scene_duration in zip(scenes, durations):
@@ -276,7 +288,7 @@ class MediaClipSelector:
                     )
                 )
                 continue
-            query = self._build_query(scene, package)
+            query = self._build_query(scene, package, ai_keywords)
             candidates: list[MediaClipCandidate] = []
             provider_errors: list[str] = []
             for search in (
@@ -509,34 +521,24 @@ class MediaClipSelector:
         self,
         scene: KnowledgeScene,
         package: KnowledgeProductionPackage,
+        ai_keywords: dict[int, str] | None = None,
     ) -> str:
-        # 1단계: 내레이션에서 핵심 명사 매핑 (장면별로 가장 정확)
+        # AI 생성 키워드 우선
+        if ai_keywords and scene.scene_number in ai_keywords:
+            return ai_keywords[scene.scene_number]
+
+        # fallback: 한국어 매핑
         narr_keywords: list[str] = []
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
             if korean in scene.narration:
-                variant = english_terms[scene.scene_number % len(english_terms)]
-                narr_keywords.append(variant)
-
-        # 2단계: 제목에서 보조 키워드 (내레이션에 없는 것만)
+                narr_keywords.append(english_terms[0])
         title = package.selected_candidate.title
-        title_keywords: list[str] = []
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
             if korean in title and english_terms[0] not in " ".join(narr_keywords):
-                title_keywords.append(english_terms[0])
-
-        # 내레이션 우선, 제목 보조
-        all_keywords = narr_keywords + title_keywords
-        if not all_keywords:
-            all_keywords = ["mystery", "science", "documentary"]
-
-        seen: set[str] = set()
-        ordered: list[str] = []
-        for kw in all_keywords:
-            for token in kw.split():
-                if token not in seen and token not in self.STOP_WORDS:
-                    seen.add(token)
-                    ordered.append(token)
-        return " ".join(ordered[:5])
+                narr_keywords.append(english_terms[0])
+        if not narr_keywords:
+            narr_keywords = ["mystery", "science", "documentary"]
+        return " ".join(narr_keywords[:5])
 
     def _search_nasa_svs(
         self,
