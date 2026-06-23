@@ -656,23 +656,32 @@ class KnowledgeVideoStudio:
         cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
         if cached:
             return cached[0]
-        # 영상 클립 검색과 동일한 방식: 제목 기반 키워드 우선
+        # image_prompt에서 영어 키워드를 추출 (가장 정확한 소스)
+        # image_prompt는 AI가 장면을 묘사한 영어 텍스트
+        stop = {
+            "the", "a", "an", "is", "are", "was", "were", "be", "been",
+            "and", "or", "not", "no", "this", "that", "with", "for", "from",
+            "but", "visual", "beat", "create", "distinctly", "different",
+            "text", "labels", "badges", "captions", "watermarks", "letters",
+            "words", "logos", "signs", "no", "absolutely", "anywhere",
+            "image", "vertical", "documentary", "mystery", "cinematic",
+        }
+        prompt_words = [
+            w.lower().strip(".,!?:;'\"()[]")
+            for w in scene.image_prompt.split()
+            if len(w) > 2 and w.lower().strip(".,!?:;'\"()[]") not in stop
+        ][:5]
+        # 제목에서도 한국어 매핑 추가
         from src.media_clip_selector import MediaClipSelector
         topic_map = MediaClipSelector.KOREAN_SEARCH_MAP
-        # 1단계: 제목에서 주제 키워드 추출
-        title_keywords: list[str] = []
+        title_kw: list[str] = []
         for ko, en_list in topic_map.items():
             if ko in title:
-                title_keywords.append(en_list[scene.scene_number % len(en_list)])
-        # 2단계: 내레이션에서 추가 (매핑된 것만, 제목에 없는 것만)
-        for ko, en_list in topic_map.items():
-            if ko in scene.narration and not any(ko in t for t in title_keywords):
-                title_keywords.append(en_list[0])
-                if len(title_keywords) >= 3:
-                    break
-        if not title_keywords:
-            title_keywords = ["mystery documentary"]
-        keywords = " ".join(title_keywords[:3])
+                title_kw.append(en_list[0].split()[0])
+        all_kw = list(dict.fromkeys(title_kw + prompt_words))
+        if not all_kw:
+            all_kw = ["mystery", "science"]
+        keywords = " ".join(all_kw[:4])
         import random
         page_offset = random.randint(1, 10)
         per_page = 8

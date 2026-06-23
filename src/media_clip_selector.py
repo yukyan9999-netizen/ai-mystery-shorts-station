@@ -517,18 +517,29 @@ class MediaClipSelector:
             if korean in title:
                 title_keywords.extend(english_terms)
 
-        # 2단계: 이 장면의 내레이션에서 추가 키워드 (매핑된 것만)
+        # 2단계: image_prompt에서 영어 핵심 단어 추출 (장면별로 정확)
+        prompt_stop = self.STOP_WORDS | {
+            "visual", "beat", "create", "distinctly", "different",
+            "labels", "badges", "captions", "watermarks", "text",
+            "absolutely", "anywhere", "vertical", "cinematic",
+        }
+        prompt_words = [
+            w.lower().strip(".,!?:;'\"()[]")
+            for w in scene.image_prompt.split()
+            if len(w) > 2 and w.lower().strip(".,!?:;'\"()[]") not in prompt_stop
+        ][:3]
+
+        # 3단계: 내레이션에서 매핑된 한국어 키워드
         scene_keywords: list[str] = []
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
             if korean in scene.narration and english_terms[0] not in title_keywords:
                 scene_keywords.append(english_terms[0])
 
-        # 3단계: 제목 키워드 우선, 장면 키워드 보조
-        all_keywords = title_keywords + scene_keywords
+        # 4단계: 제목 + image_prompt + 내레이션 매핑 조합
+        all_keywords = title_keywords + prompt_words + scene_keywords
         if not all_keywords:
             all_keywords = ["mystery", "science", "documentary"]
 
-        # 중복 제거하면서 순서 유지
         seen: set[str] = set()
         ordered: list[str] = []
         for kw in all_keywords:
