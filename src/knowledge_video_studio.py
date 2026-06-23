@@ -656,29 +656,23 @@ class KnowledgeVideoStudio:
         cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
         if cached:
             return cached[0]
-        # image_prompt에서 영어 키워드를 추출 (가장 정확한 소스)
-        # image_prompt는 AI가 장면을 묘사한 영어 텍스트
-        stop = {
-            "the", "a", "an", "is", "are", "was", "were", "be", "been",
-            "and", "or", "not", "no", "this", "that", "with", "for", "from",
-            "but", "visual", "beat", "create", "distinctly", "different",
-            "text", "labels", "badges", "captions", "watermarks", "letters",
-            "words", "logos", "signs", "no", "absolutely", "anywhere",
-            "image", "vertical", "documentary", "mystery", "cinematic",
-        }
-        prompt_words = [
-            w.lower().strip(".,!?:;'\"()[]")
-            for w in scene.image_prompt.split()
-            if len(w) > 2 and w.lower().strip(".,!?:;'\"()[]") not in stop
-        ][:5]
-        # 제목에서도 한국어 매핑 추가
+        # 내레이션에서 한국어 핵심 명사를 찾아 영어로 매핑
         from src.media_clip_selector import MediaClipSelector
         topic_map = MediaClipSelector.KOREAN_SEARCH_MAP
+        narration = scene.narration
+        # 내레이션에서 매칭되는 키워드 수집
+        narr_kw: list[str] = []
+        for ko, en_list in topic_map.items():
+            if ko in narration:
+                variant = en_list[scene.scene_number % len(en_list)]
+                narr_kw.append(variant)
+        # 제목에서 보조 키워드
         title_kw: list[str] = []
         for ko, en_list in topic_map.items():
-            if ko in title:
+            if ko in title and en_list[0] not in " ".join(narr_kw):
                 title_kw.append(en_list[0].split()[0])
-        all_kw = list(dict.fromkeys(title_kw + prompt_words))
+        # 내레이션 키워드 우선, 제목 보조
+        all_kw = list(dict.fromkeys(narr_kw + title_kw))
         if not all_kw:
             all_kw = ["mystery", "science"]
         keywords = " ".join(all_kw[:4])

@@ -510,33 +510,22 @@ class MediaClipSelector:
         scene: KnowledgeScene,
         package: KnowledgeProductionPackage,
     ) -> str:
-        # 1단계: 제목에서 주제 키워드 추출 (모든 장면 공통)
+        # 1단계: 내레이션에서 핵심 명사 매핑 (장면별로 가장 정확)
+        narr_keywords: list[str] = []
+        for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
+            if korean in scene.narration:
+                variant = english_terms[scene.scene_number % len(english_terms)]
+                narr_keywords.append(variant)
+
+        # 2단계: 제목에서 보조 키워드 (내레이션에 없는 것만)
         title = package.selected_candidate.title
         title_keywords: list[str] = []
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
-            if korean in title:
-                title_keywords.extend(english_terms)
+            if korean in title and english_terms[0] not in " ".join(narr_keywords):
+                title_keywords.append(english_terms[0])
 
-        # 2단계: image_prompt에서 영어 핵심 단어 추출 (장면별로 정확)
-        prompt_stop = self.STOP_WORDS | {
-            "visual", "beat", "create", "distinctly", "different",
-            "labels", "badges", "captions", "watermarks", "text",
-            "absolutely", "anywhere", "vertical", "cinematic",
-        }
-        prompt_words = [
-            w.lower().strip(".,!?:;'\"()[]")
-            for w in scene.image_prompt.split()
-            if len(w) > 2 and w.lower().strip(".,!?:;'\"()[]") not in prompt_stop
-        ][:3]
-
-        # 3단계: 내레이션에서 매핑된 한국어 키워드
-        scene_keywords: list[str] = []
-        for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
-            if korean in scene.narration and english_terms[0] not in title_keywords:
-                scene_keywords.append(english_terms[0])
-
-        # 4단계: 제목 + image_prompt + 내레이션 매핑 조합
-        all_keywords = title_keywords + prompt_words + scene_keywords
+        # 내레이션 우선, 제목 보조
+        all_keywords = narr_keywords + title_keywords
         if not all_keywords:
             all_keywords = ["mystery", "science", "documentary"]
 
