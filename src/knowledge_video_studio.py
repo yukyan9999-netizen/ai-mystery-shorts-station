@@ -645,37 +645,75 @@ class KnowledgeVideoStudio:
 
     _used_stock_urls: set[str] = set()
 
+    def _generate_search_keywords(
+        self,
+        run_dir: Path,
+        scenes: list[KnowledgeScene],
+    ) -> dict[int, str]:
+        """AI로 각 장면의 영어 검색어를 한 번에 생성. 캐시됨."""
+        cache_path = run_dir / "media" / "search_keywords.json"
+        if cache_path.exists():
+            try:
+                return {
+                    int(k): v
+                    for k, v in json.loads(cache_path.read_text(encoding="utf-8")).items()
+                }
+            except Exception:
+                pass
+        scene_texts = []
+        for s in scenes:
+            scene_texts.append(f"scene {s.scene_number}: {s.narration[:80]}")
+        prompt = (
+            "Below are scene narrations from a Korean mystery documentary short.\n"
+            "For each scene, output 2-3 English search keywords for finding "
+            "a relevant stock photo or video. Focus on the visual subject, "
+            "not abstract concepts.\n\n"
+            + "\n".join(scene_texts)
+            + "\n\nOutput JSON: {\"1\": \"keyword1 keyword2\", \"2\": \"keyword1 keyword2\", ...}"
+        )
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=500,
+                temperature=0.2,
+            )
+            text = response.choices[0].message.content.strip()
+            # JSON 파싱 (```json 래퍼 제거)
+            if "```" in text:
+                text = text.split("```")[1].replace("json", "", 1).strip()
+            result = {int(k): str(v) for k, v in json.loads(text).items()}
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(
+                json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            return result
+        except Exception:
+            return {}
+
     def _search_stock_image(
         self,
         run_dir: Path,
         scene: KnowledgeScene,
         title: str = "",
+        ai_keywords: dict[int, str] | None = None,
     ) -> Path | None:
         stock_dir = run_dir / "media" / "downloaded"
         stock_dir.mkdir(parents=True, exist_ok=True)
         cached = sorted(stock_dir.glob(f"scene_{scene.scene_number:02d}_stock.*"))
         if cached:
             return cached[0]
-        # 내레이션에서 한국어 핵심 명사를 찾아 영어로 매핑
-        from src.media_clip_selector import MediaClipSelector
-        topic_map = MediaClipSelector.KOREAN_SEARCH_MAP
-        narration = scene.narration
-        # 내레이션에서 매칭되는 키워드 수집
-        narr_kw: list[str] = []
-        for ko, en_list in topic_map.items():
-            if ko in narration:
-                variant = en_list[scene.scene_number % len(en_list)]
-                narr_kw.append(variant)
-        # 제목에서 보조 키워드
-        title_kw: list[str] = []
-        for ko, en_list in topic_map.items():
-            if ko in title and en_list[0] not in " ".join(narr_kw):
-                title_kw.append(en_list[0].split()[0])
-        # 내레이션 키워드 우선, 제목 보조
-        all_kw = list(dict.fromkeys(narr_kw + title_kw))
-        if not all_kw:
-            all_kw = ["mystery", "science"]
-        keywords = " ".join(all_kw[:4])
+        # AI 생성 키워드 우선 사용
+        keywords = (ai_keywords or {}).get(scene.scene_number, "")
+        if not keywords:
+            # fallback: 한국어 매핑
+            from src.media_clip_selector import MediaClipSelector
+            topic_map = MediaClipSelector.KOREAN_SEARCH_MAP
+            kw: list[str] = []
+            for ko, en_list in topic_map.items():
+                if ko in scene.narration or ko in title:
+                    kw.append(en_list[0])
+            keywords = " ".join(kw[:3]) if kw else "mystery science"
         import random
         page_offset = random.randint(1, 10)
         per_page = 8
@@ -1098,6 +1136,9 @@ class KnowledgeVideoStudio:
             # Mark as needing work; reserve the prompt key
             needs_work.append(i)
 
+        # AI로 전체 장면의 검색 키워드를 한 번에 생성
+        ai_keywords = self._generate_search_keywords(run_dir, scenes)
+
         def _prepare_one(idx: int) -> tuple[int, Path, str]:
             scene = scenes[idx]
             plan = plans.get(scene.scene_number) or SceneAssetPlan(
@@ -1111,7 +1152,7 @@ class KnowledgeVideoStudio:
             # First and last scene → AI; others → try stock first
             is_first_or_last = (idx == 0 or idx == len(scenes) - 1)
             if not is_first_or_last:
-                image = self._search_stock_image(run_dir, scene, package.selected_candidate.title)
+                image = self._search_stock_image(run_dir, scene, package.selected_candidate.title, ai_keywords)
                 if image:
                     return idx, image, "stock_image"
             image = self._generate_ai_image(run_dir, scene, plan)
