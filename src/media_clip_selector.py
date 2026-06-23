@@ -74,7 +74,10 @@ class MediaClipSelector:
     }
     KOREAN_SEARCH_MAP = {
         # 우주/천문
+        "웜홀": ["wormhole", "space tunnel"],
+        "시간여행": ["time travel", "wormhole space"],
         "블랙홀": ["black hole", "space dark"],
+        "화이트홀": ["white hole", "space bright"],
         "우주": ["space", "cosmos stars"],
         "태양": ["sun", "solar flare"],
         "오로라": ["aurora", "northern lights"],
@@ -95,6 +98,20 @@ class MediaClipSelector:
         "폭발": ["explosion", "supernova"],
         "섬광": ["bright flash", "light flash"],
         "충돌": ["impact", "collision"],
+        "멸망": ["destruction", "apocalypse"],
+        "미스터리": ["mystery", "unexplained"],
+        "외계": ["alien", "extraterrestrial"],
+        "문명": ["civilization", "ancient city"],
+        "생명": ["life", "biology nature"],
+        "진화": ["evolution", "natural history"],
+        "유전": ["genetics", "dna laboratory"],
+        "바이러스": ["virus", "microscope cell"],
+        "양자": ["quantum", "particle physics"],
+        "차원": ["dimension", "multiverse"],
+        "평행우주": ["parallel universe", "multiverse"],
+        "초신성": ["supernova", "stellar explosion"],
+        "중성자별": ["neutron star", "pulsar"],
+        "감마선": ["gamma ray", "space radiation"],
         # 자연/지구
         "바다": ["ocean", "deep ocean"],
         "심해": ["deep sea", "ocean abyss"],
@@ -493,32 +510,33 @@ class MediaClipSelector:
         scene: KnowledgeScene,
         package: KnowledgeProductionPackage,
     ) -> str:
-        combined = " ".join(
-            [
-                scene.visual_description,
-                scene.image_prompt,
-                scene.subtitle,
-                scene.narration,
-                package.selected_candidate.title,
-            ]
-        )
-        mapped: list[str] = []
+        # 1단계: 제목에서 주제 키워드 추출 (모든 장면 공통)
+        title = package.selected_candidate.title
+        title_keywords: list[str] = []
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
-            if korean in combined:
-                mapped.extend(english_terms)
-        ascii_words = [
-            value.lower()
-            for value in re.findall(r"[A-Za-z][A-Za-z0-9-]{2,}", combined)
-            if value.lower() not in self.STOP_WORDS
-        ]
+            if korean in title:
+                title_keywords.extend(english_terms)
+
+        # 2단계: 이 장면의 내레이션에서 추가 키워드 (매핑된 것만)
+        scene_keywords: list[str] = []
+        for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
+            if korean in scene.narration and english_terms[0] not in title_keywords:
+                scene_keywords.append(english_terms[0])
+
+        # 3단계: 제목 키워드 우선, 장면 키워드 보조
+        all_keywords = title_keywords + scene_keywords
+        if not all_keywords:
+            all_keywords = ["mystery", "science", "documentary"]
+
+        # 중복 제거하면서 순서 유지
+        seen: set[str] = set()
         ordered: list[str] = []
-        for value in [*mapped, *ascii_words]:
-            for token in value.split():
-                if token not in ordered and token not in self.STOP_WORDS:
+        for kw in all_keywords:
+            for token in kw.split():
+                if token not in seen and token not in self.STOP_WORDS:
+                    seen.add(token)
                     ordered.append(token)
-        if not ordered:
-            ordered = ["mystery", "science"]
-        return " ".join(ordered[:6])
+        return " ".join(ordered[:5])
 
     def _search_nasa_svs(
         self,
