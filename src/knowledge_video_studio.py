@@ -886,8 +886,8 @@ class KnowledgeVideoStudio:
         caption: str,
         base_font_size: int,
         base_width: int,
-        max_lines: int = 4,
-        min_font_size: int = 38,
+        max_lines: int = 6,
+        min_font_size: int = 30,
     ) -> tuple[list[str], int]:
         """긴 자막도 잘리지 않도록 폰트 크기를 줄여 전부 보이게 한다."""
         font_size = base_font_size
