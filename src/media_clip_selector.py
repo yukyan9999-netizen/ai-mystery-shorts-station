@@ -717,11 +717,13 @@ class MediaClipSelector:
     ) -> list[MediaClipCandidate]:
         if not self.nasa_enabled:
             return []
+        import random
         url = "https://images-api.nasa.gov/search?" + urllib.parse.urlencode(
             {
                 "q": query,
                 "media_type": "video",
                 "page_size": 5,
+                "page": random.randint(1, 5),
             }
         )
         payload = self._json_request(url)
@@ -797,12 +799,14 @@ class MediaClipSelector:
     ) -> list[MediaClipCandidate]:
         if not self.pexels_enabled or not self.pexels_key:
             return []
+        import random
         url = "https://api.pexels.com/v1/videos/search?" + urllib.parse.urlencode(
             {
                 "query": query,
                 "orientation": "portrait",
                 "size": "medium",
-                "per_page": 12,
+                "per_page": 8,
+                "page": random.randint(1, 5),
             }
         )
         payload = self._json_request(
@@ -865,6 +869,7 @@ class MediaClipSelector:
     ) -> list[MediaClipCandidate]:
         if not self.pixabay_enabled or not self.pixabay_key:
             return []
+        import random
         url = "https://pixabay.com/api/videos/?" + urllib.parse.urlencode(
             {
                 "key": self.pixabay_key,
@@ -872,12 +877,13 @@ class MediaClipSelector:
                 "lang": "en",
                 "video_type": "film",
                 "safesearch": "true",
-                "per_page": 12,
+                "per_page": 8,
+                "page": random.randint(1, 5),
             }
         )
         payload = self._json_request(url)
         candidates: list[MediaClipCandidate] = []
-        for video in payload.get("hits", [])[:12]:
+        for video in payload.get("hits", [])[:8]:
             renditions = video.get("videos") or {}
             selected_file = next(
                 (
