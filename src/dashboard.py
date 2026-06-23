@@ -764,22 +764,30 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
     ]
     if not sentences:
         sentences = [narration]
-    scene_count = max(5, min(24, len(sentences)))
-    chunk_size = max(1, len(sentences) // scene_count)
+    # 2~3문장씩 묶어서 장면 생성 (한 줄짜리 방지)
     chunks: list[str] = []
-    for i in range(0, len(sentences), chunk_size):
-        chunks.append(" ".join(sentences[i : i + chunk_size]))
-    if len(chunks) > 24:
-        chunks = chunks[:24]
+    current_chunk: list[str] = []
+    for sent in sentences:
+        current_chunk.append(sent)
+        if len(current_chunk) >= 2 and len(" ".join(current_chunk)) >= 30:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = []
+    if current_chunk:
+        if chunks:
+            chunks[-1] += " " + " ".join(current_chunk)
+        else:
+            chunks.append(" ".join(current_chunk))
+    if len(chunks) > 30:
+        chunks = chunks[:30]
     while len(chunks) < 5:
         chunks.append(chunks[-1])
-    total_seconds = 90.0
+    total_seconds = max(90.0, len(narration) / 5.0)
     per_scene = total_seconds / len(chunks)
     scenes = []
     for i, chunk in enumerate(chunks):
         start = round(per_scene * i, 1)
         end = round(per_scene * (i + 1), 1)
-        subtitle = chunk[:33].rstrip() + "…" if len(chunk) > 34 else chunk
+        subtitle = chunk
         scenes.append({
             "scene_number": i + 1,
             "time_range": f"{start}-{end}",
