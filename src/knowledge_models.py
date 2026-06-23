@@ -419,7 +419,7 @@ class ShortsAdaptationResult(BaseModel):
 
 
 class KnowledgeScene(BaseModel):
-    scene_number: int = Field(ge=1, le=36)
+    scene_number: int = Field(ge=1, le=20)
     time_range: str
     visual_description: str
     image_prompt: str
@@ -430,14 +430,14 @@ class KnowledgeScene(BaseModel):
 
 class VisualPackage(BaseModel):
     character_comment: str
-    scenes: list[KnowledgeScene] = Field(min_length=5, max_length=36)
+    scenes: list[KnowledgeScene] = Field(min_length=5, max_length=14)
     thumbnail_text_candidates: list[str] = Field(min_length=5, max_length=5)
     hashtags: list[str]
     fact_check_checklist: list[str]
 
 
 class SceneAssetPlan(BaseModel):
-    scene_number: int = Field(ge=1, le=36)
+    scene_number: int = Field(ge=1, le=20)
     asset_mode: Literal[
         "licensed_real_media",
         "official_media",
@@ -457,14 +457,14 @@ class MixedMediaPlan(BaseModel):
     character_comment: str
     target_real_media_percent: int = Field(ge=50, le=85)
     planned_real_media_percent: int = Field(ge=0, le=100)
-    scene_assets: list[SceneAssetPlan] = Field(min_length=5, max_length=36)
+    scene_assets: list[SceneAssetPlan] = Field(min_length=5, max_length=14)
     global_editing_rules: list[str]
     attribution_end_card: list[str]
     blocked_assets: list[str] = Field(default_factory=list)
 
 
 class VideoSceneRevision(BaseModel):
-    scene_number: int = Field(ge=1, le=36)
+    scene_number: int = Field(ge=1, le=20)
     action: Literal[
         "replace_visual",
         "recover_missing",
