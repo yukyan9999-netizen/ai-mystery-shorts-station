@@ -701,7 +701,8 @@ class KnowledgeVideoStudio:
                 return None
             query_parts = [keywords[:30]]
         keywords = " ".join(query_parts)
-        page_offset = (scene.scene_number - 1) % 5 + 1
+        import random
+        page_offset = random.randint(1, 10)
         per_page = 8
         import os
         pexels_key = os.environ.get("PEXELS_API_KEY", "")
