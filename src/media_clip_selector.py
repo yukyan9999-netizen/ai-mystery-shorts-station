@@ -1105,9 +1105,8 @@ class MediaClipSelector:
         available = max(0.0, original_duration - used_duration)
         if available <= 0:
             return 0.0
-        digest = hashlib.sha256(source_id.encode("utf-8")).hexdigest()
-        ratio = int(digest[:8], 16) / 0xFFFFFFFF
-        return min(available, available * ratio)
+        import random
+        return round(random.uniform(0, available), 3)
 
     @staticmethod
     def _nasa_variant_rank(url: str) -> tuple[int, int]:
