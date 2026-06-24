@@ -650,44 +650,87 @@ class KnowledgeVideoStudio:
         run_dir: Path,
         scenes: list[KnowledgeScene],
     ) -> dict[int, str]:
-        """AI로 각 장면의 영어 검색어를 한 번에 생성. 캐시됨."""
+        """AI로 각 장면의 시각 명사 기반 검색어를 생성. 캐시됨."""
         cache_path = run_dir / "media" / "search_keywords.json"
         if cache_path.exists():
             try:
-                return {
-                    int(k): v
-                    for k, v in json.loads(cache_path.read_text(encoding="utf-8")).items()
-                }
+                cached = json.loads(cache_path.read_text(encoding="utf-8"))
+                if isinstance(cached, dict) and cached:
+                    first_val = next(iter(cached.values()))
+                    if isinstance(first_val, str):
+                        return {int(k): v for k, v in cached.items()}
+                    if isinstance(first_val, dict):
+                        return {
+                            int(k): " ".join(v.get("nasa_keywords", [])[:2] + v.get("stock_keywords", [])[:2])
+                            for k, v in cached.items()
+                        }
             except Exception:
                 pass
-        scene_texts = []
-        for s in scenes:
-            scene_texts.append(f"scene {s.scene_number}: {s.narration[:80]}")
-        prompt = (
-            "Below are scene narrations from a Korean mystery documentary short.\n"
-            "For each scene, output 2-3 English search keywords for finding "
-            "a relevant stock photo or video. Focus on the visual subject, "
-            "not abstract concepts.\n\n"
-            + "\n".join(scene_texts)
-            + "\n\nOutput JSON: {\"1\": \"keyword1 keyword2\", \"2\": \"keyword1 keyword2\", ...}"
+
+        full_narration = "\n".join(
+            f"scene {s.scene_number}: {s.narration}" for s in scenes
         )
+        scene_list = json.dumps(
+            [{"scene_number": s.scene_number, "text": s.narration} for s in scenes],
+            ensure_ascii=False,
+        )
+        prompt = f"""너는 쇼츠 영상용 시각 명사 생성기다.
+
+목표:
+대본 문장을 그대로 검색어로 바꾸지 말고,
+문맥을 해석해서 화면에 보여줄 수 있는 명사를 생성한다.
+
+규칙:
+1. 현재 문장만 보지 말고 전체 대본을 본다.
+2. 문장에 명사가 없더라도 문맥상 암시된 대상을 추론한다.
+3. 추론한 대상은 반드시 화면으로 보여줄 수 있는 사물·장소·현상이어야 한다.
+4. 감정어, 대명사, 접속사는 검색어로 쓰지 않는다.
+5. 검색어는 NASA용과 스톡용을 분리한다.
+6. 근거가 약하면 confidence를 낮춘다.
+
+전체 대본:
+{full_narration}
+
+각 장면:
+{scene_list}
+
+출력: JSON 배열. 각 항목:
+{{
+  "scene_number": 1,
+  "inferred_meaning": "문맥 해석",
+  "nasa_keywords": ["keyword1", "keyword2"],
+  "stock_keywords": ["keyword1", "keyword2"],
+  "confidence": 0.85
+}}"""
         try:
             response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=500,
+                max_tokens=2000,
                 temperature=0.2,
             )
             text = response.choices[0].message.content.strip()
-            # JSON 파싱 (```json 래퍼 제거)
             if "```" in text:
                 text = text.split("```")[1].replace("json", "", 1).strip()
-            result = {int(k): str(v) for k, v in json.loads(text).items()}
+            items = json.loads(text)
+            if isinstance(items, dict):
+                items = list(items.values())
+            result_full: dict[str, Any] = {}
+            result_flat: dict[int, str] = {}
+            for item in items:
+                sn = int(item.get("scene_number", 0))
+                if sn <= 0:
+                    continue
+                nasa = item.get("nasa_keywords", [])[:3]
+                stock = item.get("stock_keywords", [])[:3]
+                result_full[str(sn)] = item
+                result_flat[sn] = " ".join(nasa[:2] + stock[:2])
             cache_path.parent.mkdir(parents=True, exist_ok=True)
             cache_path.write_text(
-                json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+                json.dumps(result_full, ensure_ascii=False, indent=2),
+                encoding="utf-8",
             )
-            return result
+            return result_flat
         except Exception:
             return {}
 
