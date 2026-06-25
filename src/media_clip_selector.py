@@ -285,6 +285,7 @@ class MediaClipSelector:
 
         start_time = time.monotonic()
         budget_exceeded = False
+        blocked_providers: set[str] = set()
         for scene, scene_duration in zip(scenes, durations):
             if budget_exceeded or (
                 time.monotonic() - start_time > self.total_time_budget
@@ -356,6 +357,8 @@ class MediaClipSelector:
             selected: dict[str, Any] | None = None
             if len(usable) >= self.minimum_candidates:
                 for candidate in usable:
+                    if candidate.provider in blocked_providers:
+                        continue
                     reuse_key = f"{candidate.provider}:{candidate.source_id}"
                     if source_use_count.get(reuse_key, 0) >= self.max_source_reuse:
                         continue
@@ -381,9 +384,12 @@ class MediaClipSelector:
                             fps,
                         )
                     except Exception as exc:
+                        err_str = str(exc)
                         search_errors.append(
-                            f"scene {scene.scene_number} {reuse_key}: {exc}"
+                            f"scene {scene.scene_number} {reuse_key}: {err_str}"
                         )
+                        if "403" in err_str or "Forbidden" in err_str:
+                            blocked_providers.add(candidate.provider)
                         continue
                     if prepared is None:
                         continue
