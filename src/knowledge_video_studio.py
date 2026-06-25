@@ -330,8 +330,8 @@ class KnowledgeVideoStudio:
                 break
             planned = max(self._duration(scene, 5.0), len(scene.narration) / 6.0)
 
-            # Don't split short scenes
-            if planned < 6.0:
+            # Don't split scenes under 10 seconds
+            if planned < 10.0:
                 number = len(expanded_scenes) + 1
                 start = elapsed
                 elapsed += planned
