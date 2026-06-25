@@ -792,7 +792,7 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
         chunks = chunks[:30]
     while len(chunks) < 5:
         chunks.append(chunks[-1])
-    total_seconds = max(90.0, len(narration) / 5.0)
+    total_seconds = max(60.0, len(narration) / 8.0)
     per_scene = total_seconds / len(chunks)
     scenes = []
     for i, chunk in enumerate(chunks):
