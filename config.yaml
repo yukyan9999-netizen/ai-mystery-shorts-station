@@ -67,8 +67,8 @@ video_studio:
     enabled: true
     max_total_seconds: 30
     min_clip_seconds: 1
-    max_clip_seconds: 5
-    preferred_clip_seconds: 3.5
+    max_clip_seconds: 10
+    preferred_clip_seconds: 7
     minimum_candidates: 1
     max_source_reuse: 2
     max_download_megabytes: 120
