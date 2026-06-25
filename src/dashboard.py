@@ -1783,15 +1783,12 @@ def rerender_scenes_only(run_id: str) -> dict[str, Any]:
         raise HTTPException(status_code=404, detail="제작 패키지가 없습니다.")
     # Preserve current video
     preserve_current_video(run_dir, "수동 장면 이미지 교체 후 재렌더링")
-    # Clear only frames and clips (keep audio/TTS)
+    # frames/clips/최종영상만 삭제. media(이미지/영상)와 audio(TTS)는 보존
     for sub in ("frames", "clips"):
         d = run_dir / sub
         if d.exists():
             shutil.rmtree(d)
-    for d in (run_dir / "media" / "generated", run_dir / "media" / "motion_graphics"):
-        if d.exists():
-            shutil.rmtree(d)
-    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json", "timeline.json"):
+    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json"):
         f = run_dir / f_name
         if f.exists():
             f.unlink()

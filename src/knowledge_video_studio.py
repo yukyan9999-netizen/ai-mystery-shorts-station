@@ -1202,7 +1202,15 @@ class KnowledgeVideoStudio:
         needs_work: list[int] = []  # indices that need image generation
 
         for i, scene in enumerate(scenes):
-            # Check cache
+            # manual 이미지 최우선
+            manual_dir = run_dir / "media" / "manual"
+            if manual_dir.exists():
+                manual_hits = sorted(manual_dir.glob(f"scene_{scene.scene_number:02d}.*"))
+                if manual_hits:
+                    cached[i] = (manual_hits[0], "manual_upload")
+                    prompt_to_image[scene.image_prompt] = manual_hits[0]
+                    continue
+            # 기존 캐시 체크
             found_cache = False
             for d in ("generated", "downloaded"):
                 cd = run_dir / "media" / d
