@@ -779,7 +779,24 @@ class KnowledgeVideoStudio:
         import os
         pexels_key = os.environ.get("PEXELS_API_KEY", "")
         pixabay_key = os.environ.get("PIXABAY_API_KEY", "")
+        unsplash_key = os.environ.get("UNSPLASH_ACCESS_KEY", "")
         for provider, url, headers, extract_all in [
+            (
+                "unsplash",
+                "https://api.unsplash.com/search/photos?"
+                + urllib.parse.urlencode({
+                    "query": keywords,
+                    "orientation": "portrait",
+                    "per_page": per_page,
+                    "page": page_offset,
+                }),
+                {"Authorization": f"Client-ID {unsplash_key}"},
+                lambda data: [
+                    p.get("urls", {}).get("regular") or p.get("urls", {}).get("full")
+                    for p in data.get("results", [])
+                    if p.get("urls")
+                ],
+            ),
             (
                 "pexels",
                 "https://api.pexels.com/v1/search?"
@@ -812,7 +829,7 @@ class KnowledgeVideoStudio:
                 ],
             ),
         ]:
-            api_key = pexels_key if provider == "pexels" else pixabay_key
+            api_key = {"unsplash": unsplash_key, "pexels": pexels_key, "pixabay": pixabay_key}.get(provider, "")
             if not api_key:
                 continue
             try:
