@@ -266,10 +266,14 @@ class MediaClipSelector:
         kw_path = run_dir / "media" / "search_keywords.json"
         if kw_path.exists():
             try:
-                ai_keywords = {
-                    int(k): v
-                    for k, v in json.loads(kw_path.read_text(encoding="utf-8")).items()
-                }
+                raw = json.loads(kw_path.read_text(encoding="utf-8"))
+                for k, v in raw.items():
+                    if isinstance(v, dict):
+                        nasa = [x for x in v.get("nasa_keywords", []) if x and x != "N/A"]
+                        stock = [x for x in v.get("stock_keywords", []) if x and x != "N/A"]
+                        ai_keywords[int(k)] = " ".join(nasa[:2] + stock[:2]) or "mystery science"
+                    elif isinstance(v, str) and v:
+                        ai_keywords[int(k)] = v
             except Exception:
                 pass
 
