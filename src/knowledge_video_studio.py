@@ -689,6 +689,13 @@ class KnowledgeVideoStudio:
 6. 근거가 약하면 confidence를 낮춘다.
 7. **nasa_keywords와 stock_keywords는 반드시 영어로 작성한다. 한국어 금지.**
    예: "전파" → "radio wave", "블랙홀" → "black hole", "태양" → "sun solar"
+8. **추상적 단어 금지. 촬영/렌더링 가능한 구체적 대상만 쓴다.**
+   나쁜 예: "emotion", "consciousness", "AI", "concept", "theory"
+   좋은 예: "robot arm", "computer screen", "brain scan", "neural network visualization"
+   나쁜 예: "mystery", "science", "discovery"
+   좋은 예: "dark laboratory", "telescope observatory", "scientist microscope"
+9. **nasa_keywords는 최소 2개, stock_keywords는 최소 2개를 반드시 채운다.**
+   비워두지 않는다. 문맥에서 추론해서라도 채운다.
 
 전체 대본:
 {full_narration}
