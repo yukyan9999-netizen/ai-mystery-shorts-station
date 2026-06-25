@@ -65,7 +65,8 @@ video_studio:
   bold_font_path: "C:/Windows/Fonts/malgunbd.ttf"
   stock_clips:
     enabled: true
-    max_total_seconds: 30
+    max_total_seconds: 60
+    clip_ratio: 0.5
     min_clip_seconds: 1
     max_clip_seconds: 10
     preferred_clip_seconds: 7
