@@ -88,7 +88,7 @@ video_studio:
   music_library:
     enabled: true
     folder: music
-    mix_volume: 0.20
+    mix_volume: 0.35
     preserve_original_track: true
     start_offset_seconds: 0
     normalize: false
