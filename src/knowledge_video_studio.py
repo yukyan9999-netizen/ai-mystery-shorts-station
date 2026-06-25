@@ -1328,9 +1328,16 @@ class KnowledgeVideoStudio:
         frames: list[Path] = []
         for scene, image_path in zip(package.visual_package.scenes, images):
             frame_path = frame_dir / f"scene_{scene.scene_number:02d}.jpg"
-            if frame_path.exists():
+            # manual 이미지가 있으면 프레임 캐시 무시하고 새로 생성
+            manual_dir = run_dir / "media" / "manual"
+            has_manual = manual_dir.exists() and bool(
+                sorted(manual_dir.glob(f"scene_{scene.scene_number:02d}.*"))
+            )
+            if frame_path.exists() and not has_manual:
                 frames.append(frame_path)
                 continue
+            if has_manual and frame_path.exists():
+                frame_path.unlink()
             source_image = Image.open(image_path).convert("RGB")
             background = ImageOps.fit(
                 source_image,
