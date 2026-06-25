@@ -380,20 +380,30 @@ function renderRuns(data) {
       download.textContent = "JSON 제작 패키지";
       download.setAttribute("download", "");
       actions.appendChild(download);
+    }
+    if (state === "package_ready" || state === "video_failed") {
       const approve = document.createElement("button");
       approve.className = "upload";
-      if (state === "package_ready" || state === "video_failed") {
-        approve.textContent =
-          state === "video_failed" ? "대본 확인 후 영상 재시도" : "최종 대본 검토";
-        approve.addEventListener("click", () =>
-          openScriptReview(run.run_id, run.selected_title)
-        );
-        actions.appendChild(approve);
-      } else if (state === "rendering") {
-        approve.textContent = "영상 제작 진행 중";
-        approve.disabled = true;
-        actions.appendChild(approve);
-      }
+      approve.textContent =
+        state === "video_failed" ? "영상 재시도" : "최종 대본 검토";
+      approve.addEventListener("click", () => {
+        if (state === "video_failed") {
+          api(`/api/knowledge/${run.run_id}/approve`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}),
+          }).then(() => refreshStatus()).catch((e) => alert(e.message));
+        } else {
+          openScriptReview(run.run_id, run.selected_title);
+        }
+      });
+      actions.appendChild(approve);
+    } else if (state === "rendering") {
+      const approve = document.createElement("button");
+      approve.className = "upload";
+      approve.textContent = "영상 제작 진행 중";
+      approve.disabled = true;
+      actions.appendChild(approve);
     }
     if (
       state === "video_ready" ||
