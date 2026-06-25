@@ -420,6 +420,11 @@ function renderRuns(data) {
       rerender.textContent = "레퍼런스 스타일로 재제작";
       rerender.addEventListener("click", () => rerenderRun(run.run_id, rerender));
       actions.appendChild(rerender);
+      const musicBtn = document.createElement("button");
+      musicBtn.className = "upload";
+      musicBtn.textContent = "배경음악 변경";
+      musicBtn.addEventListener("click", () => openMusicSelector(run.run_id));
+      actions.appendChild(musicBtn);
       const editScript = document.createElement("button");
       editScript.className = "upload";
       editScript.textContent = "시나리오 수정 후 재제작";
@@ -579,6 +584,37 @@ async function startGeneration() {
     $("#commandFeedback").classList.add("error");
   } finally {
     button.disabled = false;
+  }
+}
+
+async function openMusicSelector(runId) {
+  try {
+    const data = await api(`/api/knowledge/${runId}/music-options`);
+    const tracks = data.tracks || [];
+    if (!tracks.length) {
+      alert("사용 가능한 배경음악이 없습니다.");
+      return;
+    }
+    const options = tracks.map((t) => `${t.file} (${t.mood})`).join("\n");
+    const choice = prompt(
+      `배경음악을 선택하세요:\n\n${tracks.map((t, i) => `${i + 1}. ${t.file} — ${t.mood}`).join("\n")}\n\n번호를 입력하세요:`
+    );
+    if (!choice) return;
+    const idx = parseInt(choice, 10) - 1;
+    if (idx < 0 || idx >= tracks.length) {
+      alert("올바른 번호를 입력해주세요.");
+      return;
+    }
+    const selected = tracks[idx].file;
+    const result = await api(`/api/knowledge/${runId}/change-music`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ track_file: selected }),
+    });
+    alert(result.message);
+    await refreshStatus();
+  } catch (error) {
+    alert(error.message);
   }
 }
 
