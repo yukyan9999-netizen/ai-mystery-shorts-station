@@ -687,6 +687,8 @@ class KnowledgeVideoStudio:
 4. 감정어, 대명사, 접속사는 검색어로 쓰지 않는다.
 5. 검색어는 NASA용과 스톡용을 분리한다.
 6. 근거가 약하면 confidence를 낮춘다.
+7. **nasa_keywords와 stock_keywords는 반드시 영어로 작성한다. 한국어 금지.**
+   예: "전파" → "radio wave", "블랙홀" → "black hole", "태양" → "sun solar"
 
 전체 대본:
 {full_narration}
