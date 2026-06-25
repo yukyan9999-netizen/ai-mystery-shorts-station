@@ -21,7 +21,7 @@ topic_policy:
 shorts:
   min_seconds: 55
   preferred_seconds: 90
-  max_seconds: 120
+  max_seconds: 180
 video_studio:
   image_model: gpt-image-2
   image_quality: medium
