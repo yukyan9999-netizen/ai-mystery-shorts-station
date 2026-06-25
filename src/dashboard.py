@@ -759,11 +759,18 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
     run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_dir = KNOWLEDGE_OUTPUTS / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
-    sentences = [
+    raw_sentences = [
         s.strip() for s in re.split(r"(?<=[.!?。！？])\s+|\n+", narration) if s.strip()
     ]
-    if not sentences:
-        sentences = [narration]
+    if not raw_sentences:
+        raw_sentences = [narration]
+    # 짧은 조각(따옴표, 괄호 등)은 이전 문장에 합침
+    sentences: list[str] = []
+    for sent in raw_sentences:
+        if sentences and len(sent) < 5:
+            sentences[-1] = sentences[-1] + " " + sent
+        else:
+            sentences.append(sent)
     # 2~3문장씩 묶어서 장면 생성 (한 줄짜리 방지)
     chunks: list[str] = []
     current_chunk: list[str] = []

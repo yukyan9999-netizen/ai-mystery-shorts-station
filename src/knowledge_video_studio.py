@@ -358,11 +358,17 @@ class KnowledgeVideoStudio:
                 continue
 
             # Split by sentences only
-            sentences = [
+            raw_sents = [
                 s.strip()
                 for s in re.split(r'(?<=[.!?。])\s*', scene.narration)
                 if s.strip()
             ]
+            sentences = []
+            for s in raw_sents:
+                if sentences and len(s) < 5:
+                    sentences[-1] = sentences[-1] + " " + s
+                else:
+                    sentences.append(s)
             if not sentences:
                 sentences = [scene.narration.strip()]
 
