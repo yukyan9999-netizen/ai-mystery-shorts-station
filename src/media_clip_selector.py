@@ -368,7 +368,6 @@ class MediaClipSelector:
                     desired = min(
                         self.max_clip_seconds,
                         float(scene_duration),
-                        per_scene_budget,
                         global_remaining,
                     )
                     if desired < self.min_clip_seconds:

@@ -67,7 +67,7 @@ video_studio:
     enabled: true
     max_total_seconds: 60
     clip_ratio: 0.5
-    min_clip_seconds: 4
+    min_clip_seconds: 2
     max_clip_seconds: 10
     preferred_clip_seconds: 7
     minimum_candidates: 1
