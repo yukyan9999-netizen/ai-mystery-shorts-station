@@ -1694,27 +1694,48 @@ def search_scene_image(run_id: str, scene_number: int, request: dict):
         raise HTTPException(status_code=400, detail="검색어를 입력해주세요.")
     from dotenv import load_dotenv
     load_dotenv(PROJECT_ROOT / ".env.local", override=True)
+    unsplash_key = os.getenv("UNSPLASH_ACCESS_KEY", "")
     pexels_key = os.getenv("PEXELS_API_KEY", "")
-    if not pexels_key:
-        raise HTTPException(status_code=500, detail="PEXELS_API_KEY 환경변수가 설정되지 않았습니다.")
-    params = urllib.parse.urlencode({"query": query, "per_page": 6, "orientation": "portrait"})
-    req = urllib.request.Request(
-        f"https://api.pexels.com/v1/search?{params}",
-        headers={"Authorization": pexels_key},
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-    except Exception:
-        raise HTTPException(status_code=502, detail="Pexels 검색에 실패했습니다.")
+    # Unsplash 우선, 실패 시 Pexels fallback
     results = []
-    for photo in data.get("photos", []):
-        src = photo.get("src", {})
-        results.append({
-            "url": src.get("original", ""),
-            "thumbnail": src.get("medium", src.get("small", "")),
-            "photographer": photo.get("photographer", ""),
-        })
+    if unsplash_key:
+        params = urllib.parse.urlencode({"query": query, "per_page": 6, "orientation": "portrait"})
+        req = urllib.request.Request(
+            f"https://api.unsplash.com/search/photos?{params}",
+            headers={"Authorization": f"Client-ID {unsplash_key}"},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            for photo in data.get("results", []):
+                urls = photo.get("urls", {})
+                results.append({
+                    "url": urls.get("regular", urls.get("full", "")),
+                    "thumbnail": urls.get("small", urls.get("thumb", "")),
+                    "photographer": photo.get("user", {}).get("name", ""),
+                })
+        except Exception:
+            pass
+    if not results and pexels_key:
+        params = urllib.parse.urlencode({"query": query, "per_page": 6, "orientation": "portrait"})
+        req = urllib.request.Request(
+            f"https://api.pexels.com/v1/search?{params}",
+            headers={"Authorization": pexels_key},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            for photo in data.get("photos", []):
+                src = photo.get("src", {})
+                results.append({
+                    "url": src.get("original", ""),
+                    "thumbnail": src.get("medium", src.get("small", "")),
+                    "photographer": photo.get("photographer", ""),
+                })
+        except Exception:
+            pass
+    if not results:
+        raise HTTPException(status_code=502, detail="이미지 검색에 실패했습니다. API 키를 확인해주세요.")
     return {"results": results}
 
 
