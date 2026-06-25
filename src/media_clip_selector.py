@@ -286,11 +286,14 @@ class MediaClipSelector:
         start_time = time.monotonic()
         budget_exceeded = False
         blocked_providers: set[str] = set()
-        for scene, scene_duration in zip(scenes, durations):
-            if budget_exceeded or (
+        for scene_idx, (scene, scene_duration) in enumerate(zip(scenes, durations)):
+            # 홀수 장면만 영상 클립 시도 → 앞쪽 몰림 방지
+            skip_clip = (scene_idx % 2 == 1)
+            if budget_exceeded or skip_clip or (
                 time.monotonic() - start_time > self.total_time_budget
             ):
-                budget_exceeded = True
+                if not skip_clip:
+                    budget_exceeded = True
                 timeline.append(
                     self._fallback_timeline_entry(
                         scene,
