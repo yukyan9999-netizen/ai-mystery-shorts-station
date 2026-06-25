@@ -2243,70 +2243,12 @@ class KnowledgeVideoStudio:
         scene_duration: float,
         stock_duration: float,
     ) -> None:
-        remaining = max(0.0, scene_duration - stock_duration)
         if stock_duration <= 0:
             raise ValueError("스톡 클립 길이가 올바르지 않습니다.")
-        if remaining > 0.05:
-            self._run_ffmpeg(
-                [
-                    "-i",
-                    str(stock_clip),
-                    "-loop",
-                    "1",
-                    "-framerate",
-                    str(self.fps),
-                    "-i",
-                    str(caption_overlay),
-                    "-loop",
-                    "1",
-                    "-framerate",
-                    str(self.fps),
-                    "-i",
-                    str(fallback_frame),
-                    "-i",
-                    str(audio),
-                    "-filter_complex",
-                    (
-                        f"[0:v]scale={self.width}:{self.height}:"
-                        "force_original_aspect_ratio=increase,"
-                        f"crop={self.width}:{self.height},setsar=1,fps={self.fps},"
-                        f"trim=duration={stock_duration:.3f},setpts=PTS-STARTPTS[sv];"
-                        f"[1:v]format=rgba,trim=duration={scene_duration:.3f},"
-                        "setpts=PTS-STARTPTS[ov];"
-                        f"[2:v]scale={self.width}:{self.height},setsar=1,"
-                        "zoompan=z='min(zoom+0.0006,1.12)':"
-                        "x='iw/2-(iw/zoom/2)':y='trunc(ih/2-(ih/zoom/2))':"
-                        f"d={max(2, int(math.ceil(remaining * self.fps)))}:"
-                        f"s={self.width}x{self.height}:fps={self.fps},"
-                        f"trim=duration={remaining:.3f},setpts=PTS-STARTPTS[still];"
-                        "[sv][still]concat=n=2:v=1:a=0[base];"
-                        "[base][ov]overlay=0:0:shortest=1,format=yuv420p[v];"
-                        f"[3:a]volume=1.08,apad,atrim=0:{scene_duration:.3f}[a]"
-                    ),
-                    "-map",
-                    "[v]",
-                    "-map",
-                    "[a]",
-                    "-t",
-                    f"{scene_duration:.3f}",
-                    "-r",
-                    str(self.fps),
-                    "-c:v",
-                    "libx264",
-                    "-preset",
-                    "medium",
-                    "-crf",
-                    "20",
-                    "-c:a",
-                    "aac",
-                    "-b:a",
-                    "160k",
-                    str(output),
-                ]
-            )
-            return
         self._run_ffmpeg(
             [
+                "-stream_loop",
+                "-1",
                 "-i",
                 str(stock_clip),
                 "-loop",
