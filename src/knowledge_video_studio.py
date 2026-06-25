@@ -1081,6 +1081,19 @@ class KnowledgeVideoStudio:
         plan: SceneAssetPlan,
         force_ai: bool = False,
     ) -> tuple[Path, dict[str, Any]]:
+        # 수동 업로드/선택 이미지가 있으면 최우선 사용
+        manual_dir = run_dir / "media" / "manual"
+        if manual_dir.exists():
+            manual = sorted(manual_dir.glob(f"scene_{scene.scene_number:02d}.*"))
+            if manual:
+                return manual[0], {
+                    "scene_number": scene.scene_number,
+                    "planned_mode": plan.asset_mode,
+                    "used_mode": "manual_upload",
+                    "source_page_url": "",
+                    "license_status": "not_applicable",
+                    "file": str(manual[0].relative_to(run_dir)),
+                }
         # 재제작 시 기존 이미지를 최대한 재사용.
         # generated, downloaded 어디든 이미 있으면 새로 만들지 않는다.
         for cache_dir_name in ("generated", "downloaded"):

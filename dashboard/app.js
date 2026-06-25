@@ -1021,8 +1021,12 @@ function openVideo(runId, title) {
     .then((data) => {
       const scenes = data.visual_scenes || [];
       $("#videoSceneGuide").innerHTML = scenes
-        .map((scene) => `<span title="${escapeHtml(scene.subtitle || "")}">${scene.scene_number}번 · ${escapeHtml(scene.subtitle || "화면")}</span>`)
+        .map((scene) => `<span class="scene-edit-btn" data-scene="${scene.scene_number}" title="${escapeHtml(scene.subtitle || "")}">${scene.scene_number}번 · ${escapeHtml(scene.subtitle || "화면")}</span>`)
         .join("");
+      $("#videoSceneGuide").querySelectorAll(".scene-edit-btn").forEach((btn) => {
+        btn.style.cursor = "pointer";
+        btn.addEventListener("click", () => openSceneEditPanel(runId, Number(btn.dataset.scene)));
+      });
     })
     .catch(() => {
       $("#videoSceneGuide").textContent = "장면 목록을 불러오지 못했습니다.";
@@ -1058,6 +1062,105 @@ async function submitVideoFeedback() {
     button.disabled = false;
     button.textContent = "장면 수정 후 다시 제작";
   }
+}
+
+function openSceneEditPanel(runId, sceneNumber) {
+  // Remove any existing panel
+  document.querySelector(".scene-edit-panel")?.remove();
+  const panel = document.createElement("div");
+  panel.className = "scene-edit-panel";
+  panel.style.cssText = "background:var(--bg-card,#1e1e2e);border:1px solid var(--border,#444);border-radius:8px;padding:12px;margin-top:8px;";
+  panel.innerHTML = `
+    <strong>${sceneNumber}번 장면 이미지 교체</strong>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <label class="upload" style="cursor:pointer;padding:6px 12px;border-radius:4px;background:var(--accent,#7c3aed);color:#fff;">
+        이미지 업로드
+        <input type="file" accept="image/*,video/mp4" style="display:none" id="sceneFileInput">
+      </label>
+      <button id="sceneSearchBtn" style="padding:6px 12px;border-radius:4px;background:var(--accent,#7c3aed);color:#fff;border:none;cursor:pointer;">검색어로 찾기</button>
+      <button id="sceneRerenderBtn" style="padding:6px 12px;border-radius:4px;background:#059669;color:#fff;border:none;cursor:pointer;">교체 장면 재렌더링</button>
+      <button id="sceneCancelBtn" style="padding:6px 12px;border-radius:4px;background:#666;color:#fff;border:none;cursor:pointer;">취소</button>
+    </div>
+    <div id="sceneEditResult" style="margin-top:8px;font-size:0.85em;"></div>
+    <div id="sceneSearchResults" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;"></div>
+  `;
+  $("#videoSceneGuide").after(panel);
+
+  panel.querySelector("#sceneCancelBtn").addEventListener("click", () => panel.remove());
+
+  panel.querySelector("#sceneFileInput").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const form = new FormData();
+    form.append("file", file);
+    const result = panel.querySelector("#sceneEditResult");
+    result.textContent = "업로드 중...";
+    try {
+      const data = await api(`/api/knowledge/${runId}/scene/${sceneNumber}/upload`, {
+        method: "POST",
+        body: form,
+      });
+      result.textContent = "업로드 완료: " + data.file;
+    } catch (err) {
+      result.textContent = err.message;
+    }
+  });
+
+  panel.querySelector("#sceneSearchBtn").addEventListener("click", async () => {
+    const query = prompt("검색어를 입력하세요 (영어 권장):");
+    if (!query) return;
+    const result = panel.querySelector("#sceneEditResult");
+    const grid = panel.querySelector("#sceneSearchResults");
+    result.textContent = "검색 중...";
+    grid.innerHTML = "";
+    try {
+      const data = await api(`/api/knowledge/${runId}/scene/${sceneNumber}/search`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+      result.textContent = `${data.results.length}개 결과 (클릭하면 적용)`;
+      data.results.forEach((item) => {
+        const img = document.createElement("img");
+        img.src = item.thumbnail;
+        img.title = item.photographer;
+        img.style.cssText = "width:100%;border-radius:4px;cursor:pointer;aspect-ratio:9/16;object-fit:cover;";
+        img.addEventListener("click", async () => {
+          result.textContent = "이미지 적용 중...";
+          try {
+            await api(`/api/knowledge/${runId}/scene/${sceneNumber}/select-image`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ image_url: item.url }),
+            });
+            result.textContent = "적용 완료! 재렌더링 버튼을 눌러주세요.";
+            grid.innerHTML = "";
+          } catch (err) {
+            result.textContent = err.message;
+          }
+        });
+        grid.appendChild(img);
+      });
+    } catch (err) {
+      result.textContent = err.message;
+    }
+  });
+
+  panel.querySelector("#sceneRerenderBtn").addEventListener("click", async () => {
+    if (!window.confirm("수동 교체한 장면을 반영해 영상을 다시 제작할까요?")) return;
+    const result = panel.querySelector("#sceneEditResult");
+    result.textContent = "재렌더링 요청 중...";
+    try {
+      const data = await api(`/api/knowledge/${runId}/rerender-scenes`, { method: "POST" });
+      result.textContent = data.message;
+      panel.remove();
+      $("#knowledgeVideo").pause();
+      $("#videoModal").hidden = true;
+      await refreshStatus();
+    } catch (err) {
+      result.textContent = err.message;
+    }
+  });
 }
 
 function connectEvents() {

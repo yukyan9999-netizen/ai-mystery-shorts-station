@@ -13,8 +13,10 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+import urllib.parse
+import urllib.request
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -1640,6 +1642,152 @@ def rerender_knowledge_video(run_id: str) -> dict[str, Any]:
         "message": "기존 이미지 자료를 유지하고 자막·연출·음성을 새 스타일로 재제작합니다.",
         "process": process,
     }
+
+
+def _clear_scene_cache(run_dir: Path, scene_number: int) -> None:
+    """Delete cached frames and clips for a specific scene so re-render picks up the new image."""
+    for sub in ("frames", "clips"):
+        d = run_dir / sub
+        if not d.exists():
+            continue
+        for f in d.glob(f"scene_{scene_number:02d}*"):
+            f.unlink(missing_ok=True)
+
+
+def _validate_run_dir(run_id: str) -> Path:
+    if not re.fullmatch(r"\d{8}-\d{6}(?:-\d{6})?", run_id):
+        raise HTTPException(status_code=400, detail="올바르지 않은 실행번호입니다.")
+    run_dir = KNOWLEDGE_OUTPUTS / run_id
+    if not run_dir.is_dir():
+        raise HTTPException(status_code=404, detail="실행 폴더를 찾을 수 없습니다.")
+    return run_dir
+
+
+@app.post("/api/knowledge/{run_id}/scene/{scene_number}/upload")
+async def upload_scene_media(run_id: str, scene_number: int, file: UploadFile = File(...)):
+    run_dir = _validate_run_dir(run_id)
+    ext = (file.filename or "upload.jpg").rsplit(".", 1)[-1].lower()
+    if ext not in {"jpg", "jpeg", "png", "webp", "mp4"}:
+        raise HTTPException(status_code=400, detail="jpg, png, webp, mp4 파일만 업로드할 수 있습니다.")
+    manual_dir = run_dir / "media" / "manual"
+    manual_dir.mkdir(parents=True, exist_ok=True)
+    # Remove existing manual files for this scene
+    for old in manual_dir.glob(f"scene_{scene_number:02d}.*"):
+        old.unlink(missing_ok=True)
+    save_path = manual_dir / f"scene_{scene_number:02d}.{ext}"
+    content = await file.read()
+    save_path.write_bytes(content)
+    _clear_scene_cache(run_dir, scene_number)
+    control_room.emit(
+        "ProductionManager",
+        f"{run_id} {scene_number}번 장면 이미지를 수동 업로드했습니다.",
+        "character",
+    )
+    return {"status": "ok", "file": str(save_path.relative_to(PROJECT_ROOT))}
+
+
+@app.post("/api/knowledge/{run_id}/scene/{scene_number}/search")
+def search_scene_image(run_id: str, scene_number: int, request: dict):
+    _validate_run_dir(run_id)
+    query = str(request.get("query", "")).strip()
+    if not query:
+        raise HTTPException(status_code=400, detail="검색어를 입력해주세요.")
+    pexels_key = os.getenv("PEXELS_API_KEY", "")
+    if not pexels_key:
+        raise HTTPException(status_code=500, detail="PEXELS_API_KEY 환경변수가 설정되지 않았습니다.")
+    params = urllib.parse.urlencode({"query": query, "per_page": 6, "orientation": "portrait"})
+    req = urllib.request.Request(
+        f"https://api.pexels.com/v1/search?{params}",
+        headers={"Authorization": pexels_key},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        raise HTTPException(status_code=502, detail="Pexels 검색에 실패했습니다.")
+    results = []
+    for photo in data.get("photos", []):
+        src = photo.get("src", {})
+        results.append({
+            "url": src.get("original", ""),
+            "thumbnail": src.get("medium", src.get("small", "")),
+            "photographer": photo.get("photographer", ""),
+        })
+    return {"results": results}
+
+
+@app.post("/api/knowledge/{run_id}/scene/{scene_number}/select-image")
+def select_scene_image(run_id: str, scene_number: int, request: dict):
+    run_dir = _validate_run_dir(run_id)
+    image_url = str(request.get("image_url", "")).strip()
+    if not image_url:
+        raise HTTPException(status_code=400, detail="이미지 URL이 필요합니다.")
+    try:
+        req = urllib.request.Request(image_url)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            content_type = resp.headers.get("Content-Type", "")
+            image_bytes = resp.read()
+    except Exception:
+        raise HTTPException(status_code=502, detail="이미지를 다운로드하지 못했습니다.")
+    if "png" in content_type:
+        ext = "png"
+    elif "webp" in content_type:
+        ext = "webp"
+    else:
+        ext = "jpg"
+    manual_dir = run_dir / "media" / "manual"
+    manual_dir.mkdir(parents=True, exist_ok=True)
+    for old in manual_dir.glob(f"scene_{scene_number:02d}.*"):
+        old.unlink(missing_ok=True)
+    save_path = manual_dir / f"scene_{scene_number:02d}.{ext}"
+    save_path.write_bytes(image_bytes)
+    _clear_scene_cache(run_dir, scene_number)
+    control_room.emit(
+        "ProductionManager",
+        f"{run_id} {scene_number}번 장면에 Pexels 이미지를 적용했습니다.",
+        "character",
+    )
+    return {"status": "ok", "file": str(save_path.relative_to(PROJECT_ROOT))}
+
+
+@app.post("/api/knowledge/{run_id}/rerender-scenes")
+def rerender_scenes_only(run_id: str) -> dict[str, Any]:
+    if control_room.is_running():
+        raise HTTPException(status_code=409, detail="다른 작업이 진행 중입니다.")
+    run_dir = _validate_run_dir(run_id)
+    path = package_path(run_id)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="제작 패키지가 없습니다.")
+    # Preserve current video
+    preserve_current_video(run_dir, "수동 장면 이미지 교체 후 재렌더링")
+    # Clear only frames and clips (keep audio/TTS)
+    for sub in ("frames", "clips"):
+        d = run_dir / sub
+        if d.exists():
+            shutil.rmtree(d)
+    for d in (run_dir / "media" / "generated", run_dir / "media" / "motion_graphics"):
+        if d.exists():
+            shutil.rmtree(d)
+    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json", "timeline.json"):
+        f = run_dir / f_name
+        if f.exists():
+            f.unlink()
+    history = read_json(KNOWLEDGE_HISTORY, [])
+    for item in history:
+        if item.get("run_id") == run_id:
+            item["production_status"] = "rendering"
+            break
+    write_json(KNOWLEDGE_HISTORY, history)
+    try:
+        process = control_room.start_video(run_id)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    control_room.emit(
+        "ProductionManager",
+        f"{run_id} 수동 교체 장면을 반영해 영상을 다시 제작합니다.",
+        "success",
+    )
+    return {"status": "rendering", "message": "수동 교체 장면을 반영해 재렌더링을 시작합니다.", "process": process}
 
 
 class MusicChangeRequest(BaseModel):
