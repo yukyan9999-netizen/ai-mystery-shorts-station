@@ -1788,7 +1788,14 @@ def rerender_scenes_only(run_id: str) -> dict[str, Any]:
         d = run_dir / sub
         if d.exists():
             shutil.rmtree(d)
-    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json"):
+    # 영상 클립 캐시도 삭제하여 새로 검색
+    stock_dir = run_dir / "media" / "stock"
+    if stock_dir.exists():
+        for sub in ("candidates", "clips", "originals"):
+            sd = stock_dir / sub
+            if sd.exists():
+                shutil.rmtree(sd)
+    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json", "timeline.json"):
         f = run_dir / f_name
         if f.exists():
             f.unlink()
