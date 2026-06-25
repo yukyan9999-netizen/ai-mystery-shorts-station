@@ -1785,19 +1785,25 @@ def rerender_scenes_only(run_id: str) -> dict[str, Any]:
         raise HTTPException(status_code=404, detail="제작 패키지가 없습니다.")
     # Preserve current video
     preserve_current_video(run_dir, "수동 장면 이미지 교체 후 재렌더링")
-    # frames/clips/최종영상만 삭제. media(이미지/영상)와 audio(TTS)는 보존
-    for sub in ("frames", "clips"):
-        d = run_dir / sub
-        if d.exists():
-            shutil.rmtree(d)
-    # 영상 클립 캐시도 삭제하여 새로 검색
-    stock_dir = run_dir / "media" / "stock"
-    if stock_dir.exists():
-        for sub in ("candidates", "clips", "originals"):
-            sd = stock_dir / sub
-            if sd.exists():
-                shutil.rmtree(sd)
-    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json", "timeline.json"):
+    # manual 이미지가 있는 장면의 frame/clip만 삭제
+    manual_dir = run_dir / "media" / "manual"
+    if manual_dir.exists():
+        for manual_file in manual_dir.iterdir():
+            scene_stem = manual_file.stem  # e.g. "scene_02"
+            # 해당 장면의 frame 삭제
+            for frame in (run_dir / "frames").glob(f"{scene_stem}.*"):
+                frame.unlink()
+            # 해당 장면의 clip 삭제
+            clip_num = scene_stem.replace("scene_", "clip_")
+            for clip in (run_dir / "clips").glob(f"{clip_num}.*"):
+                clip.unlink()
+            # caption overlay도 삭제
+            overlay_dir = run_dir / "frames" / "caption_overlays"
+            if overlay_dir.exists():
+                for ov in overlay_dir.glob(f"{scene_stem}.*"):
+                    ov.unlink()
+    # 최종 영상만 삭제 (clip 합치기를 다시 해야 하니까)
+    for f_name in ("final_short.mp4", "narration_short.mp4"):
         f = run_dir / f_name
         if f.exists():
             f.unlink()
