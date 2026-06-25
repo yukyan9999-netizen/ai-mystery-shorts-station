@@ -1715,13 +1715,18 @@ def music_options(run_id: str) -> dict[str, Any]:
     config = yaml.safe_load((PROJECT_ROOT / "config.yaml").read_text(encoding="utf-8"))
     music_library = config.get("video_studio", {}).get("music_library", {})
     music_dir = PROJECT_ROOT / str(music_library.get("folder", "music"))
+    # config에 등록된 트랙
+    config_moods = {
+        str(t.get("file", "")): str(t.get("mood", ""))
+        for t in music_library.get("tracks", [])
+    }
+    # 폴더의 모든 음악 파일 스캔
     tracks = []
-    for track in music_library.get("tracks", []):
-        filename = str(track.get("file", ""))
-        if (music_dir / filename).exists():
+    for p in sorted(music_dir.glob("*")):
+        if p.is_file() and p.suffix.lower() in {".mp3", ".wav", ".m4a", ".aac"}:
             tracks.append({
-                "file": filename,
-                "mood": track.get("mood", ""),
+                "file": p.name,
+                "mood": config_moods.get(p.name, p.stem),
             })
     return {"tracks": tracks}
 

@@ -726,7 +726,8 @@ class KnowledgeVideoStudio:
                 nasa = item.get("nasa_keywords", [])[:3]
                 stock = item.get("stock_keywords", [])[:3]
                 result_full[str(sn)] = item
-                result_flat[sn] = " ".join(nasa[:2] + stock[:2])
+                combined = nasa[:2] + stock[:2]
+                result_flat[sn] = " ".join(combined) if combined else "mystery science documentary"
             cache_path.parent.mkdir(parents=True, exist_ok=True)
             cache_path.write_text(
                 json.dumps(result_full, ensure_ascii=False, indent=2),
