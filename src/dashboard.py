@@ -1692,6 +1692,8 @@ def search_scene_image(run_id: str, scene_number: int, request: dict):
     query = str(request.get("query", "")).strip()
     if not query:
         raise HTTPException(status_code=400, detail="검색어를 입력해주세요.")
+    from dotenv import load_dotenv
+    load_dotenv(PROJECT_ROOT / ".env.local", override=True)
     pexels_key = os.getenv("PEXELS_API_KEY", "")
     if not pexels_key:
         raise HTTPException(status_code=500, detail="PEXELS_API_KEY 환경변수가 설정되지 않았습니다.")
