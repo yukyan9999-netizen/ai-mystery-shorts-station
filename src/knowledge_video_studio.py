@@ -782,6 +782,21 @@ class KnowledgeVideoStudio:
         unsplash_key = os.environ.get("UNSPLASH_ACCESS_KEY", "")
         for provider, url, headers, extract_all in [
             (
+                "nasa",
+                "https://images-api.nasa.gov/search?"
+                + urllib.parse.urlencode({
+                    "q": keywords,
+                    "media_type": "image",
+                    "page_size": per_page,
+                }),
+                {},
+                lambda data: [
+                    (item.get("links") or [{}])[0].get("href", "")
+                    for item in data.get("collection", {}).get("items", [])
+                    if item.get("links")
+                ],
+            ),
+            (
                 "unsplash",
                 "https://api.unsplash.com/search/photos?"
                 + urllib.parse.urlencode({
