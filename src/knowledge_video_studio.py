@@ -1225,9 +1225,14 @@ class KnowledgeVideoStudio:
                 crop_and_motion="slow zoom",
                 fallback_ai_prompt=scene.image_prompt,
             )
-            # 첫/중간/마지막 → AI 이미지 고정; 나머지 → 스톡 우선
-            mid = len(scenes) // 2
-            is_key_scene = (idx == 0 or idx == mid or idx == len(scenes) - 1)
+            # AI 이미지: 최소 3개, 최대 6개를 균등 배치
+            n = len(scenes)
+            ai_count = min(6, max(3, n // 3))
+            step = n / ai_count
+            ai_indices = {0, n - 1}
+            for i in range(1, ai_count - 1):
+                ai_indices.add(round(step * i))
+            is_key_scene = idx in ai_indices
             if not is_key_scene:
                 image = self._search_stock_image(run_dir, scene, package.selected_candidate.title, ai_keywords)
                 if image:
