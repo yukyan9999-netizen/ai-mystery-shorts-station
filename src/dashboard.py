@@ -746,8 +746,8 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
         raise HTTPException(status_code=400, detail="제목을 두 글자 이상 입력해주세요.")
     if len(narration) < 10:
         raise HTTPException(status_code=400, detail="내레이션을 10자 이상 입력해주세요.")
-    if len(narration) > 900:
-        raise HTTPException(status_code=400, detail=f"내레이션이 {len(narration)}자입니다. 쇼츠 3분 기준 최대 900자까지 가능합니다.")
+    if len(narration) > 800:
+        raise HTTPException(status_code=400, detail=f"내레이션이 {len(narration)}자입니다. 쇼츠 3분 기준 최대 800자까지 가능합니다.")
     if control_room.is_running():
         raise HTTPException(
             status_code=409,
