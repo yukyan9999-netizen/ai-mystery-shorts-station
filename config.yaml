@@ -82,7 +82,7 @@ video_studio:
       nasa:
         enabled: true
       pexels:
-        enabled: true
+        enabled: false
       pixabay:
         enabled: true
   music_library:
