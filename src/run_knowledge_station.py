@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -614,6 +615,30 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         emit_progress(
             "VisualPromptGenerator", 95,
             f"짧은 장면 {len(visuals.scenes) - len(merged_scenes)}개를 합쳐 {len(merged_scenes)}개로 정리했습니다.",
+        )
+    # 후처리: 대본에 있지만 장면에 빠진 문장을 마지막 장면에 합침
+    all_scene_text = " ".join(s.narration for s in visuals.scenes)
+    full = script.full_narration.strip()
+    missing_sentences = []
+    for sent in re.split(r'(?<=[.!?。])\s+|\n+', full):
+        sent = sent.strip()
+        if sent and sent not in all_scene_text:
+            missing_sentences.append(sent)
+    if missing_sentences and visuals.scenes:
+        last = visuals.scenes[-1]
+        added = " ".join(missing_sentences)
+        visuals = visuals.model_copy(update={
+            "scenes": list(visuals.scenes[:-1]) + [
+                last.model_copy(update={
+                    "narration": last.narration.strip() + " " + added,
+                    "subtitle": last.subtitle.strip() + " " + added[:40],
+                })
+            ]
+        })
+        save_json(visual_path, visuals)
+        emit_progress(
+            "VisualPromptGenerator", 98,
+            f"대본에서 누락된 {len(missing_sentences)}개 문장을 마지막 장면에 복원했습니다.",
         )
     emit_comment("VisualPromptGenerator", visuals.character_comment)
     emit_progress("VisualPromptGenerator", 100, "장면·자막·썸네일 설계를 완성했습니다.")
