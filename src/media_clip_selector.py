@@ -566,9 +566,11 @@ class MediaClipSelector:
     ) -> list[MediaClipCandidate]:
         if not self.svs_enabled:
             return []
+        # NASA SVS도 핵심 2단어만
+        svs_query = " ".join(query.split()[:2])
         search_url = "https://svs.gsfc.nasa.gov/api/search/?" + urllib.parse.urlencode(
             {
-                "search": query,
+                "search": svs_query,
                 "limit": 5,
             }
         )
@@ -757,9 +759,11 @@ class MediaClipSelector:
         if not self.nasa_enabled:
             return []
         import random
+        # NASA는 키워드가 많으면 결과가 0개. 핵심 2단어만 사용
+        nasa_query = " ".join(query.split()[:2])
         url = "https://images-api.nasa.gov/search?" + urllib.parse.urlencode(
             {
-                "q": query,
+                "q": nasa_query,
                 "media_type": "video",
                 "page_size": 5,
                 "page": random.randint(1, 5),
