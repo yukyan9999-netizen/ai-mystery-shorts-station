@@ -622,18 +622,45 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
     missing_sentences = []
     for sent in re.split(r'(?<=[.!?。])\s+|\n+', full):
         sent = sent.strip()
-        if sent and sent not in all_scene_text:
+        if not sent or len(sent) < 5:
+            continue
+        # 처음 10자가 장면 텍스트에 있으면 포함된 것으로 판단
+        prefix = sent[:10]
+        if prefix not in all_scene_text:
             missing_sentences.append(sent)
     if missing_sentences and visuals.scenes:
-        last = visuals.scenes[-1]
-        added = " ".join(missing_sentences)
+        from src.knowledge_models import KnowledgeScene
+        existing = list(visuals.scenes)
+        # 2~3문장씩 묶어서 새 장면 추가
+        chunk: list[str] = []
+        new_scenes: list[KnowledgeScene] = []
+        for sent in missing_sentences:
+            chunk.append(sent)
+            if len(" ".join(chunk)) >= 40 and len(chunk) >= 2:
+                number = len(existing) + len(new_scenes) + 1
+                text = " ".join(chunk)
+                new_scenes.append(KnowledgeScene(
+                    scene_number=number,
+                    time_range="0-0",
+                    visual_description=f"누락 복원 장면 {number}",
+                    image_prompt=existing[-1].image_prompt,
+                    subtitle=text,
+                    narration=text,
+                ))
+                chunk = []
+        if chunk:
+            number = len(existing) + len(new_scenes) + 1
+            text = " ".join(chunk)
+            new_scenes.append(KnowledgeScene(
+                scene_number=number,
+                time_range="0-0",
+                visual_description=f"누락 복원 장면 {number}",
+                image_prompt=existing[-1].image_prompt,
+                subtitle=text,
+                narration=text,
+            ))
         visuals = visuals.model_copy(update={
-            "scenes": list(visuals.scenes[:-1]) + [
-                last.model_copy(update={
-                    "narration": last.narration.strip() + " " + added,
-                    "subtitle": last.subtitle.strip() + " " + added[:40],
-                })
-            ]
+            "scenes": existing + new_scenes
         })
         save_json(visual_path, visuals)
         emit_progress(
