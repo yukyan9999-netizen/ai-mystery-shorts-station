@@ -451,7 +451,7 @@ class KnowledgeVideoStudio:
                             fallback_ai_prompt=scene.image_prompt,
                         )
                     )
-        if len(expanded_scenes) > 20:
+        if len(expanded_scenes) > 30:
             expanded_scenes = expanded_scenes[:30]
             expanded_plans = expanded_plans[:30]
         if len(expanded_scenes) == len(scenes):
@@ -470,10 +470,10 @@ class KnowledgeVideoStudio:
         if not package_path.exists():
             raise FileNotFoundError(f"제작 패키지를 찾을 수 없습니다: {package_path}")
         raw = json.loads(package_path.read_text(encoding="utf-8"))
-        if "visual_package" in raw and len(raw["visual_package"].get("scenes", [])) > 20:
-            raw["visual_package"]["scenes"] = raw["visual_package"]["scenes"][:20]
-        if "mixed_media_plan" in raw and len(raw["mixed_media_plan"].get("scene_assets", [])) > 20:
-            raw["mixed_media_plan"]["scene_assets"] = raw["mixed_media_plan"]["scene_assets"][:20]
+        if "visual_package" in raw and len(raw["visual_package"].get("scenes", [])) > 30:
+            raw["visual_package"]["scenes"] = raw["visual_package"]["scenes"][:30]
+        if "mixed_media_plan" in raw and len(raw["mixed_media_plan"].get("scene_assets", [])) > 30:
+            raw["mixed_media_plan"]["scene_assets"] = raw["mixed_media_plan"]["scene_assets"][:30]
         package = KnowledgeProductionPackage.model_validate(raw)
         if not package.human_approval or not package.human_approval.get("approved"):
             raise RuntimeError("사람 승인 후에만 영상을 제작할 수 있습니다.")
