@@ -287,8 +287,9 @@ class MediaClipSelector:
         budget_exceeded = False
         blocked_providers: set[str] = set()
         for scene_idx, (scene, scene_duration) in enumerate(zip(scenes, durations)):
-            # 홀수 장면만 영상 클립 시도 → 앞쪽 몰림 방지
-            skip_clip = (scene_idx % 2 == 1)
+            # 첫/마지막은 AI 이미지 고정, 나머지는 홀수만 영상 클립
+            is_first_or_last = (scene_idx == 0 or scene_idx == len(scenes) - 1)
+            skip_clip = is_first_or_last or (scene_idx % 2 == 1)
             if budget_exceeded or skip_clip or (
                 time.monotonic() - start_time > self.total_time_budget
             ):
