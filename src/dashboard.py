@@ -957,6 +957,7 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
     history.append({
         "run_id": run_id,
         "title": title,
+        "selected_title": title,
         "category": category,
         "total_score": 84,
         "production_status": "rendering",
