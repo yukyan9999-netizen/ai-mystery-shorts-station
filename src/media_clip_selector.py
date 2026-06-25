@@ -363,7 +363,6 @@ class MediaClipSelector:
                     if global_remaining < self.min_clip_seconds:
                         break
                     desired = min(
-                        self.preferred_clip_seconds,
                         self.max_clip_seconds,
                         float(scene_duration),
                         per_scene_budget,
@@ -984,6 +983,10 @@ class MediaClipSelector:
             original_duration,
         )
         if used_duration < self.min_clip_seconds:
+            return None
+        # 클립이 요청 길이의 80% 미만이면 사용 안 함
+        # (장면 중간에 AI 이미지로 전환되는 것 방지)
+        if used_duration < desired_duration * 0.8:
             return None
         start_time = self._deterministic_start(
             candidate.source_id,
