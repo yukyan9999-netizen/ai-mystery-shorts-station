@@ -800,7 +800,7 @@ class KnowledgeVideoStudio:
                 }),
                 {},
                 lambda data: [
-                    (item.get("links") or [{}])[0].get("href", "")
+                    (item.get("links") or [{}])[0].get("href", "").replace("~small", "~large").replace("~thumb", "~large")
                     for item in data.get("collection", {}).get("items", [])
                     if item.get("links")
                 ],
