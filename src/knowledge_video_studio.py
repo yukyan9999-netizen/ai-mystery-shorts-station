@@ -1280,10 +1280,20 @@ class KnowledgeVideoStudio:
             asset_plans = {}
 
         # 에셋 감독 키워드가 있으면 시각 명사 생성기 키워드를 덮어쓰기
+        updated = False
         for sn, ap in asset_plans.items():
             kw_list = ap.get("search_keywords_en", [])
             if kw_list:
                 ai_keywords[sn] = " ".join(kw_list[:4])
+                updated = True
+        # 영상 클립 검색도 같은 키워드를 쓰도록 캐시 파일 업데이트
+        if updated:
+            kw_cache = run_dir / "media" / "search_keywords.json"
+            kw_cache.parent.mkdir(parents=True, exist_ok=True)
+            kw_cache.write_text(
+                json.dumps({str(k): v for k, v in ai_keywords.items()}, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
 
         def _prepare_one(idx: int) -> tuple[int, Path, str]:
             scene = scenes[idx]
