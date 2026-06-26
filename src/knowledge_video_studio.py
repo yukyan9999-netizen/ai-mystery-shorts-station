@@ -21,6 +21,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
+from src.asset_director import AssetDirector
 from src.knowledge_models import (
     KnowledgeProductionPackage,
     KnowledgeScene,
@@ -1258,6 +1259,13 @@ class KnowledgeVideoStudio:
         # AI로 전체 장면의 검색 키워드를 한 번에 생성
         ai_keywords = self._generate_search_keywords(run_dir, scenes)
 
+        # AssetDirector: AI가 각 장면의 에셋 전략을 결정
+        try:
+            asset_director = AssetDirector(self.root)
+            asset_plans = asset_director.plan(package.script, scenes, run_dir)
+        except Exception:
+            asset_plans = {}
+
         def _prepare_one(idx: int) -> tuple[int, Path, str]:
             scene = scenes[idx]
             plan = plans.get(scene.scene_number) or SceneAssetPlan(
@@ -1268,20 +1276,56 @@ class KnowledgeVideoStudio:
                 crop_and_motion="slow zoom",
                 fallback_ai_prompt=scene.image_prompt,
             )
-            # AI 이미지: 최소 3개, 최대 6개를 균등 배치
-            n = len(scenes)
-            ai_count = min(6, max(3, n // 3))
-            step = n / ai_count
-            ai_indices = {0, n - 1}
-            for i in range(1, ai_count - 1):
-                ai_indices.add(round(step * i))
-            is_key_scene = idx in ai_indices
-            if not is_key_scene:
-                image = self._search_stock_image(run_dir, scene, package.selected_candidate.title, ai_keywords)
+            # AssetDirector 결과에 따라 전략 결정
+            ap = asset_plans.get(scene.scene_number, {})
+            asset_type = ap.get("asset_type", "")
+
+            if asset_type == "generate_image":
+                # AssetDirector가 AI 생성을 지정 — 스톡 검색 건너뜀
+                image = self._generate_ai_image(run_dir, scene, plan)
+                return idx, image, "ai_reconstruction_fallback"
+            elif asset_type in ("search_image", "search_video"):
+                # AssetDirector의 키워드로 스톡 검색 우선
+                kw = " ".join(ap.get("search_keywords_en", [])[:4])
+                if kw:
+                    image = self._search_stock_image(
+                        run_dir, scene, package.selected_candidate.title,
+                        {scene.scene_number: kw},
+                    )
+                else:
+                    image = self._search_stock_image(
+                        run_dir, scene, package.selected_candidate.title, ai_keywords,
+                    )
                 if image:
                     return idx, image, "stock_image"
-            image = self._generate_ai_image(run_dir, scene, plan)
-            return idx, image, "ai_reconstruction_fallback"
+                image = self._generate_ai_image(run_dir, scene, plan)
+                return idx, image, "ai_reconstruction_fallback"
+            elif asset_type == "hybrid":
+                # 검색 먼저, 실패 시 AI 생성
+                image = self._search_stock_image(
+                    run_dir, scene, package.selected_candidate.title, ai_keywords,
+                )
+                if image:
+                    return idx, image, "stock_image"
+                image = self._generate_ai_image(run_dir, scene, plan)
+                return idx, image, "ai_reconstruction_fallback"
+            else:
+                # AssetDirector 결과 없음 — 기존 폴백 (균등 배치)
+                n = len(scenes)
+                ai_count = min(6, max(3, n // 3))
+                step = n / ai_count
+                ai_indices = {0, n - 1}
+                for i in range(1, ai_count - 1):
+                    ai_indices.add(round(step * i))
+                is_key_scene = idx in ai_indices
+                if not is_key_scene:
+                    image = self._search_stock_image(
+                        run_dir, scene, package.selected_candidate.title, ai_keywords,
+                    )
+                    if image:
+                        return idx, image, "stock_image"
+                image = self._generate_ai_image(run_dir, scene, plan)
+                return idx, image, "ai_reconstruction_fallback"
 
         completed = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
