@@ -1266,6 +1266,12 @@ class KnowledgeVideoStudio:
         except Exception:
             asset_plans = {}
 
+        # 에셋 감독 키워드가 있으면 시각 명사 생성기 키워드를 덮어쓰기
+        for sn, ap in asset_plans.items():
+            kw_list = ap.get("search_keywords_en", [])
+            if kw_list:
+                ai_keywords[sn] = " ".join(kw_list[:4])
+
         def _prepare_one(idx: int) -> tuple[int, Path, str]:
             scene = scenes[idx]
             plan = plans.get(scene.scene_number) or SceneAssetPlan(
