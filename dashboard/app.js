@@ -1078,6 +1078,7 @@ function openSceneEditPanel(runId, sceneNumber) {
         <input type="file" accept="image/*,video/mp4" style="display:none" id="sceneFileInput">
       </label>
       <button id="sceneSearchBtn" style="padding:6px 12px;border-radius:4px;background:var(--accent,#7c3aed);color:#fff;border:none;cursor:pointer;">검색어로 찾기</button>
+      <button id="sceneAiGenBtn" style="padding:6px 12px;border-radius:4px;background:#d97706;color:#fff;border:none;cursor:pointer;">AI 이미지 생성</button>
       <button id="sceneRerenderBtn" style="padding:6px 12px;border-radius:4px;background:#059669;color:#fff;border:none;cursor:pointer;">교체 장면 재렌더링</button>
       <button id="sceneCancelBtn" style="padding:6px 12px;border-radius:4px;background:#666;color:#fff;border:none;cursor:pointer;">취소</button>
     </div>
@@ -1141,6 +1142,23 @@ function openSceneEditPanel(runId, sceneNumber) {
         });
         grid.appendChild(img);
       });
+    } catch (err) {
+      result.textContent = err.message;
+    }
+  });
+
+  panel.querySelector("#sceneAiGenBtn").addEventListener("click", async () => {
+    const customPrompt = prompt("이미지 프롬프트를 입력하세요 (영어 권장, 비우면 기본 프롬프트 사용):");
+    if (customPrompt === null) return;
+    const result = panel.querySelector("#sceneEditResult");
+    result.textContent = "AI 이미지 생성 중... (10~15초 소요)";
+    try {
+      const data = await api(`/api/knowledge/${runId}/scene/${sceneNumber}/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: customPrompt }),
+      });
+      result.textContent = data.message || "AI 이미지 생성 완료!";
     } catch (err) {
       result.textContent = err.message;
     }

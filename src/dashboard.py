@@ -1782,6 +1782,69 @@ def select_scene_image(run_id: str, scene_number: int, request: dict):
     return {"status": "ok", "file": str(save_path.relative_to(PROJECT_ROOT))}
 
 
+@app.post("/api/knowledge/{run_id}/scene/{scene_number}/generate")
+def generate_scene_image(run_id: str, scene_number: int, request: dict | None = None):
+    run_dir = _validate_run_dir(run_id)
+    custom_prompt = str((request or {}).get("prompt", "")).strip()
+    # 패키지에서 장면 정보 가져오기
+    pkg_path = package_path(run_id)
+    if not pkg_path.exists():
+        raise HTTPException(status_code=404, detail="제작 패키지가 없습니다.")
+    pkg = read_json(pkg_path, {})
+    scenes = pkg.get("visual_package", {}).get("scenes", [])
+    scene_data = None
+    for s in scenes:
+        if s.get("scene_number") == scene_number:
+            scene_data = s
+            break
+    if not scene_data:
+        raise HTTPException(status_code=404, detail=f"{scene_number}번 장면을 찾을 수 없습니다.")
+    # 프롬프트 결정
+    if custom_prompt:
+        prompt = custom_prompt
+    else:
+        prompt = scene_data.get("image_prompt", f"Scene about {pkg.get('script', {}).get('title', 'mystery')}")
+    prompt = (
+        f"{prompt}\nVertical 9:16 documentary visual. "
+        "No text, no watermark, no logo, no captions."
+    )
+    from dotenv import load_dotenv
+    load_dotenv(PROJECT_ROOT / ".env.local", override=True)
+    from openai import OpenAI
+    import base64
+    client = OpenAI()
+    try:
+        response = client.images.generate(
+            model="gpt-image-2",
+            prompt=prompt,
+            size="1024x1536",
+            quality="medium",
+            output_format="png",
+        )
+        encoded = response.data[0].b64_json
+        if not encoded:
+            raise RuntimeError("이미지 데이터 없음")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"AI 이미지 생성 실패: {exc}")
+    manual_dir = run_dir / "media" / "manual"
+    manual_dir.mkdir(parents=True, exist_ok=True)
+    for old in manual_dir.glob(f"scene_{scene_number:02d}.*"):
+        old.unlink(missing_ok=True)
+    save_path = manual_dir / f"scene_{scene_number:02d}.png"
+    save_path.write_bytes(base64.b64decode(encoded))
+    _clear_scene_cache(run_dir, scene_number)
+    control_room.emit(
+        "ProductionManager",
+        f"{run_id} {scene_number}번 장면에 AI 이미지를 생성했습니다.",
+        "success",
+    )
+    return {
+        "status": "ok",
+        "file": str(save_path.relative_to(PROJECT_ROOT)),
+        "message": f"{scene_number}번 장면 AI 이미지 생성 완료!",
+    }
+
+
 @app.post("/api/knowledge/{run_id}/rerender-scenes")
 def rerender_scenes_only(run_id: str) -> dict[str, Any]:
     if control_room.is_running():
