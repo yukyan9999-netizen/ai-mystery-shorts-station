@@ -95,14 +95,20 @@ class KnowledgeVideoStudio:
                 self.live = False
 
     def _run_ffmpeg(self, args: list[str]) -> None:
-        completed = subprocess.run(
-            [self.ffmpeg, "-hide_banner", "-loglevel", "error", "-y", *args],
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-        )
-        if completed.returncode != 0:
+        import time
+        for attempt in range(3):
+            completed = subprocess.run(
+                [self.ffmpeg, "-hide_banner", "-loglevel", "error", "-y", *args],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+            if completed.returncode == 0:
+                return
+            if "Permission denied" in (completed.stderr or "") and attempt < 2:
+                time.sleep(2)
+                continue
             raise RuntimeError(f"FFmpeg 오류: {completed.stderr.strip()}")
 
     def _font(self, bold: bool, size: int) -> ImageFont.FreeTypeFont:
