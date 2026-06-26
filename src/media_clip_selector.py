@@ -329,7 +329,19 @@ class MediaClipSelector:
                 )
 
             candidates = self._deduplicate_and_rank(candidates)
-            usable = [
+            # 주제어가 제목/설명에 포함된 결과만 우선 선택
+            if topic_word:
+                topic_filtered = [
+                    item for item in candidates
+                    if item.usable_in_final
+                    and item.license_status in self.APPROVED_LICENSES
+                    and item.page_url not in set(scene.excluded_source_urls)
+                    and topic_word.lower() in item.title.lower()
+                ]
+            else:
+                topic_filtered = []
+            # 주제 필터 결과가 있으면 사용, 없으면 전체에서
+            usable = topic_filtered if topic_filtered else [
                 item
                 for item in candidates
                 if item.usable_in_final
