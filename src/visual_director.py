@@ -53,7 +53,7 @@ class VisualDirector:
         source_research: SourceResearchReport,
         *,
         run_dir: Path | None = None,
-        desired_scenes: int = 10,
+        desired_scenes: int = 18,
     ) -> VisualPackage:
         try:
             return self._generate_via_director(
