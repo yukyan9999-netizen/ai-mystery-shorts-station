@@ -348,14 +348,25 @@ class MediaClipSelector:
                 ]
             else:
                 topic_filtered = []
-            # 주제 필터 결과가 있으면 사용, 없으면 전체에서
-            usable = topic_filtered if topic_filtered else [
-                item
-                for item in candidates
-                if item.usable_in_final
-                and item.license_status in self.APPROVED_LICENSES
-                and item.page_url not in set(scene.excluded_source_urls)
-            ]
+            # 주제 필터 결과가 있으면 사용
+            # 없으면 NASA 결과만 허용 (NASA는 주제가 정확하므로)
+            if topic_filtered:
+                usable = topic_filtered
+            elif topic_word:
+                usable = [
+                    item for item in candidates
+                    if item.usable_in_final
+                    and item.license_status in self.APPROVED_LICENSES
+                    and item.page_url not in set(scene.excluded_source_urls)
+                    and item.provider.startswith("NASA")
+                ]
+            else:
+                usable = [
+                    item for item in candidates
+                    if item.usable_in_final
+                    and item.license_status in self.APPROVED_LICENSES
+                    and item.page_url not in set(scene.excluded_source_urls)
+                ]
             unclear_candidates = [
                 item
                 for item in candidates
