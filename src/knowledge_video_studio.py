@@ -897,6 +897,19 @@ class KnowledgeVideoStudio:
         if path.exists():
             return path
         prompt = plan.fallback_ai_prompt or scene.image_prompt
+        # 시각 감독 플랜에서 장면별 프롬프트 가져오기
+        vd_path = run_dir / "visual_director_plan.json"
+        if vd_path.exists():
+            try:
+                vd = json.loads(vd_path.read_text(encoding="utf-8"))
+                for card in vd.get("scene_cards", []):
+                    if card.get("scene_number") == scene.scene_number:
+                        vd_prompt = card.get("image_prompt", "")
+                        if vd_prompt and len(vd_prompt) > 20:
+                            prompt = vd_prompt
+                        break
+            except Exception:
+                pass
         # If the prompt already contains detailed Visual Director instructions
         # (e.g. aspect ratio, cinematic direction), use it as-is with minimal suffix.
         _director_markers = ("Vertical 9:16", "cinematic", "9:16 composition", "camera angle")
