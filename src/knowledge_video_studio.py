@@ -943,6 +943,16 @@ class KnowledgeVideoStudio:
         if not encoded:
             raise RuntimeError("이미지 API가 이미지 데이터를 반환하지 않았습니다.")
         path.write_bytes(base64.b64decode(encoded))
+        # Auto-save to image library for reuse
+        try:
+            from src.image_library import ImageLibrary
+
+            lib = ImageLibrary(self.root)
+            keywords = lib.extract_keywords(prompt)
+            category = lib.detect_category(keywords)
+            lib.save(path, keywords, prompt, category)
+        except Exception:
+            pass  # Don't fail rendering if library save fails
         return path
 
     def _motion_graphic(
@@ -1313,6 +1323,20 @@ class KnowledgeVideoStudio:
                 crop_and_motion="slow zoom",
                 fallback_ai_prompt=scene.image_prompt,
             )
+            # Check image library before generating
+            try:
+                from src.image_library import ImageLibrary
+
+                lib = ImageLibrary(self.root)
+                matches = lib.search(scene.image_prompt)
+                if matches and matches[0]["score"] > 0.7:
+                    generated_path = run_dir / "media" / "generated" / f"scene_{scene.scene_number:02d}.png"
+                    generated_path.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(matches[0]["file"], str(generated_path))
+                    return idx, generated_path, "library_reuse"
+            except Exception:
+                pass  # Fall through to normal generation
+
             # AssetDirector 결과에 따라 전략 결정
             ap = asset_plans.get(scene.scene_number, {})
             asset_type = ap.get("asset_type", "")
