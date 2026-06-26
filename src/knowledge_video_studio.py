@@ -2175,8 +2175,14 @@ class KnowledgeVideoStudio:
             overlay = caption_overlays.get(scene.scene_number)
             stock = stock_clips.get(scene.scene_number)
             stock_path = Path(str(stock.get("local_clip", ""))) if stock else None
+            # manual 이미지가 있으면 영상 클립 대신 이미지 사용
+            manual_dir = run_dir / "media" / "manual"
+            has_manual = manual_dir.exists() and bool(
+                sorted(manual_dir.glob(f"scene_{scene.scene_number:02d}.*"))
+            )
             use_stock = (
-                stock is not None
+                not has_manual
+                and stock is not None
                 and overlay is not None
                 and stock_path is not None
                 and stock_path.exists()
