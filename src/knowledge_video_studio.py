@@ -2166,6 +2166,10 @@ class KnowledgeVideoStudio:
             start=1,
         ):
             clip = clips_dir / f"clip_{index:02d}.mp4"
+            # 이미 만들어진 clip은 재사용 (Permission denied 방지)
+            if clip.exists():
+                clips.append(clip)
+                continue
             percent = 45 + round(index / len(frames) * 45)
             self._progress(
                 "VideoRenderer",
