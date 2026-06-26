@@ -1938,7 +1938,8 @@ def rerender_scenes_only(run_id: str) -> dict[str, Any]:
                 for ov in overlay_dir.glob(f"{scene_stem}.*"):
                     ov.unlink()
     # 최종 영상만 삭제 (clip 합치기를 다시 해야 하니까)
-    for f_name in ("final_short.mp4", "narration_short.mp4"):
+    # timeline/stock은 보존하여 다른 장면의 영상 클립이 바뀌지 않게
+    for f_name in ("final_short.mp4", "narration_short.mp4", "render_manifest.json"):
         f = run_dir / f_name
         if f.exists():
             f.unlink()
