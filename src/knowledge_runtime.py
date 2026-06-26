@@ -39,24 +39,43 @@ class KnowledgeRuntime:
         )
 
     def _load_benchmark_scripts(self) -> list[dict[str, str]]:
-        bench_path = self.root / "bench" / "benchtext.txt"
-        if not bench_path.exists():
-            return []
-        try:
-            text = bench_path.read_text(encoding="utf-8")
-        except OSError:
-            return []
-        import re
-        blocks = re.split(r"<\d+번 참고 대본[^>]*>", text)
         scripts = []
-        for block in blocks:
-            block = block.strip().strip('"').strip()
-            if len(block) > 20:
-                scripts.append({
-                    "script": block,
-                    "length": len(block),
-                })
-        return scripts[:20]
+        # 1. 기본 벤치마크 대본
+        bench_path = self.root / "bench" / "benchtext.txt"
+        if bench_path.exists():
+            try:
+                text = bench_path.read_text(encoding="utf-8")
+                import re
+                blocks = re.split(r"<\d+번 참고 대본[^>]*>", text)
+                for block in blocks:
+                    block = block.strip().strip('"').strip()
+                    if len(block) > 20:
+                        scripts.append({
+                            "script": block,
+                            "length": len(block),
+                            "source": "benchmark",
+                        })
+            except OSError:
+                pass
+        # 2. 사용자 업로드 대본 (최근 20개)
+        user_dir = self.root / "bench" / "user_scripts"
+        if user_dir.exists():
+            user_files = sorted(user_dir.glob("*.txt"), reverse=True)[:20]
+            for f in user_files:
+                try:
+                    text = f.read_text(encoding="utf-8")
+                    # "제목: ..." 줄 제거하고 본문만
+                    lines = text.strip().split("\n")
+                    body = "\n".join(l for l in lines if not l.startswith("제목:")).strip()
+                    if len(body) > 20:
+                        scripts.append({
+                            "script": body,
+                            "length": len(body),
+                            "source": "user_upload",
+                        })
+                except OSError:
+                    pass
+        return scripts[:30]
 
     def reference_context(self) -> dict[str, Any]:
         references_path = self.root / "ideas" / "video_references.json"

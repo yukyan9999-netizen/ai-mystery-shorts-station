@@ -760,6 +760,13 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
     ]
     if category not in valid_categories:
         category = "과학·자연 미스터리"
+    # 사용자 업로드 대본을 축적 (대본 AI 학습용)
+    user_scripts_dir = PROJECT_ROOT / "bench" / "user_scripts"
+    user_scripts_dir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    (user_scripts_dir / f"{timestamp}_{title[:20]}.txt").write_text(
+        f"제목: {title}\n\n{narration}", encoding="utf-8"
+    )
     run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_dir = KNOWLEDGE_OUTPUTS / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
