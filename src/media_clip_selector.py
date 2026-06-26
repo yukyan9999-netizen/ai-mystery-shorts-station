@@ -289,6 +289,14 @@ class MediaClipSelector:
         effective_max = total_video_duration * clip_ratio
         per_scene_budget = effective_max / max(len(scenes), 1)
 
+        # 제목에서 핵심 주제어 추출
+        title = package.selected_candidate.title
+        topic_word = ""
+        for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
+            if korean in title:
+                topic_word = english_terms[0].split()[0]
+                break
+
         start_time = time.monotonic()
         budget_exceeded = False
         blocked_providers: set[str] = set()
