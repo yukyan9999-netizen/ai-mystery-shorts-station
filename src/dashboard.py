@@ -817,6 +817,71 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
             "subtitle": subtitle,
             "narration": chunk,
         })
+    # 시각 감독 AI 호출 — 장면별 image_prompt 생성
+    try:
+        from src.visual_director import VisualDirector
+        from src.knowledge_models import KnowledgeScript, FactCheckReport, KnowledgeScene
+        temp_script = KnowledgeScript(
+            title=title, category=category,
+            character_comment="사용자 업로드 대본",
+            timed_script={
+                "hook_0_3": chunks[0][:50] if chunks else title,
+                "background_3_12": chunks[1][:50] if len(chunks) > 1 else title,
+                "facts_12_35": [chunks[2][:50]] if len(chunks) > 2 else [title, title],
+                "mystery_35_50": chunks[len(chunks)//2][:50] if chunks else title,
+                "close_50_60": chunks[-1][:50] if chunks else title,
+            },
+            full_narration=narration,
+            fact_hypothesis_labels=["사용자 제공"],
+        )
+        temp_fact = FactCheckReport(
+            candidate_title=title, character_comment="사용자 업로드",
+            verdict="pass",
+            verified_claims=[
+                {"claim": title, "classification": "reported_claim",
+                 "evidence_summary": "사용자 제공", "safe_narration": title,
+                 "source_urls": ["user_upload"]},
+                {"claim": title, "classification": "reported_claim",
+                 "evidence_summary": "사용자 제공", "safe_narration": title,
+                 "source_urls": ["user_upload"]},
+            ],
+            entertainment_value_note="사용자 업로드",
+            sources=[
+                {"title": "사용자", "url": "user_upload",
+                 "publisher": "사용자", "source_type": "primary"},
+                {"title": "사용자", "url": "user_upload",
+                 "publisher": "사용자", "source_type": "primary"},
+            ],
+        )
+        from src.knowledge_models import SourceResearchReport
+        temp_source = SourceResearchReport(
+            candidate_title=title, character_comment="사용자 업로드",
+            research_summary="사용자 직접 작성", usable_visual_asset_count=0,
+            sources=[{"title": "사용자", "page_url": "user_upload",
+                       "publisher_or_community": "사용자", "source_kind": "official",
+                       "role": "fact_evidence", "media_type": "article",
+                       "license_status": "public_domain", "usable_in_final_video": True,
+                       "suggested_use": "원본", "reliability_note": "사용자"}] * 6,
+        )
+        vd = VisualDirector(PROJECT_ROOT)
+        vd_result = vd.generate(
+            temp_script, temp_fact, None, temp_source,
+            run_dir=run_dir, desired_scenes=len(chunks),
+        )
+        # 시각 감독 결과로 장면 교체
+        scenes = []
+        for vs in vd_result.scenes:
+            scenes.append({
+                "scene_number": vs.scene_number,
+                "time_range": vs.time_range,
+                "visual_description": vs.visual_description,
+                "image_prompt": vs.image_prompt,
+                "subtitle": vs.subtitle,
+                "narration": vs.narration,
+            })
+    except Exception:
+        pass  # 실패하면 기존 제네릭 장면 유지
+
     scene_assets = [
         {
             "scene_number": s["scene_number"],
