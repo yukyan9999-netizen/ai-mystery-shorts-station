@@ -1223,15 +1223,17 @@ class MediaClipSelector:
         }
         title_tokens = set(re.findall(r"[a-z0-9]+", title.lower()))
         overlap = len(query_tokens & title_tokens)
+        # 매칭 비율로 점수 (태그가 많아도 유리하지 않게)
+        match_ratio = overlap / max(len(query_tokens), 1)
         provider_bonus = {
-            "NASA_SVS": 3.0,
-            "NASA": 2.5,
-            "Pexels": 1.5,
-            "Pixabay": 1.0,
+            "NASA_SVS": 15.0,
+            "NASA": 12.0,
+            "Pexels": 3.0,
+            "Pixabay": 2.0,
         }.get(provider, 0)
         portrait_bonus = 2.0 if height > width > 0 else 0.0
         resolution_bonus = 1.0 if max(width, height) >= 1080 else 0.0
-        return round(overlap * 4 + provider_bonus + portrait_bonus + resolution_bonus, 3)
+        return round(match_ratio * 10 + provider_bonus + portrait_bonus + resolution_bonus, 3)
 
     def _json_request(
         self,
