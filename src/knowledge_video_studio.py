@@ -2596,20 +2596,37 @@ class KnowledgeVideoStudio:
                     else None
                 ),
             )
-            clip_selector = MediaClipSelector(
-                self.root,
-                self.ffmpeg,
-                self.config.get("stock_clips", {}),
-            )
-            clip_plan = clip_selector.prepare(
-                run_dir,
-                package,
-                durations,
-                media_log,
-                self.width,
-                self.height,
-                self.fps,
-            )
+            # timeline.json이 있으면 기존 영상 클립 결과 재사용 (재렌더 고속화)
+            timeline_path = run_dir / "timeline.json"
+            if timeline_path.exists():
+                try:
+                    cached_timeline = json.loads(timeline_path.read_text(encoding="utf-8"))
+                    clip_plan = {
+                        "selected_by_scene": {
+                            int(s["scene_number"]): s
+                            for s in cached_timeline.get("scenes", [])
+                            if "clip" in s.get("visual_type", "")
+                            and Path(str(s.get("local_clip", ""))).exists()
+                        },
+                    }
+                    self._comment("VideoRenderer", "기존 영상 클립을 재사용합니다.")
+                except Exception:
+                    clip_plan = {"selected_by_scene": {}}
+            else:
+                clip_selector = MediaClipSelector(
+                    self.root,
+                    self.ffmpeg,
+                    self.config.get("stock_clips", {}),
+                )
+                clip_plan = clip_selector.prepare(
+                    run_dir,
+                    package,
+                    durations,
+                    media_log,
+                    self.width,
+                    self.height,
+                    self.fps,
+                )
             ai_scene_numbers = {
                 int(item.get("scene_number", 0))
                 for item in media_log
