@@ -542,16 +542,29 @@ class MediaClipSelector:
         package: KnowledgeProductionPackage,
         ai_keywords: dict[int, str] | None = None,
     ) -> str:
+        # 제목에서 핵심 주제어 추출 (모든 검색에 포함)
+        title = package.selected_candidate.title
+        topic_word = ""
+        for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
+            if korean in title:
+                topic_word = english_terms[0].split()[0]
+                break
+
         # AI 생성 키워드 우선
         if ai_keywords and scene.scene_number in ai_keywords:
-            return ai_keywords[scene.scene_number]
+            query = ai_keywords[scene.scene_number]
+            # 주제어가 검색어에 없으면 추가
+            if topic_word and topic_word.lower() not in query.lower():
+                query = f"{topic_word} {query}"
+            return query
 
         # fallback: 한국어 매핑
         narr_keywords: list[str] = []
+        if topic_word:
+            narr_keywords.append(topic_word)
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
-            if korean in scene.narration:
+            if korean in scene.narration and english_terms[0] not in " ".join(narr_keywords):
                 narr_keywords.append(english_terms[0])
-        title = package.selected_candidate.title
         for korean, english_terms in self.KOREAN_SEARCH_MAP.items():
             if korean in title and english_terms[0] not in " ".join(narr_keywords):
                 narr_keywords.append(english_terms[0])

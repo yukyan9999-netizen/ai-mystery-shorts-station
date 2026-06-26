@@ -774,6 +774,14 @@ class KnowledgeVideoStudio:
                 if ko in scene.narration or ko in title:
                     kw.append(en_list[0])
             keywords = " ".join(kw[:3]) if kw else "mystery science"
+        # 제목 주제어가 검색어에 없으면 강제 추가
+        from src.media_clip_selector import MediaClipSelector
+        for ko, en_list in MediaClipSelector.KOREAN_SEARCH_MAP.items():
+            if ko in title:
+                topic = en_list[0].split()[0]
+                if topic.lower() not in keywords.lower():
+                    keywords = f"{topic} {keywords}"
+                break
         import random
         page_offset = random.randint(1, 10)
         per_page = 8
