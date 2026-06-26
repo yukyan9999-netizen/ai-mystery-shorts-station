@@ -1225,12 +1225,29 @@ class MediaClipSelector:
         overlap = len(query_tokens & title_tokens)
         # 매칭 비율로 점수 (태그가 많아도 유리하지 않게)
         match_ratio = overlap / max(len(query_tokens), 1)
-        provider_bonus = {
-            "NASA_SVS": 15.0,
-            "NASA": 12.0,
-            "Pexels": 3.0,
-            "Pixabay": 2.0,
-        }.get(provider, 0)
+        # 우주/과학 키워드가 있으면 NASA 가산점
+        space_keywords = {
+            "space", "planet", "star", "galaxy", "moon", "sun", "mars",
+            "pluto", "neptune", "saturn", "jupiter", "asteroid", "comet",
+            "black", "hole", "nebula", "orbit", "nasa", "rocket", "spacecraft",
+            "universe", "cosmos", "solar", "lunar", "meteor", "supernova",
+            "telescope", "satellite", "gravity", "radiation", "wormhole",
+        }
+        is_space_topic = bool(query_tokens & space_keywords)
+        if is_space_topic:
+            provider_bonus = {
+                "NASA_SVS": 15.0,
+                "NASA": 12.0,
+                "Pexels": 3.0,
+                "Pixabay": 2.0,
+            }.get(provider, 0)
+        else:
+            provider_bonus = {
+                "NASA_SVS": 2.0,
+                "NASA": 2.0,
+                "Pexels": 3.0,
+                "Pixabay": 2.0,
+            }.get(provider, 0)
         portrait_bonus = 2.0 if height > width > 0 else 0.0
         resolution_bonus = 1.0 if max(width, height) >= 1080 else 0.0
         return round(match_ratio * 10 + provider_bonus + portrait_bonus + resolution_bonus, 3)
