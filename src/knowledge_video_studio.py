@@ -896,16 +896,23 @@ class KnowledgeVideoStudio:
         if path.exists():
             return path
         prompt = plan.fallback_ai_prompt or scene.image_prompt
-        response = self.client.images.generate(
-            model=self.config["image_model"],
-            prompt=(
+        # If the prompt already contains detailed Visual Director instructions
+        # (e.g. aspect ratio, cinematic direction), use it as-is with minimal suffix.
+        _director_markers = ("Vertical 9:16", "cinematic", "9:16 composition", "camera angle")
+        if any(marker.lower() in prompt.lower() for marker in _director_markers):
+            final_prompt = f"{prompt}\nNo text, no watermark, no logo."
+        else:
+            final_prompt = (
                 f"{prompt}\nVertical 9:16 documentary mystery visual. "
                 "Absolutely no text anywhere in the image: no captions, labels, signs, "
                 "letters, words, logos, UI, badges, or watermark. "
                 "Do not visualize fact/hypothesis classifications as text. "
                 "No copyrighted characters. "
                 "If this depicts an unverified claim, make it clearly interpretive rather than photographic proof."
-            ),
+            )
+        response = self.client.images.generate(
+            model=self.config["image_model"],
+            prompt=final_prompt,
             size=self.config["image_size"],
             quality=self.config["image_quality"],
             output_format="png",

@@ -39,7 +39,7 @@ from src.script_writer import ScriptWriter
 from src.shorts_adaptation_editor import ShortsAdaptationEditor
 from src.source_researcher import SourceResearcher
 from src.topic_library import TopicLibrary
-from src.visual_prompt_generator import VisualPromptGenerator
+from src.visual_director import VisualDirector
 from src.knowledge_runtime import KnowledgeRuntime
 
 ITEMS_PATH = PROJECT_ROOT / "ideas" / "knowledge_items.json"
@@ -574,23 +574,24 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
     emit_state("SourceResearcher", "idle")
 
     visual_path = run_dir / "12_visual_package.json"
-    emit_state("VisualPromptGenerator", "working")
+    emit_state("VisualDirector", "working")
     if visual_path.exists():
         visuals = VisualPackage.model_validate_json(
             visual_path.read_text(encoding="utf-8")
         )
-        emit_progress("VisualPromptGenerator", 100, "저장된 장면 설계를 재사용합니다.")
+        emit_progress("VisualDirector", 100, "저장된 장면 설계를 재사용합니다.")
     else:
         emit_progress(
-            "VisualPromptGenerator",
+            "VisualDirector",
             15,
             "실제 증거 화면을 우선 배치하고 필요한 장면만 AI 재구성으로 설계합니다.",
         )
-        visuals = VisualPromptGenerator(PROJECT_ROOT).generate(
+        visuals = VisualDirector(PROJECT_ROOT).generate(
             script,
             fact_check,
             None,
             source_research,
+            run_dir=run_dir,
         )
         save_json(visual_path, visuals)
     # 후처리: 한 줄짜리 장면을 이전 장면에 합침
@@ -613,7 +614,7 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         visuals = visuals.model_copy(update={"scenes": merged_scenes})
         save_json(visual_path, visuals)
         emit_progress(
-            "VisualPromptGenerator", 95,
+            "VisualDirector", 95,
             f"짧은 장면 {len(visuals.scenes) - len(merged_scenes)}개를 합쳐 {len(merged_scenes)}개로 정리했습니다.",
         )
     # 후처리: 대본에 있지만 장면에 빠진 문장을 마지막 장면에 합침
@@ -664,12 +665,12 @@ def continue_selected(run_id: str, candidate_index: int) -> Path:
         })
         save_json(visual_path, visuals)
         emit_progress(
-            "VisualPromptGenerator", 98,
+            "VisualDirector", 98,
             f"대본에서 누락된 {len(missing_sentences)}개 문장을 마지막 장면에 복원했습니다.",
         )
-    emit_comment("VisualPromptGenerator", visuals.character_comment)
-    emit_progress("VisualPromptGenerator", 100, "장면·자막·썸네일 설계를 완성했습니다.")
-    emit_state("VisualPromptGenerator", "idle")
+    emit_comment("VisualDirector", visuals.character_comment)
+    emit_progress("VisualDirector", 100, "장면·자막·썸네일 설계를 완성했습니다.")
+    emit_state("VisualDirector", "idle")
 
     media_plan_path = run_dir / "13_mixed_media_plan.json"
     emit_state("MixedMediaPlanner", "working")
@@ -871,17 +872,18 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
         update_history(run_id, production_status="fact_check_rejected")
         raise RuntimeError("수정된 대본에 중대한 안전 문제가 있어 사람 검토가 필요합니다.")
 
-    emit_state("VisualPromptGenerator", "working")
+    emit_state("VisualDirector", "working")
     emit_progress(
-        "VisualPromptGenerator",
+        "VisualDirector",
         15,
         "수정된 대사에 맞춰 자막과 장면 지시를 다시 맞추고 있습니다.",
     )
-    visuals = VisualPromptGenerator(PROJECT_ROOT).generate(
+    visuals = VisualDirector(PROJECT_ROOT).generate(
         revised_script,
         fact_check,
         None,
         package.source_research,
+        run_dir=run_dir,
     )
     save_json(run_dir / "12_visual_package.json", visuals)
     # 후처리: 짧은 장면 합치기
@@ -903,7 +905,7 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
     if len(merged) < len(visuals.scenes):
         visuals = visuals.model_copy(update={"scenes": merged})
         save_json(run_dir / "12_visual_package.json", visuals)
-    emit_comment("VisualPromptGenerator", visuals.character_comment)
+    emit_comment("VisualDirector", visuals.character_comment)
 
     media_plan = MixedMediaPlanner(PROJECT_ROOT).plan(
         visuals,
@@ -911,8 +913,8 @@ def revise_script(run_id: str, feedback_path: Path) -> Path:
     )
     save_json(run_dir / "13_mixed_media_plan.json", media_plan)
     emit_comment("MixedMediaPlanner", media_plan.character_comment)
-    emit_progress("VisualPromptGenerator", 100, "수정 대본 기준 장면 설계를 갱신했습니다.")
-    emit_state("VisualPromptGenerator", "idle")
+    emit_progress("VisualDirector", 100, "수정 대본 기준 장면 설계를 갱신했습니다.")
+    emit_state("VisualDirector", "idle")
 
     resolved_run_dir = run_dir.resolve()
     if OUTPUT_ROOT.resolve() not in resolved_run_dir.parents:
