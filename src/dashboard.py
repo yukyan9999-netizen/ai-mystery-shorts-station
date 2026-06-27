@@ -879,8 +879,14 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
                 "subtitle": vs.subtitle,
                 "narration": vs.narration,
             })
-    except Exception:
-        pass  # 실패하면 기존 제네릭 장면 유지
+    except Exception as vd_err:
+        import traceback
+        control_room.emit(
+            "VisualDirector",
+            f"시각 감독 실패 (기존 장면 유지): {vd_err}",
+            "warning",
+        )
+        traceback.print_exc()
 
     scene_assets = [
         {
