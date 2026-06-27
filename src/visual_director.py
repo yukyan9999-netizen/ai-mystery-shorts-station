@@ -115,28 +115,32 @@ class VisualDirector:
                 mode="json"
             )
 
-        # Use run_structured with the VisualDirector agent prompt.
-        # We cannot use output_type=VisualPackage directly because the
-        # Visual Director schema is richer.  Instead, parse the raw JSON
-        # ourselves (via a plain-dict wrapper model).
-        from pydantic import BaseModel, Field
-        from typing import Any
-
-        class _DirectorRawOutput(BaseModel):
-            visual_bible: dict[str, Any] = Field(default_factory=dict)
-            scene_cards: list[dict[str, Any]] = Field(default_factory=list)
-            continuity_rules: list[str] = Field(default_factory=list)
-            quality_checklist: list[str] = Field(default_factory=list)
-            thumbnail_suggestions: list[str] = Field(default_factory=list)
-
-        raw: _DirectorRawOutput = self.runtime.run_structured(
-            "VisualDirector",
-            _DirectorRawOutput,
-            user_payload,
-            web=False,
+        # 직접 OpenAI API 호출 (run_structured는 strict schema 문제)
+        from openai import OpenAI
+        client = OpenAI()
+        system_msg = self._load_prompt()
+        response = client.chat.completions.create(
+            model=self.runtime.config.get("model", "gpt-4o-mini"),
+            messages=[
+                {"role": "system", "content": system_msg},
+                {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
+            ],
             max_tokens=8000,
-            max_turns=4,
+            temperature=0.4,
         )
+        text = response.choices[0].message.content.strip()
+        if "```" in text:
+            text = text.split("```")[1].replace("json", "", 1).strip()
+        raw_data = json.loads(text)
+
+        class _RawHolder:
+            pass
+        raw = _RawHolder()
+        raw.scene_cards = raw_data.get("scene_cards", [])
+        raw.visual_bible = raw_data.get("visual_bible", {})
+        raw.continuity_rules = raw_data.get("continuity_rules", [])
+        raw.quality_checklist = raw_data.get("quality_checklist", [])
+        raw.thumbnail_suggestions = raw_data.get("thumbnail_suggestions", [])
 
         # Save full plan for debugging
         if run_dir is not None:
