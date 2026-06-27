@@ -2255,11 +2255,15 @@ class KnowledgeVideoStudio:
             start=1,
         ):
             clip = clips_dir / f"clip_{index:02d}.mp4"
-            # 이미 만들어진 clip은 재사용 (Permission denied 방지)
-            if clip.exists():
-                if self._is_reusable_video(clip):
-                    clips.append(clip)
-                    continue
+            # manual 이미지가 있으면 기존 clip 재사용 안 함 (새로 만들어야)
+            manual_check_dir = run_dir / "media" / "manual"
+            scene_has_manual = manual_check_dir.exists() and bool(
+                sorted(manual_check_dir.glob(f"scene_{scene.scene_number:02d}.*"))
+            )
+            if clip.exists() and not scene_has_manual:
+                clips.append(clip)
+                continue
+            if scene_has_manual and clip.exists():
                 clip.unlink(missing_ok=True)
             percent = 45 + round(index / len(frames) * 45)
             self._progress(
