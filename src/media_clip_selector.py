@@ -483,6 +483,7 @@ class MediaClipSelector:
                             "file",
                             scene.image_prompt,
                         ),
+                        "local_clip": selected.get("local_clip", ""),
                     }
                 )
             else:
