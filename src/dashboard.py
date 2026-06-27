@@ -827,7 +827,7 @@ def upload_script(request: UploadScriptRequest) -> dict[str, Any]:
             timed_script={
                 "hook_0_3": chunks[0][:50] if chunks else title,
                 "background_3_12": chunks[1][:50] if len(chunks) > 1 else title,
-                "facts_12_35": [chunks[2][:50]] if len(chunks) > 2 else [title, title],
+                "facts_12_35": [chunks[i][:50] for i in range(2, min(5, len(chunks)))] if len(chunks) > 3 else [title, title],
                 "mystery_35_50": chunks[len(chunks)//2][:50] if chunks else title,
                 "close_50_60": chunks[-1][:50] if chunks else title,
             },
