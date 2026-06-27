@@ -120,13 +120,12 @@ class VisualDirector:
         client = OpenAI()
         system_msg = self._load_prompt()
         response = client.chat.completions.create(
-            model=self.runtime.config.get("model", "gpt-4o-mini"),
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
             ],
-            max_tokens=8000,
-            temperature=0.4,
+            max_completion_tokens=8000,
         )
         text = response.choices[0].message.content.strip()
         if "```" in text:
@@ -146,7 +145,7 @@ class VisualDirector:
         if run_dir is not None:
             plan_path = run_dir / "visual_director_plan.json"
             plan_path.write_text(
-                json.dumps(raw.model_dump(mode="json"), ensure_ascii=False, indent=2),
+                json.dumps(raw_data, ensure_ascii=False, indent=2),
                 encoding="utf-8",
             )
 
