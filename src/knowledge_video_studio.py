@@ -48,6 +48,7 @@ class KnowledgeVideoStudio:
         config = yaml.safe_load((self.root / "config.yaml").read_text(encoding="utf-8"))
         self.config: dict[str, Any] = config["video_studio"]
         self.shorts_config: dict[str, Any] = config.get("shorts", {})
+        self.full_config: dict[str, Any] = config
         self.client = OpenAI()
         self.ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
         self.width = int(self.config["width"])
@@ -94,6 +95,31 @@ class KnowledgeVideoStudio:
             except OSError:
                 self.live = False
 
+    def _resolve_sfx(self, run_dir: Path, scene: KnowledgeScene) -> Path | None:
+        """Return the SFX file path for a scene, or None."""
+        sfx_cfg = self.config.get("sfx_library", {})
+        if not sfx_cfg.get("enabled", False):
+            return None
+        sfx_folder = self.root / sfx_cfg.get("folder", "sfx")
+        # Check sfx_assignments.json first (manual dashboard assignment)
+        assignments_file = run_dir / "sfx_assignments.json"
+        sfx_name = ""
+        if assignments_file.exists():
+            try:
+                assignments = json.loads(assignments_file.read_text(encoding="utf-8"))
+                sfx_name = assignments.get(str(scene.scene_number), "")
+            except (OSError, json.JSONDecodeError):
+                pass
+        # Fall back to scene model field
+        if not sfx_name and getattr(scene, "sound_effect", ""):
+            sfx_name = scene.sound_effect
+        if not sfx_name:
+            return None
+        sfx_path = sfx_folder / sfx_name
+        if sfx_path.exists() and sfx_path.is_file():
+            return sfx_path
+        return None
+
     def _run_ffmpeg(self, args: list[str]) -> None:
         import time
         for attempt in range(3):
@@ -110,6 +136,63 @@ class KnowledgeVideoStudio:
                 time.sleep(2)
                 continue
             raise RuntimeError(f"FFmpeg 오류: {completed.stderr.strip()}")
+
+    @staticmethod
+    def _is_readable_file(path: Path) -> bool:
+        try:
+            if not path.exists() or not path.is_file() or path.stat().st_size <= 0:
+                return False
+            with path.open("rb") as handle:
+                handle.read(1)
+            return True
+        except OSError:
+            return False
+
+    def _is_reusable_video(self, path: Path) -> bool:
+        if not self._is_readable_file(path):
+            return False
+        try:
+            return self._media_duration(path) > 0
+        except Exception:
+            return False
+
+    def _load_cached_clip_plan_or_none(self, run_dir: Path) -> dict[str, Any] | None:
+        timeline_path = run_dir / "timeline.json"
+        if not timeline_path.exists():
+            return None
+        try:
+            cached_timeline = json.loads(timeline_path.read_text(encoding="utf-8"))
+        except Exception:
+            return None
+
+        selected_by_scene: dict[int, dict[str, Any]] = {}
+        for raw_scene in cached_timeline.get("scenes", []):
+            if "clip" not in str(raw_scene.get("visual_type", "")):
+                continue
+            local_clip = raw_scene.get("local_clip")
+            if not local_clip:
+                return None
+            clip_path = Path(str(local_clip))
+            if not clip_path.is_absolute():
+                clip_path = run_dir / clip_path
+            if not self._is_reusable_video(clip_path):
+                return None
+            scene_data = dict(raw_scene)
+            scene_data["local_clip"] = str(clip_path)
+            selected_by_scene[int(scene_data["scene_number"])] = scene_data
+
+        if not selected_by_scene:
+            return None
+        return {
+            "selected_by_scene": selected_by_scene,
+            "external_clip_total_seconds": float(
+                cached_timeline.get("external_clip_total_seconds", 0.0)
+            ),
+            "external_clip_limit_seconds": float(
+                cached_timeline.get("external_clip_limit_seconds", 0.0)
+            ),
+            "search_errors": cached_timeline.get("search_errors", []),
+        }
 
     def _font(self, bold: bool, size: int) -> ImageFont.FreeTypeFont:
         key = "bold_font_path" if bold else "font_path"
@@ -2174,8 +2257,10 @@ class KnowledgeVideoStudio:
             clip = clips_dir / f"clip_{index:02d}.mp4"
             # 이미 만들어진 clip은 재사용 (Permission denied 방지)
             if clip.exists():
-                clips.append(clip)
-                continue
+                if self._is_reusable_video(clip):
+                    clips.append(clip)
+                    continue
+                clip.unlink(missing_ok=True)
             percent = 45 + round(index / len(frames) * 45)
             self._progress(
                 "VideoRenderer",
@@ -2184,7 +2269,8 @@ class KnowledgeVideoStudio:
             )
             overlay = caption_overlays.get(scene.scene_number)
             stock = stock_clips.get(scene.scene_number)
-            stock_path = Path(str(stock.get("local_clip", ""))) if stock else None
+            local_clip_value = str(stock.get("local_clip", "")).strip() if stock else ""
+            stock_path = Path(local_clip_value) if local_clip_value else None
             # manual 이미지가 있으면 영상 클립 대신 이미지 사용
             manual_dir = run_dir / "media" / "manual"
             has_manual = manual_dir.exists() and bool(
@@ -2196,7 +2282,12 @@ class KnowledgeVideoStudio:
                 and overlay is not None
                 and stock_path is not None
                 and stock_path.exists()
+                and stock_path.is_file()
+                and self._is_reusable_video(stock_path)
             )
+            # Resolve optional SFX for this scene
+            sfx_path = self._resolve_sfx(run_dir, scene)
+            sfx_vol = float(self.config.get("sfx_library", {}).get("default_volume", 0.3))
             if use_stock:
                 self._render_stock_scene_clip(
                     clip,
@@ -2227,20 +2318,36 @@ class KnowledgeVideoStudio:
                     else:
                         cx = f"trunc({mx}*(1-t/{duration:.3f}))"
                         cy = str(my // 2)
+                    # Build inputs and filter depending on SFX
+                    no_ov_inputs = [
+                        "-loop", "1",
+                        "-framerate", str(self.fps),
+                        "-t", f"{duration:.3f}",
+                        "-i", str(frame),
+                        "-i", str(audio),
+                    ]
+                    if sfx_path:
+                        no_ov_inputs += ["-i", str(sfx_path)]
+                        no_ov_filter = (
+                            f"[0:v]scale={sw}:{sh},"
+                            f"crop={self.width}:{self.height}:{cx}:{cy},"
+                            f"fps={self.fps},format=yuv420p[v];"
+                            f"[1:a]volume=1.08,apad,atrim=0:{duration:.3f}[narr];"
+                            f"[2:a]volume={sfx_vol:.3f},atrim=0:{duration:.3f}[sfx];"
+                            "[narr][sfx]amix=inputs=2:duration=first[a]"
+                        )
+                    else:
+                        no_ov_filter = (
+                            f"[0:v]scale={sw}:{sh},"
+                            f"crop={self.width}:{self.height}:{cx}:{cy},"
+                            f"fps={self.fps},format=yuv420p[v];"
+                            f"[1:a]volume=1.08,apad,atrim=0:{duration:.3f}[a]"
+                        )
                     self._run_ffmpeg(
                         [
-                            "-loop", "1",
-                            "-framerate", str(self.fps),
-                            "-t", f"{duration:.3f}",
-                            "-i", str(frame),
-                            "-i", str(audio),
+                            *no_ov_inputs,
                             "-filter_complex",
-                            (
-                                f"[0:v]scale={sw}:{sh},"
-                                f"crop={self.width}:{self.height}:{cx}:{cy},"
-                                f"fps={self.fps},format=yuv420p[v];"
-                                f"[1:a]volume=1.08,apad,atrim=0:{duration:.3f}[a]"
-                            ),
+                            no_ov_filter,
                             "-map", "[v]",
                             "-map", "[a]",
                             "-t", f"{duration:.3f}",
@@ -2274,36 +2381,46 @@ class KnowledgeVideoStudio:
                     # 우→좌 패닝
                     crop_x = f"trunc({margin_x}*(1-t/{duration:.3f}))"
                     crop_y = str(margin_y // 2)
+                # Build inputs and filter depending on SFX
+                ov_inputs = [
+                    "-loop", "1",
+                    "-framerate", str(self.fps),
+                    "-t", f"{duration:.3f}",
+                    "-i", str(frame),
+                    "-loop", "1",
+                    "-framerate", str(self.fps),
+                    "-t", f"{duration:.3f}",
+                    "-i", str(overlay),
+                    "-i", str(audio),
+                ]
+                if sfx_path:
+                    ov_inputs += ["-i", str(sfx_path)]
+                    ov_filter = (
+                        f"[0:v]scale={sw}:{sh},"
+                        f"crop={self.width}:{self.height}:{crop_x}:{crop_y},"
+                        f"fps={self.fps},format=yuv420p[base];"
+                        f"[1:v]format=rgba,trim=duration={duration:.3f},"
+                        "setpts=PTS-STARTPTS[ov];"
+                        "[base][ov]overlay=0:0:shortest=1,format=yuv420p[v];"
+                        f"[2:a]volume=1.08,apad,atrim=0:{duration:.3f}[narr];"
+                        f"[3:a]volume={sfx_vol:.3f},atrim=0:{duration:.3f}[sfx];"
+                        "[narr][sfx]amix=inputs=2:duration=first[a]"
+                    )
+                else:
+                    ov_filter = (
+                        f"[0:v]scale={sw}:{sh},"
+                        f"crop={self.width}:{self.height}:{crop_x}:{crop_y},"
+                        f"fps={self.fps},format=yuv420p[base];"
+                        f"[1:v]format=rgba,trim=duration={duration:.3f},"
+                        "setpts=PTS-STARTPTS[ov];"
+                        "[base][ov]overlay=0:0:shortest=1,format=yuv420p[v];"
+                        f"[2:a]volume=1.08,apad,atrim=0:{duration:.3f}[a]"
+                    )
                 self._run_ffmpeg(
                     [
-                        "-loop",
-                        "1",
-                        "-framerate",
-                        str(self.fps),
-                        "-t",
-                        f"{duration:.3f}",
-                        "-i",
-                        str(frame),
-                        "-loop",
-                        "1",
-                        "-framerate",
-                        str(self.fps),
-                        "-t",
-                        f"{duration:.3f}",
-                        "-i",
-                        str(overlay),
-                        "-i",
-                        str(audio),
+                        *ov_inputs,
                         "-filter_complex",
-                        (
-                            f"[0:v]scale={sw}:{sh},"
-                            f"crop={self.width}:{self.height}:{crop_x}:{crop_y},"
-                            f"fps={self.fps},format=yuv420p[base];"
-                            f"[1:v]format=rgba,trim=duration={duration:.3f},"
-                            "setpts=PTS-STARTPTS[ov];"
-                            "[base][ov]overlay=0:0:shortest=1,format=yuv420p[v];"
-                            f"[2:a]volume=1.08,apad,atrim=0:{duration:.3f}[a]"
-                        ),
+                        ov_filter,
                         "-map",
                         "[v]",
                         "-map",
@@ -2616,7 +2733,9 @@ class KnowledgeVideoStudio:
                             int(s["scene_number"]): s
                             for s in cached_timeline.get("scenes", [])
                             if "clip" in s.get("visual_type", "")
+                            and str(s.get("local_clip", "")).strip()
                             and Path(str(s.get("local_clip", ""))).exists()
+                            and Path(str(s.get("local_clip", ""))).is_file()
                         },
                     }
                     self._comment("VideoRenderer", "기존 영상 클립을 재사용합니다.")
@@ -2637,6 +2756,47 @@ class KnowledgeVideoStudio:
                     self.height,
                     self.fps,
                 )
+            expected_clip_scenes: set[int] = set()
+            timeline_path = run_dir / "timeline.json"
+            if timeline_path.exists():
+                try:
+                    timeline_data = json.loads(timeline_path.read_text(encoding="utf-8"))
+                    expected_clip_scenes.update(
+                        int(scene["scene_number"])
+                        for scene in timeline_data.get("scenes", [])
+                        if "clip" in str(scene.get("visual_type", ""))
+                    )
+                except Exception:
+                    expected_clip_scenes.update(
+                        int(scene.scene_number)
+                        for scene in package.visual_package.scenes
+                        if scene.scene_number % 2 == 1
+                    )
+            selected_clip_scenes = set(clip_plan.get("selected_by_scene", {}))
+            if expected_clip_scenes and not expected_clip_scenes.issubset(selected_clip_scenes):
+                self._comment(
+                    "VideoRenderer",
+                    "이전 재제작 캐시가 불완전해서 영상 클립을 다시 준비합니다.",
+                )
+                clip_selector = MediaClipSelector(
+                    self.root,
+                    self.ffmpeg,
+                    self.config.get("stock_clips", {}),
+                )
+                clip_plan = clip_selector.prepare(
+                    run_dir,
+                    package,
+                    durations,
+                    media_log,
+                    self.width,
+                    self.height,
+                    self.fps,
+                )
+
+            clip_plan.setdefault("external_clip_total_seconds", 0.0)
+            clip_plan.setdefault("external_clip_limit_seconds", 0.0)
+            clip_plan.setdefault("search_errors", [])
+
             ai_scene_numbers = {
                 int(item.get("scene_number", 0))
                 for item in media_log

@@ -2099,6 +2099,38 @@ def stop() -> dict[str, Any]:
     return control_room.stop()
 
 
+class SetSfxRequest(BaseModel):
+    sfx_file: str
+
+
+@app.get("/api/sfx-options")
+def sfx_options() -> list[dict[str, str]]:
+    sfx_dir = PROJECT_ROOT / "sfx"
+    if not sfx_dir.exists():
+        return []
+    extensions = {".mp3", ".wav", ".ogg", ".m4a", ".flac"}
+    results = []
+    for f in sorted(sfx_dir.iterdir()):
+        if f.is_file() and f.suffix.lower() in extensions:
+            results.append({"file": f.name, "name": f.stem})
+    return results
+
+
+@app.post("/api/knowledge/{run_id}/scene/{scene_number}/set-sfx")
+def set_scene_sfx(run_id: str, scene_number: int, request: SetSfxRequest) -> dict[str, str]:
+    run_dir = KNOWLEDGE_OUTPUTS / run_id
+    if not run_dir.exists():
+        raise HTTPException(status_code=404, detail="실행 폴더를 찾을 수 없습니다.")
+    assignments_file = run_dir / "sfx_assignments.json"
+    assignments: dict[str, str] = read_json(assignments_file, {})
+    if request.sfx_file:
+        assignments[str(scene_number)] = request.sfx_file
+    else:
+        assignments.pop(str(scene_number), None)
+    write_json(assignments_file, assignments)
+    return {"message": f"{scene_number}번 장면 효과음이 설정되었습니다."}
+
+
 @app.post("/api/logs/clear")
 def clear_logs() -> dict[str, str]:
     control_room.clear_events()

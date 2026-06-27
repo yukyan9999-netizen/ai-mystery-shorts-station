@@ -1079,6 +1079,7 @@ function openSceneEditPanel(runId, sceneNumber) {
       </label>
       <button id="sceneSearchBtn" style="padding:6px 12px;border-radius:4px;background:var(--accent,#7c3aed);color:#fff;border:none;cursor:pointer;">검색어로 찾기</button>
       <button id="sceneAiGenBtn" style="padding:6px 12px;border-radius:4px;background:#d97706;color:#fff;border:none;cursor:pointer;">AI 이미지 생성</button>
+      <button id="sceneSfxBtn" style="padding:6px 12px;border-radius:4px;background:#2563eb;color:#fff;border:none;cursor:pointer;">효과음 추가</button>
       <button id="sceneRerenderBtn" style="padding:6px 12px;border-radius:4px;background:#059669;color:#fff;border:none;cursor:pointer;">교체 장면 재렌더링</button>
       <button id="sceneCancelBtn" style="padding:6px 12px;border-radius:4px;background:#666;color:#fff;border:none;cursor:pointer;">취소</button>
     </div>
@@ -1159,6 +1160,42 @@ function openSceneEditPanel(runId, sceneNumber) {
         body: JSON.stringify({ prompt: customPrompt }),
       });
       result.textContent = data.message || "AI 이미지 생성 완료!";
+    } catch (err) {
+      result.textContent = err.message;
+    }
+  });
+
+  panel.querySelector("#sceneSfxBtn").addEventListener("click", async () => {
+    const result = panel.querySelector("#sceneEditResult");
+    result.textContent = "효과음 목록 불러오는 중...";
+    try {
+      const options = await api("/api/sfx-options");
+      if (!options || options.length === 0) {
+        result.textContent = "sfx/ 폴더에 효과음 파일이 없습니다. mp3/wav 파일을 추가해 주세요.";
+        return;
+      }
+      const names = options.map((o, i) => `${i + 1}. ${o.name}`).join("\n");
+      const choice = prompt(`효과음을 선택하세요 (번호 입력, 0=제거):\n${names}`);
+      if (choice === null) { result.textContent = ""; return; }
+      const idx = parseInt(choice, 10);
+      if (idx === 0) {
+        await api(`/api/knowledge/${runId}/scene/${sceneNumber}/set-sfx`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sfx_file: "" }),
+        });
+        result.textContent = "효과음이 제거되었습니다.";
+      } else if (idx >= 1 && idx <= options.length) {
+        const selected = options[idx - 1];
+        await api(`/api/knowledge/${runId}/scene/${sceneNumber}/set-sfx`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sfx_file: selected.file }),
+        });
+        result.textContent = `효과음 "${selected.name}" 설정 완료! 재렌더링 시 적용됩니다.`;
+      } else {
+        result.textContent = "잘못된 번호입니다.";
+      }
     } catch (err) {
       result.textContent = err.message;
     }

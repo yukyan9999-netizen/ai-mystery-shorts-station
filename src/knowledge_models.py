@@ -425,6 +425,7 @@ class KnowledgeScene(BaseModel):
     image_prompt: str
     subtitle: str
     narration: str
+    sound_effect: str = ""
     excluded_source_urls: list[str] = Field(default_factory=list)
 
 

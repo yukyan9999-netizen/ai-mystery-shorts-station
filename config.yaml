@@ -85,6 +85,10 @@ video_studio:
         enabled: true
       pixabay:
         enabled: true
+  sfx_library:
+    enabled: true
+    folder: sfx
+    default_volume: 0.3
   music_library:
     enabled: true
     folder: music
