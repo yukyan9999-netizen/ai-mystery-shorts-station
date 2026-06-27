@@ -241,6 +241,10 @@ class MediaClipSelector:
         fallback_by_scene = {
             int(item.get("scene_number", 0)): item for item in fallback_media
         }
+        asset_mode_by_scene = {
+            int(asset.scene_number): asset.asset_mode
+            for asset in package.mixed_media_plan.scene_assets
+        }
         selected_by_scene: dict[int, dict[str, Any]] = {}
         timeline: list[dict[str, Any]] = []
         selected_sources: list[dict[str, Any]] = []
@@ -301,9 +305,24 @@ class MediaClipSelector:
         budget_exceeded = False
         blocked_providers: set[str] = set()
         for scene_idx, (scene, scene_duration) in enumerate(zip(scenes, durations)):
-            # 첫/마지막은 AI 이미지 고정, 나머지는 홀수만 영상 클립
+            # 에셋 감독이 search_video를 지정한 장면은 무조건 검색
+            ad_type = ""
+            if ai_keywords and scene.scene_number in ai_keywords:
+                ad_plan_path = run_dir / "asset_director_plan.json"
+                if ad_plan_path.exists():
+                    try:
+                        ad_data = json.loads(ad_plan_path.read_text(encoding="utf-8"))
+                        ad_entry = ad_data.get(str(scene.scene_number), {})
+                        if isinstance(ad_entry, dict):
+                            ad_type = ad_entry.get("asset_type", "")
+                    except Exception:
+                        pass
             is_first_or_last = (scene_idx == 0 or scene_idx == len(scenes) - 1)
-            skip_clip = is_first_or_last or (scene_idx % 2 == 1)
+            # 에셋 감독이 search_video면 스킵 안 함
+            if ad_type == "search_video":
+                skip_clip = False
+            else:
+                skip_clip = is_first_or_last or (scene_idx % 2 == 1)
             if budget_exceeded or skip_clip or (
                 time.monotonic() - start_time > self.total_time_budget
             ):
